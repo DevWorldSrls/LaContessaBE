@@ -1,0 +1,28 @@
+﻿using DevWorld.LaContessa.Persistance;
+using DevWorld.LaContessa.Query.Abstractions;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+
+namespace DevWorld.LaContessa.Query;
+
+public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
+{
+    private readonly LaContessaDbContext _laContessaDbContext;
+
+    public GetUsersHandler(LaContessaDbContext laContessaDbContext)
+    {
+        _laContessaDbContext = laContessaDbContext;
+    }
+
+    public async Task<GetUsers.Response> Handle(GetUsers request, CancellationToken cancellationToken)
+    {
+        return new GetUsers.Response
+        {
+            Users = await _laContessaDbContext.Users.Select(x => new GetUsers.Response.User
+            {
+                Id = x.Id,
+                Name = x.Name,
+            }).ToArrayAsync(),
+        };
+    }
+}
