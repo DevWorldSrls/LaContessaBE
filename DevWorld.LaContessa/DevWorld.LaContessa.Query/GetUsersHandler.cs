@@ -18,7 +18,7 @@ public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
     {
         return new GetUsers.Response
         {
-            Users = await _laContessaDbContext.Users.Select(x => new GetUsers.Response.User
+            Users = await _laContessaDbContext.Users.Select(x => new GetUsers.Response.UserDetail
             {
                 Id = x.Id,
                 Name = x.Name,

@@ -25,7 +25,16 @@ public class UserController : ControllerBase
 		);
 	}
 
-	[HttpPost]
+    [HttpGet("id")]
+    public async Task<ActionResult<GetUser.Response>> GetUser(Guid id, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(
+            new GetUser(id),
+            cancellationToken
+        );
+    }
+
+    [HttpPost]
 	public async Task<ActionResult> CreateUser([FromBody] CreateUser.UserDetail user, CancellationToken cancellationToken)
 	{
 		await _mediator.Send(
@@ -37,5 +46,19 @@ public class UserController : ControllerBase
 		);
 
 		return Ok();
-	}
+    }
+
+    [HttpPut]
+    public async Task<ActionResult> UpdateUser([FromBody] UpdateUser.UserDetail user, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new UpdateUser
+            {
+                User = user,
+            },
+            cancellationToken
+        );
+
+        return Ok();
+    }
 }

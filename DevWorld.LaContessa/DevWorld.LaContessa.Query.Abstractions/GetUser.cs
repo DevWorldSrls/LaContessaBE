@@ -2,11 +2,18 @@
 
 namespace DevWorld.LaContessa.Query.Abstractions;
 
-public class GetUsers : IRequest<GetUsers.Response>
+public class GetUser : IRequest<GetUser.Response>
 {
+    public Guid Id { get; set; }
+
+    public GetUser(Guid id)
+    {
+        Id = id;
+    }
+
     public class Response
     {
-        public UserDetail[] Users { get; set; }
+        public UserDetail? User { get; set; }
 
         public class UserDetail
         {
