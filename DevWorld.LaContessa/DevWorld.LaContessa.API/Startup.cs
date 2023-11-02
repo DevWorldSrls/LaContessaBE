@@ -33,6 +33,7 @@ public class Startup
     {
         app.UseRouting();
         app.UseMiddleware<ErrorHandlerMiddleware>();
+        app.UseForwardedHeaders();
 
         app.UseEndpoints(endpoints =>
         {
