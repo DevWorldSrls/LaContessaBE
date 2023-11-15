@@ -11,6 +11,9 @@ public static class ServiceCollectionExtensions
     )
     {
         services.AddTransient<IRequestHandler<GetUsers, GetUsers.Response>, GetUsersHandler>();
+        services.AddTransient<IRequestHandler<GetSubscriptions, GetSubscriptions.Response>, GetSubscriptionsHandler>();
+        services.AddTransient<IRequestHandler<GetSubscription, GetSubscription.Response>, GetSubscriptionHandler>();
+        services.AddTransient<IRequestHandler<GetSubscriptionByUserId, GetSubscriptionByUserId.Response>, GetSubscriptionByUserIdHandler>();
 
         return services;
     }

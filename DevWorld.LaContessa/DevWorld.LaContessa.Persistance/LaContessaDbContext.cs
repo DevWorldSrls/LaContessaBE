@@ -22,6 +22,7 @@ public class LaContessaDbContext : DbContext
     }
 
     public DbSet<User> Users { get; private set; }
+    public DbSet<Subscription> Subscriptions { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
