@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddTransient<IRequestHandler<CreateUser>, CreateUserHandler>();
+        services.AddTransient<IRequestHandler<UpdateUser>, UpdateUserHandler>();
         services.AddTransient<IRequestHandler<CreateSubscription>, CreateSubscriptionHandler>();
         services.AddTransient<IRequestHandler<UpdateSbscription>, UpdateSubscriptionHandler>();
         services.AddTransient<IRequestHandler<CreateBooking>, CreateBookingHandler>();
