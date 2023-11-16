@@ -1,4 +1,8 @@
-﻿using DevWorld.LaContessa.Command.Abstractions.Users;
+﻿using DevWorld.LaContessa.Command.Abstractions.Booking;
+using DevWorld.LaContessa.Command.Abstractions.Subscription;
+using DevWorld.LaContessa.Command.Abstractions.Users;
+using DevWorld.LaContessa.Command.Booking;
+using DevWorld.LaContessa.Command.Subscription;
 using DevWorld.LaContessa.Command.Users;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +19,10 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddTransient<IRequestHandler<CreateUser>, CreateUserHandler>();
+        services.AddTransient<IRequestHandler<CreateSubscription>, CreateSubscriptionHandler>();
+        services.AddTransient<IRequestHandler<UpdateSbscription>, UpdateSubscriptionHandler>();
+        services.AddTransient<IRequestHandler<CreateBooking>, CreateBookingHandler>();
+        services.AddTransient<IRequestHandler<UpdateBooking>, UpdateBookingHandler>();
 
         return services;
     }
