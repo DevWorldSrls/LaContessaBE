@@ -1,6 +1,7 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Booking;
 using DevWorld.LaContessa.Command.Abstractions.Subscription;
 using DevWorld.LaContessa.Command.Abstractions.Users;
+using DevWorld.LaContessa.Command.Activity;
 using DevWorld.LaContessa.Command.Booking;
 using DevWorld.LaContessa.Command.Subscription;
 using DevWorld.LaContessa.Command.Users;
@@ -23,6 +24,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<UpdateSbscription>, UpdateSubscriptionHandler>();
         services.AddTransient<IRequestHandler<CreateBooking>, CreateBookingHandler>();
         services.AddTransient<IRequestHandler<UpdateBooking>, UpdateBookingHandler>();
+        services.AddTransient<IRequestHandler<CreateActivity>, CreateActivityHandler>();
+        services.AddTransient<IRequestHandler<UpdateActivity>, UpdateActivityHandler>();
 
         return services;
     }
