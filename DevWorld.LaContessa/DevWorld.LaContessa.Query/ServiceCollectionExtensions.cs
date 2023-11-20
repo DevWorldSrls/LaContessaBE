@@ -17,6 +17,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<GetBookings, GetBookings.Response>, GetBookingsHandler>();
         services.AddTransient<IRequestHandler<GetBooking, GetBooking.Response>, GetBookingHandler>();
         services.AddTransient<IRequestHandler<GetBookingByUserId, GetBookingByUserId.Response>, GetBookingByUserIdHandler>();
+        services.AddTransient<IRequestHandler<GetActivities, GetActivities.Response>, GetActivitiesHandler>();
+        services.AddTransient<IRequestHandler<GetActivity, GetActivity.Response>, GetActivityHandler>();
         
         return services;
     }

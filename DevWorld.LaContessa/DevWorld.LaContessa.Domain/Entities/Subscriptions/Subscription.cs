@@ -1,4 +1,4 @@
-﻿namespace DevWorld.LaContessa.Domain.Entities.Users;
+﻿namespace DevWorld.LaContessa.Domain.Entities.Subscriptions;
 
 public class Subscription : SoftDeletable
 {

@@ -1,4 +1,4 @@
-﻿namespace DevWorld.LaContessa.Domain.Entities.Users;
+﻿namespace DevWorld.LaContessa.Domain.Entities.Bookings;
 
 public class Booking : SoftDeletable
 {
