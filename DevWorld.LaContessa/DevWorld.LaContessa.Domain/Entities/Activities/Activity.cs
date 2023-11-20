@@ -1,4 +1,4 @@
-﻿namespace DevWorld.LaContessa.Domain.Entities.Users;
+﻿namespace DevWorld.LaContessa.Domain.Entities.Activities;
 
 public class Activity : SoftDeletable
 {

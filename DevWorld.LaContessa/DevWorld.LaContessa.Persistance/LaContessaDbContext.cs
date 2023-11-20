@@ -1,6 +1,10 @@
-﻿using DevWorld.LaContessa.Domain.Entities.Users;
+﻿using DevWorld.LaContessa.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using DevWorld.LaContessa.Domain.Entities.Activities;
+using DevWorld.LaContessa.Domain.Entities.Bookings;
+using DevWorld.LaContessa.Domain.Entities.Subscriptions;
+using DevWorld.LaContessa.Domain.Entities.Users;
 
 namespace DevWorld.LaContessa.Persistance;
 

@@ -20,9 +20,9 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
         var alreadyExist = await _laContessaDbContext.Bookings.Where(x => request.Booking.UserId == x.UserId).AnyAsync();
 
         if (alreadyExist)
-            throw new UserAlreadyExistException();
+            throw new BookingAlreadyExistException();
 
-        var bookingToAdd = new Domain.Entities.Users.Booking 
+        var bookingToAdd = new Domain.Entities.Bookings.Booking 
         { 
             Id = Guid.NewGuid(),
             UserId = request.Booking.UserId,

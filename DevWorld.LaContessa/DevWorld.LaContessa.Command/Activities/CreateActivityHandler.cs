@@ -20,9 +20,9 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
         var alreadyExist = await _laContessaDbContext.Activities.Where(x => request.Activity.Id == x.Id).AnyAsync();
 
         if (alreadyExist)
-            throw new UserAlreadyExistException();
+            throw new ActivityAlreadyExistException();
 
-        var activityToAdd = new Domain.Entities.Users.Activity 
+        var activityToAdd = new Domain.Entities.Activities.Activity 
         { 
             Id = Guid.NewGuid(),
             Name = request.Activity.Name,
