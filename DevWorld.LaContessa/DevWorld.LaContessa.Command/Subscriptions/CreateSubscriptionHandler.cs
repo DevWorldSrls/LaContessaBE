@@ -1,7 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Abstractions.Subscription;
 using DevWorld.LaContessa.Persistance;
-//using DevWorld.LaContessa.Domain.Entities.Subscriptions.Subscription;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
