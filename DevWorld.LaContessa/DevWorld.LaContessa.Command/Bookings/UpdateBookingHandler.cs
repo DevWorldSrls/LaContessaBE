@@ -20,7 +20,7 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
         var bookingToUpdate = await _laContessaDbContext.Bookings.FirstOrDefaultAsync(x => x.Id == request.Booking.Id && !x.IsDeleted);
 
         if (bookingToUpdate is null)
-            throw new UserNotFoundException();
+            throw new BookingNotFoundException();
 
         bookingToUpdate.UserId = request.Booking.UserId;
         bookingToUpdate.Date = request.Booking.Date;

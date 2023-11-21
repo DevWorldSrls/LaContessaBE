@@ -20,7 +20,7 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
         var activityToUpdate = await _laContessaDbContext.Activities.FirstOrDefaultAsync(x => x.Id == request.Activity.Id && !x.IsDeleted);
 
         if (activityToUpdate is null)
-            throw new UserNotFoundException();
+            throw new ActivityNotFoundException();
 
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.Type = request.Activity.Type;

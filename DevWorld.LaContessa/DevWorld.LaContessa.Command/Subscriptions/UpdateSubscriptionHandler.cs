@@ -20,7 +20,7 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
         var subscriptionToUpdate = await _laContessaDbContext.Subscriptions.FirstOrDefaultAsync(x => x.Id == request.Subscription.Id && !x.IsDeleted);
 
         if (subscriptionToUpdate is null)
-            throw new UserNotFoundException();
+            throw new SubscriptionNotFoundException();
 
         subscriptionToUpdate.UserId = request.Subscription.UserId;
         subscriptionToUpdate.Number = request.Subscription.Number;
