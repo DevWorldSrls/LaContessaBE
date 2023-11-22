@@ -117,3 +117,13 @@ The following command list need to be performed only first time.
   gcloud artifacts docker images delete \
     REGION-docker.pkg.dev/${PROJECT_ID}/test-repo/test-app:v2 \
     --delete-tags --quiet
+
+# Download deployed image
+- Open terminal and enable auth for docker:
+  - gcloud auth configure-docker us-central1-docker.pkg.dev
+- Pull image deployed by tag:
+  - docker pull \
+    us-central1-docker.pkg.dev/lacontessa/lacontessa-be/devworld.lacontessa.api:v1
+- Create container with image just pulled with specific port (ex. 9889)
+- Open browser and go to swagger page:
+  - http://localhost:9889/swagger/index.html
