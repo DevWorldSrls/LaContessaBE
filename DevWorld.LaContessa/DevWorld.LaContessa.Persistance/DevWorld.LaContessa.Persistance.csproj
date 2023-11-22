@@ -24,4 +24,10 @@
     <ProjectReference Include="..\DevWorld.LaContessa.Domain\DevWorld.LaContessa.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EntityMapping\Activities" />
+    <Folder Include="EntityMapping\Bookings" />
+    <Folder Include="EntityMapping\Subscriptions" />
+  </ItemGroup>
+
 </Project>
