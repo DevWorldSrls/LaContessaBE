@@ -19,7 +19,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
     {
         return new GetActivity.Response
         {
-            Booking = await _laContessaDbContext.Activities
+            Activity = await _laContessaDbContext.Activities
                 .Where(x => x.Id == request.Id)
                 .Select(x => new GetActivity.Response.ActivityDetail
                 {

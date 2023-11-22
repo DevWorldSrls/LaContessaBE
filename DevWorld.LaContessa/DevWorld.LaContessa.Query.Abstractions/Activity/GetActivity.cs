@@ -13,7 +13,7 @@ public class GetActivity : IRequest<GetActivity.Response>
 
     public class Response
     {
-       public ActivityDetail? Booking { get; set; }
+       public ActivityDetail? Activity { get; set; }
        
        public class ActivityDetail
        {
