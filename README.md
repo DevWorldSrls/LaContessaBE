@@ -100,7 +100,7 @@ The following command list need to be performed only first time.
   - docker build -t REGION-docker.pkg.dev/${PROJECT_ID}/test-repo/test-app:v2 -f Dockerfile ..
 - Push the image to Artifact Registry (*Replace REGION, repository name and app name*):
   - docker push REGION-docker.pkg.dev/${PROJECT_ID}/test-repo/test-app:v2
-- Apply a rolling update to the existing Deployment (*Replace REGION, deployment name, repository name and app name*):
+- Apply a rolling update to the existing Deployment (*Replace REGION, deployment name, container name, repository name and app name*):
   - kubectl set image deployment/test-app test-app=REGION-docker.pkg.dev/${PROJECT_ID}/test-repo/test-app:v2
 - Watch the running Pods:
   - watch kubectl get pods
