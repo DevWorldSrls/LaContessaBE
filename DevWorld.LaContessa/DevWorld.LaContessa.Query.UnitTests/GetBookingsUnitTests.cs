@@ -1,18 +1,13 @@
-using NUnit.Framework;
-using Moq;
 using DevWorld.LaContessa.Persistance;
-using DevWorld.LaContessa.Query;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Reflection;
-using DevWorld.LaContessa.Domain.Entities.Bookings;
 using DevWorld.LaContessa.Query.Abstractions;
+using DevWorld.LaContessa.TestUtils.TestFactories;
+using DevWorld.LaContessa.TestUtils.Utils;
+using FluentAssertions;
 
-namespace DevWorld.LaContessa.Tests
+namespace DevWorld.LaContessa.Query.UnitTests
 {
     [TestFixture]
-    public class GetBookingsHandlerTests
+    public class GetBookingsHandlerTests : UnitTestBase
     {
         private GetBookingsHandler _handler;
         private LaContessaDbContext _dbContext;
@@ -20,20 +15,12 @@ namespace DevWorld.LaContessa.Tests
         [SetUp]
         public void Setup()
         {
-            // Create options for the LaContessaDbContext
-            var options = new LaContessaDbContextOptions
-            {
-                DatabaseName = "lacontessadb",
-                ConnectionStringTemplate = "User ID=postgres;Password=lacontessa;Host=localhost;Port=5432;Database={0};Pooling=false;Timeout=120", // Adjust as needed
-                CommandTimeout = 60, // Example timeout
-                MigrationsAssembly = Assembly.GetAssembly(typeof(LaContessaDbContext))
-            };
-
-            // Initialize the DbContext with the options
-            _dbContext = new LaContessaDbContext(options);
-
-            // Seed the database with test data if necessary
-              
+            _dbContext = new LaContessaDbContext(
+                new LaContessaDbContextOptions
+                {
+                    DatabaseName = "lacontessadb",
+                    UseInMemoryProvider = true,
+                });
 
             _handler = new GetBookingsHandler(_dbContext);
         }
@@ -42,19 +29,36 @@ namespace DevWorld.LaContessa.Tests
         [Test]
         public async Task GetBookingsHandler_ReturnsCorrectBookings()
         {
-            _dbContext.Bookings.Add(new Booking { Id= Guid.NewGuid() });
-            await _dbContext.SaveChangesAsync();
-            
+            //var userId = Guid.NewGuid();
+            //var existingBookin2 = BookingTestFactory.Create(x => 
+            //{
+            //    x.UserId = userId.ToString();
+            //});
+
             // Arrange
-            var request = new GetBookings();
+            var expectedBooking = BookingTestFactory.Create();
+
+            _dbContext.Bookings.Add(expectedBooking);
+
+            await _dbContext.SaveChangesAsync();
 
             // Act
-            var response = await _handler.Handle(request, CancellationToken.None);
+            var response = await _handler.Handle(new GetBookings(), CancellationToken);
 
             // Assert
+            var bookingList = response.Bookings.ToList();
+
             Assert.IsNotNull(response);
-            Assert.IsNotNull(response.Bookings);
-            // Further assertions can be made based on the expected test data
+            Assert.IsNotNull(bookingList);
+            Assert.That(bookingList, Has.Count.EqualTo(1));
+
+            bookingList
+                .First()
+                .Should()
+                .BeEquivalentTo(
+                    expectedBooking,
+                    e => e.Excluding(x => x.DeletedAt)
+                );
         }
 
     }

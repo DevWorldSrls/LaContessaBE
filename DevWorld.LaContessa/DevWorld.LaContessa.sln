@@ -15,13 +15,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Query.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Query", "DevWorld.LaContessa.Query\DevWorld.LaContessa.Query.csproj", "{11A235EE-6DB6-46CF-97FD-DD7C65E17517}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.Command", "DevWorld.LaContessa.Command\DevWorld.LaContessa.Command.csproj", "{43D8FA8F-D124-4CD9-89EE-786A7FE2F151}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Command", "DevWorld.LaContessa.Command\DevWorld.LaContessa.Command.csproj", "{43D8FA8F-D124-4CD9-89EE-786A7FE2F151}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.Command.Abstractions", "DevWorld.LaContessa.Command.Abstractions\DevWorld.LaContessa.Command.Abstractions.csproj", "{A8A89633-4C1E-4564-9791-D7E5E291F49D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Command.Abstractions", "DevWorld.LaContessa.Command.Abstractions\DevWorld.LaContessa.Command.Abstractions.csproj", "{A8A89633-4C1E-4564-9791-D7E5E291F49D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.API.UnitTests", "DevWorld.LaContessa.API.UnitTests\DevWorld.LaContessa.API.UnitTests.csproj", "{7C512DF1-BA81-4234-AC59-4053F010C672}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.API.UnitTests", "DevWorld.LaContessa.API.UnitTests\DevWorld.LaContessa.API.UnitTests.csproj", "{7C512DF1-BA81-4234-AC59-4053F010C672}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.Query.UnitTests", "DevWorld.LaContessa.Query.UnitTests\DevWorld.LaContessa.Query.UnitTests.csproj", "{139A01D5-4A57-458B-BABC-10088B2349CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Query.UnitTests", "DevWorld.LaContessa.Query.UnitTests\DevWorld.LaContessa.Query.UnitTests.csproj", "{139A01D5-4A57-458B-BABC-10088B2349CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{03FC4BB6-EAF7-4EEF-BDB3-583202E95FD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestUtils", "TestUtils", "{4878B827-4290-4384-B1F9-86C7AEF3BA13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.TestUtils", "test\TestUtils\DevWorld.LaContessa.TestUtils\DevWorld.LaContessa.TestUtils.csproj", "{74931319-9230-4D89-9A0D-EDD92578ED15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,9 +75,17 @@ Global
 		{139A01D5-4A57-458B-BABC-10088B2349CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{139A01D5-4A57-458B-BABC-10088B2349CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{139A01D5-4A57-458B-BABC-10088B2349CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74931319-9230-4D89-9A0D-EDD92578ED15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74931319-9230-4D89-9A0D-EDD92578ED15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74931319-9230-4D89-9A0D-EDD92578ED15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74931319-9230-4D89-9A0D-EDD92578ED15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4878B827-4290-4384-B1F9-86C7AEF3BA13} = {03FC4BB6-EAF7-4EEF-BDB3-583202E95FD2}
+		{74931319-9230-4D89-9A0D-EDD92578ED15} = {4878B827-4290-4384-B1F9-86C7AEF3BA13}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5BAAA7F-1C2F-4820-8322-080238783EE7}

@@ -1,10 +1,12 @@
-﻿using DevWorld.LaContessa.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using DevWorld.LaContessa.Domain.Entities.Activities;
+﻿using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Domain.Entities.Bookings;
 using DevWorld.LaContessa.Domain.Entities.Subscriptions;
 using DevWorld.LaContessa.Domain.Entities.Users;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Newtonsoft.Json;
+using System.Reflection;
 
 namespace DevWorld.LaContessa.Persistance;
 
@@ -25,7 +27,6 @@ public class LaContessaDbContext : DbContext
         _options = options;
     }
 
-
     public DbSet<User> Users { get; private set; }
     public DbSet<Subscription> Subscriptions { get; set; }
     public DbSet<Booking> Bookings { get; set; } 
@@ -37,19 +38,37 @@ public class LaContessaDbContext : DbContext
 
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql(
-                _options.ConnectionStringTemplate != null ? string.Format(_options.ConnectionStringTemplate, _options.DatabaseName) : null,
-                options =>
-                {
-                    options.CommandTimeout(_options.CommandTimeout);
-                    options.MigrationsAssembly(_options.MigrationsAssembly.GetName().Name);
-                }
-            );
+            if (_options.UseInMemoryProvider)
+                optionsBuilder
+                    .UseInMemoryDatabase(_options.DatabaseName ?? Guid.NewGuid().ToString())
+                    .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+                    .EnableSensitiveDataLogging();
+            else
+                optionsBuilder.UseNpgsql(
+                    _options.ConnectionStringTemplate != null ? string.Format(_options.ConnectionStringTemplate, _options.DatabaseName) : null,
+                    options =>
+                    {
+                        options.CommandTimeout(_options.CommandTimeout);
+                        options.MigrationsAssembly(_options.MigrationsAssembly.GetName().Name);
+                    }
+                );
         }
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Activity>()
+            .Property(x => x.Dates)
+            .HasConversion(new ValueConverter<List<string>, string>(
+                v => JsonConvert.SerializeObject(v),
+                v => JsonConvert.DeserializeObject<List<string>>(v) ?? new List<string>()));
+
+        modelBuilder.Entity<Activity>()
+            .Property(x => x.Services)
+            .HasConversion(new ValueConverter<List<string>, string>(
+                v => JsonConvert.SerializeObject(v),
+                v => JsonConvert.DeserializeObject<List<string>>(v) ?? new List<string>()));
+
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(LaContessaDbContext))!);

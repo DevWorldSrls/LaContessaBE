@@ -28,8 +28,8 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
             Name = request.Activity.Name,
             Type = request.Activity.Type,
             Description = request.Activity.Descripting,
-            Services = request.Activity.Services,
-            Dates = request.Activity.Dates,
+            Services = request.Activity.Services.ToList(),
+            Dates = request.Activity.Dates.ToList(),
         };
 
 
