@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.Command
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.API.UnitTests", "DevWorld.LaContessa.API.UnitTests\DevWorld.LaContessa.API.UnitTests.csproj", "{7C512DF1-BA81-4234-AC59-4053F010C672}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.Query.UnitTests", "DevWorld.LaContessa.Query.UnitTests\DevWorld.LaContessa.Query.UnitTests.csproj", "{139A01D5-4A57-458B-BABC-10088B2349CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{7C512DF1-BA81-4234-AC59-4053F010C672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C512DF1-BA81-4234-AC59-4053F010C672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C512DF1-BA81-4234-AC59-4053F010C672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{139A01D5-4A57-458B-BABC-10088B2349CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{139A01D5-4A57-458B-BABC-10088B2349CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{139A01D5-4A57-458B-BABC-10088B2349CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{139A01D5-4A57-458B-BABC-10088B2349CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

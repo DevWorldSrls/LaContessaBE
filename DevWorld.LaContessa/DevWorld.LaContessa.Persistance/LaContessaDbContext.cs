@@ -25,9 +25,10 @@ public class LaContessaDbContext : DbContext
         _options = options;
     }
 
+
     public DbSet<User> Users { get; private set; }
     public DbSet<Subscription> Subscriptions { get; set; }
-    public DbSet<Booking> Bookings { get; set; }
+    public DbSet<Booking> Bookings { get; set; } 
     public DbSet<Activity> Activities { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
