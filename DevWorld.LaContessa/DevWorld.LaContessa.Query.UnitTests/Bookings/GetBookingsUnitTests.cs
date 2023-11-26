@@ -7,7 +7,7 @@ using FluentAssertions;
 namespace DevWorld.LaContessa.Query.UnitTests
 {
     [TestFixture]
-    public class GetBookingsHandlerTests : UnitTestBase
+    public class GetBookingsUnitTests : UnitTestBase
     {
         private GetBookingsHandler _handler;
         private LaContessaDbContext _dbContext;
@@ -29,11 +29,6 @@ namespace DevWorld.LaContessa.Query.UnitTests
         [Test]
         public async Task GetBookingsHandler_ReturnsCorrectBookings()
         {
-            //var userId = Guid.NewGuid();
-            //var existingBookin2 = BookingTestFactory.Create(x => 
-            //{
-            //    x.UserId = userId.ToString();
-            //});
 
             // Arrange
             var expectedBooking = BookingTestFactory.Create();
