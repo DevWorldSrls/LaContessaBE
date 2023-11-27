@@ -8,6 +8,7 @@ namespace DevWorld.LaContessa.Persistance
         public string? ConnectionStringTemplate { get; set; }
         public int? CommandTimeout { get; set; }
         public Assembly MigrationsAssembly { get; set; } = null!;
+        public bool UseInMemoryProvider { get; set; } = false;
     }
 
 }

@@ -24,7 +24,8 @@ public class GetBookingsHandler : IRequestHandler<GetBookings, GetBookings.Respo
             {
                 Id = x.Id,
                 UserId = x.UserId,
-                Date = x.Date
+                Date = x.Date,
+                IsDeleted = x.IsDeleted,
             }).ToArrayAsync()
         };
     }

@@ -25,8 +25,8 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.Type = request.Activity.Type;
         activityToUpdate.Description = request.Activity.Descripting;
-        activityToUpdate.Services = request.Activity.Services;
-        activityToUpdate.Dates = request.Activity.Dates;
+        activityToUpdate.Services = request.Activity.Services.ToList();
+        activityToUpdate.Dates = request.Activity.Dates.ToList();
 
         await _laContessaDbContext.SaveChangesAsync();
     }
