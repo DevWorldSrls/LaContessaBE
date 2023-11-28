@@ -17,20 +17,20 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Users.Activity", b =>
+            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Activities.Activity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string[]>("Dates")
+                    b.Property<string>("Dates")
                         .IsRequired()
-                        .HasColumnType("text[]");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
@@ -38,6 +38,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("InsertRecordDateTimeUtc")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsAvaible")
                         .HasColumnType("boolean");
@@ -49,20 +52,23 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string[]>("Services")
+                    b.Property<string>("Services")
                         .IsRequired()
-                        .HasColumnType("text[]");
+                        .HasColumnType("text");
 
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("UpdateRecordDateTimeUtc")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Activities");
+                    b.ToTable("activities", (string)null);
                 });
 
-            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Users.Booking", b =>
+            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Bookings.Booking", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,8 +81,14 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("InsertRecordDateTimeUtc")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdateRecordDateTimeUtc")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -84,10 +96,10 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("bookings", (string)null);
                 });
 
-            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Users.Subscription", b =>
+            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Subscriptions.Subscription", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,11 +108,17 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<DateTime>("InsertRecordDateTimeUtc")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<int>("Number")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdateRecordDateTimeUtc")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -111,7 +129,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subscriptions");
+                    b.ToTable("subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Users.User", b =>
