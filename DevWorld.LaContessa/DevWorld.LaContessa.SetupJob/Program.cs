@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.Hosting;
-
-namespace DevWorld.LaContessa.SetupJob;
+﻿namespace DevWorld.LaContessa.SetupJob;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
-        CreateHostBuilder(args)
+        await CreateHostBuilder(args)
             .Build()
             .RunAsync();
     }

@@ -1,7 +1,5 @@
-﻿using DevWorld.LaContessa.Persistance.Migrations;
-using DevWorld.LaContessa.Persistance;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using DevWorld.LaContessa.Persistance;
+using DevWorld.LaContessa.Persistance.Migrations;
 using System.Reflection;
 
 namespace DevWorld.LaContessa.SetupJob;

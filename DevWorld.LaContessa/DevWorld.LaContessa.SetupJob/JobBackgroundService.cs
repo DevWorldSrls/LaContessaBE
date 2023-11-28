@@ -1,27 +1,20 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
-namespace DevWorld.LaContessa.SetupJob
+﻿namespace DevWorld.LaContessa.SetupJob
 {
     public class JobBackgroundService : BackgroundService
     {
         private readonly ILogger<JobBackgroundService> _logger;
         private readonly IServiceProvider _serviceProvider;
-        // TODO decomment after moving into setupjob project
-        //private readonly IHostApplicationLifetime _hostApplicationLifetime;
+        private readonly IHostApplicationLifetime _hostApplicationLifetime;
 
         public JobBackgroundService(
             ILogger<JobBackgroundService> logger,
-            IServiceProvider serviceProvider
-        // TODO decomment after moving into setupjob project
-        // IHostApplicationLifetime hostApplicationLifetime
+            IServiceProvider serviceProvider,
+            IHostApplicationLifetime hostApplicationLifetime
         )
         {
             _logger = logger;
             _serviceProvider = serviceProvider;
-            // TODO decomment after moving into setupjob project
-            //_hostApplicationLifetime = hostApplicationLifetime;
+            _hostApplicationLifetime = hostApplicationLifetime;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -58,20 +51,17 @@ namespace DevWorld.LaContessa.SetupJob
             }
             catch (OperationCanceledException)
             {
-                // TODO decomment after moving into setupjob project
-                //_logger.LogWarning("Job execution was cancelled, stopping application");
-                //Environment.ExitCode = 1;
+                _logger.LogWarning("Job execution was cancelled, stopping application");
+                Environment.ExitCode = 1;
             }
             catch (Exception ex)
             {
-                // TODO decomment after moving into setupjob project
-                //_logger.LogCritical(ex, "Job execution failed, stopping application");
-                //Environment.ExitCode = 2;
+                _logger.LogCritical(ex, "Job execution failed, stopping application");
+                Environment.ExitCode = 2;
             }
             finally
             {
-                // TODO decomment after moving into setupjob project
-                //_hostApplicationLifetime.StopApplication();
+                _hostApplicationLifetime.StopApplication();
             }
         }
     }
