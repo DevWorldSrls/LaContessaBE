@@ -6,7 +6,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
+WORKDIR /DevWorld.LaContessa.API
 COPY ["DevWorld.LaContessa.API/DevWorld.LaContessa.API.csproj", "DevWorld.LaContessa.API/"]
 COPY ["DevWorld.LaContessa.Command/DevWorld.LaContessa.Command.csproj", "DevWorld.LaContessa.Command/"]
 COPY ["DevWorld.LaContessa.Command.Abstractions/DevWorld.LaContessa.Command.Abstractions.csproj", "DevWorld.LaContessa.Command.Abstractions/"]
@@ -17,11 +17,11 @@ COPY ["DevWorld.LaContessa.Query/DevWorld.LaContessa.Query.csproj", "DevWorld.La
 COPY ["DevWorld.LaContessa.Query.Abstractions/DevWorld.LaContessa.Query.Abstractions.csproj", "DevWorld.LaContessa.Query.Abstractions/"]
 RUN dotnet restore "DevWorld.LaContessa.API/DevWorld.LaContessa.API.csproj"
 COPY . .
-WORKDIR "/src/DevWorld.LaContessa.API"
-RUN dotnet build "DevWorld.LaContessa.API.csproj" -c Release -o /app/build
+WORKDIR "/DevWorld.LaContessa.API"
+RUN dotnet build "DevWorld.LaContessa.API/DevWorld.LaContessa.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DevWorld.LaContessa.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "DevWorld.LaContessa.API/DevWorld.LaContessa.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
