@@ -1,4 +1,8 @@
-﻿namespace DevWorld.LaContessa.API
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+namespace DevWorld.LaContessa.SetupJob
 {
     public class JobBackgroundService : BackgroundService
     {
@@ -8,10 +12,10 @@
         //private readonly IHostApplicationLifetime _hostApplicationLifetime;
 
         public JobBackgroundService(
-            ILogger<JobBackgroundService> logger, 
+            ILogger<JobBackgroundService> logger,
             IServiceProvider serviceProvider
-            // TODO decomment after moving into setupjob project
-            // IHostApplicationLifetime hostApplicationLifetime
+        // TODO decomment after moving into setupjob project
+        // IHostApplicationLifetime hostApplicationLifetime
         )
         {
             _logger = logger;

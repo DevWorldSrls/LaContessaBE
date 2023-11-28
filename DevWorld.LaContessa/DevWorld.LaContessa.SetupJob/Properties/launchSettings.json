@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "DevWorld.LaContessa.SetupJob": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    }
+  }
+}

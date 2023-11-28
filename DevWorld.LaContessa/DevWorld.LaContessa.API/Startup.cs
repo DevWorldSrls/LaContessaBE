@@ -27,7 +27,6 @@ public class Startup
             _configuration.GetSection("Persistance"),
             Assembly.GetAssembly(typeof(MigrationsAssemblyReferenceClass))!
             );
-        services.AddJob();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

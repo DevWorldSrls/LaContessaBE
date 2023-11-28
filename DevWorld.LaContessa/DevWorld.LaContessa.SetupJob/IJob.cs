@@ -1,4 +1,4 @@
-﻿namespace DevWorld.LaContessa.API
+﻿namespace DevWorld.LaContessa.SetupJob
 {
     public interface IJob
     {

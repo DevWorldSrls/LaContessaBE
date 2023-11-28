@@ -1,6 +1,6 @@
 ﻿using DevWorld.LaContessa.Persistance;
 
-namespace DevWorld.LaContessa.API
+namespace DevWorld.LaContessa.SetupJob
 {
     public class MigrationJob : IJob
     {
