@@ -1,6 +1,25 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:16.1
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: lacontessadb
+      POSTGRES_PASSWORD: "lacontessa"
+    volumes:
+      - lacontessadb_data:/var/lib/postgresql/data
+  setup:
+    build:
+        context: .
+        dockerfile: DevWorld.LaContessa.SetupJob/Dockerfile
+    environment:
+      DOTNET_ENVIRONMENT: Development
+    depends_on:
+      - postgres
   app:
     build:
       context: .
@@ -11,15 +30,6 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
     depends_on:
       - postgres
-  postgres:
-    image: postgres:16.1
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_DB: lacontessadb
-      POSTGRES_PASSWORD: "lacontessa"
-    volumes:
-      - lacontessadb_data:/var/lib/postgresql/data
+      - setup 
 volumes:
   lacontessadb_data:
