@@ -25,6 +25,7 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.Type = request.Activity.Type;
         activityToUpdate.Description = request.Activity.Descripting;
+        activityToUpdate.IsAvaible = request.Activity.IsAvaible;
         activityToUpdate.Services = request.Activity.Services.ToList();
         activityToUpdate.Dates = request.Activity.Dates.ToList();
 

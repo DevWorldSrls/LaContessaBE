@@ -13,7 +13,7 @@ public class UpdateActivity : IRequest
         public string Type { get; set; }
         public bool IsAvaible { get; set; }
         public string Descripting { get; set; }
-        public string[] Services { get; set; }
-        public string[] Dates { get; set; }
+        public List<string> Services { get; set; }
+        public List<string> Dates { get; set; }
     }
 }
