@@ -17,7 +17,7 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
 
     public async Task Handle(CreateActivity request, CancellationToken cancellationToken)
     {
-        var alreadyExist = await _laContessaDbContext.Activities.Where(x => request.Activity.Id == x.Id).AnyAsync();
+        var alreadyExist = await _laContessaDbContext.Activities.Where(x => request.Activity.Name == x.Name).AnyAsync();
 
         if (alreadyExist)
             throw new ActivityAlreadyExistException();
@@ -27,6 +27,7 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
             Id = Guid.NewGuid(),
             Name = request.Activity.Name,
             Type = request.Activity.Type,
+            IsAvaible = request.Activity.IsAvaible,
             Description = request.Activity.Descripting,
             Services = request.Activity.Services.ToList(),
             Dates = request.Activity.Dates.ToList(),

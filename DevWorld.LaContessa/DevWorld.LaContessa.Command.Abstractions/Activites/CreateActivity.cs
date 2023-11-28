@@ -8,12 +8,11 @@ public class CreateActivity : IRequest
        
     public class ActivityDetail
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public bool IsAvaible { get; set; }
         public string Descripting { get; set; }
-        public string[] Services { get; set; }
-        public string[] Dates { get; set; }
+        public List<string> Services { get; set; }
+        public List<string> Dates { get; set; }
     }
 }
