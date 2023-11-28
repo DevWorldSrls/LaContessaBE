@@ -81,6 +81,11 @@ public class LaContessaDbContext : DbContext
         return base.SaveChangesAsync(cancellationToken);
     }
 
+    public virtual async Task ApplyMigrationAsync(CancellationToken cancellationToken)
+    {
+        await Database.MigrateAsync(cancellationToken);
+    }
+
     public void UpdateRecordDates()
     {
         var utcNow = DateTime.UtcNow;

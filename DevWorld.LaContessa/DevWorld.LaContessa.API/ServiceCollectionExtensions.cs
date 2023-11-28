@@ -31,4 +31,16 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    public static IServiceCollection AddJob(
+        this IServiceCollection services
+    )
+    {
+        services.AddScoped<IJob, MigrationJob>();
+
+        services.AddHostedService<JobBackgroundService>();
+
+        return services;
+    }
+
 }
