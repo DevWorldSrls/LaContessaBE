@@ -11,10 +11,14 @@ public class BookingTestFactory
         var booking = new Booking
         {
             Id = id,
-            Date = DateTime.UtcNow.ToString(),
             UserId = Guid.NewGuid().ToString(),
-            IsDeleted = false,
-            // ...
+            Date = Guid.NewGuid().ToString(),
+            IsLesson = new Random().Next(2) == 0,
+            activityID = Guid.NewGuid().ToString(),
+            price = new Random().Next(),
+            bookingName = Guid.NewGuid().ToString(),
+            phoneNumber = Guid.NewGuid().ToString(),
+            timeSlot = Guid.NewGuid().ToString()
         };
 
         configure?.Invoke(booking);

@@ -8,6 +8,7 @@ using FluentAssertions;
 
 namespace DevWorld.LaContessa.Command.UnitTests.Bookings;
 
+[Parallelizable(ParallelScope.None)]
 public class CreateBookingUnitTests : UnitTestBase
 {
     private CreateBookingHandler _handler;
@@ -20,7 +21,7 @@ public class CreateBookingUnitTests : UnitTestBase
         _dbContext = new LaContessaDbContext(
             new LaContessaDbContextOptions
             {
-                DatabaseName = "lacontessadb",
+                DatabaseName = Guid.NewGuid().ToString(),
                 UseInMemoryProvider = true,
             });
 
@@ -39,6 +40,12 @@ public class CreateBookingUnitTests : UnitTestBase
             {
                 UserId = testBooking.UserId,
                 Date = testBooking.Date,
+                activityID = testBooking.activityID,
+                bookingName = testBooking.bookingName,
+                phoneNumber = testBooking.phoneNumber,
+                price = testBooking.price,
+                IsLesson = testBooking.IsLesson,
+                timeSlot = testBooking.timeSlot
             }
         };
 
@@ -51,6 +58,13 @@ public class CreateBookingUnitTests : UnitTestBase
             options => options
                 .Including(x => x.UserId)
                 .Including(x => x.Date)
+                .Including(x => x.activityID)
+                .Including(x => x.bookingName)
+                .Including(x => x.bookingName)
+                .Including(x => x.phoneNumber)
+                .Including(x => x.price)
+                .Including(x => x.IsLesson)
+                .Including(x => x.timeSlot)
                 .ExcludingMissingMembers() 
         );
     }
@@ -66,6 +80,12 @@ public class CreateBookingUnitTests : UnitTestBase
             {
                 UserId = existingBooking.UserId,
                 Date = existingBooking.Date,
+                activityID = existingBooking.activityID,
+                bookingName = existingBooking.bookingName,
+                phoneNumber = existingBooking.phoneNumber,
+                price = existingBooking.price,
+                IsLesson = existingBooking.IsLesson,
+                timeSlot = existingBooking.timeSlot
             }
         };
 

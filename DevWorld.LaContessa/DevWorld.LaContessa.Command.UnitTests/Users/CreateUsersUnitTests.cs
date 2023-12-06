@@ -22,7 +22,7 @@ namespace DevWorld.LaContessa.Tests
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -37,7 +37,16 @@ namespace DevWorld.LaContessa.Tests
             // Arrange
             var createUserRequest = new CreateUser
             {
-                User = new CreateUser.UserDetail() { Email = exampleUser.Email, Name = exampleUser.Name }
+                User = new CreateUser.UserDetail()
+                {
+                    Email = exampleUser.Email, 
+                    Name = exampleUser.Name,
+                    Surname = exampleUser.Surname,
+                    CardNumber = exampleUser.CardNumber,
+                    IsPro = exampleUser.IsPro,
+                    ImageProfile = exampleUser.ImageProfile,
+                    Password = exampleUser.Password
+                }
             };
 
             // Act
@@ -49,6 +58,11 @@ namespace DevWorld.LaContessa.Tests
                     options => options
                         .Including(x => x.Name)
                         .Including(x => x.Email)
+                        .Including(x => x.Surname)
+                        .Including(x => x.CardNumber)
+                        .Including(x => x.IsPro)
+                        .Including(x => x.ImageProfile)
+                        .Including(x => x.Password)
                         .ExcludingMissingMembers() 
                 );
         }
@@ -57,11 +71,20 @@ namespace DevWorld.LaContessa.Tests
         public void Handle_GivenExistingUserEmail_ShouldThrowUserAlreadyExistException()
         {
             // Arrange
-            var existingUserEmail = "existingemail@example.com";
-            var existingUser = new User() {Id= Guid.NewGuid(), Email = existingUserEmail, Name = "Test User" };
+            var existingUser = UserTestFactory.Create();
             var createUserRequest = new CreateUser
             {
-                User = new CreateUser.UserDetail { Email = existingUserEmail, Name = "Test User" }
+                User = new CreateUser.UserDetail
+                {
+                    Email = existingUser.Email, 
+                    Name = existingUser.Name,
+                    Surname = existingUser.Surname,
+                    CardNumber = existingUser.CardNumber,
+                    IsPro = existingUser.IsPro,
+                    Password = existingUser.Password,
+                    ImageProfile = existingUser.ImageProfile,
+                    
+                }
             };
 
             _dbContext.Users.Add(existingUser);

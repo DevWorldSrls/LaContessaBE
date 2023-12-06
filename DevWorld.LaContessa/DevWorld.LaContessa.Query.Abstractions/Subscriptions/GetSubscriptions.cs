@@ -12,8 +12,10 @@ public class GetSubscriptions : IRequest<GetSubscriptions.Response>
         {
             public Guid Id { get; set; }
             public string UserId { get; set; }
-            public int Number { get; set; }
+            public int CardNumber { get; set; }
             public bool Valid { get; set; }
+            public string ExpirationDate { get; set; }
+            public string SubscriptionType { get; set; }
         }
     }
 }

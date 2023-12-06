@@ -21,7 +21,7 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -45,11 +45,23 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings
                 {
                     Id = startingActivity.Id,
                     Name = updatedActivity.Name,
-                    Type = updatedActivity.Type,
-                    IsAvaible = updatedActivity.IsAvaible,
-                    Descripting = updatedActivity.Description,
-                    Services = updatedActivity.Services,
-                    Dates = updatedActivity.Dates
+                    IsOutdoor = updatedActivity.IsOutdoor,
+                    Description = updatedActivity.Description,
+                    ActivityImg = updatedActivity.ActivityImg,
+                    ServiceList = updatedActivity.ServiceList.Select(domainService => new UpdateActivity.Service
+                    {
+                        Icon = domainService.Icon,
+                        ServiceName = domainService.ServiceName,
+                    }).ToList(),
+                    DateList = updatedActivity.DateList.Select(domainDate => new UpdateActivity.ActivityDate
+                    {
+                        Date = domainDate.Date,
+                        TimeSlotList = domainDate.TimeSlotList.Select(domainTimeSlot => new UpdateActivity.ActivityTimeSlot
+                        {
+                            TimeSlot = domainTimeSlot.TimeSlot,
+                            IsAlreadyBooked = domainTimeSlot.IsAlreadyBooked
+                        }).ToList()
+                    }).ToList(),
                 }
             };
 
@@ -60,11 +72,11 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings
                 new[] {updatedActivity},
                 options => options
                     .Including(x => x.Name)
-                    .Including(x => x.Type)
-                    .Including(x => x.IsAvaible)
+                    .Including(x => x.IsOutdoor)
                     .Including(x => x.Description)
-                    .Including(x => x.Services)
-                    .Including(x => x.Dates)
+                    .Including(x => x.ActivityImg)
+                    .Including(x => x.ServiceList)
+                    .Including(x => x.DateList)
                     .ExcludingMissingMembers() 
             );
         }
@@ -86,11 +98,23 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings
                 {
                     Id = updatedActivity.Id,
                     Name = updatedActivity.Name,
-                    Type = updatedActivity.Type,
-                    IsAvaible = updatedActivity.IsAvaible,
-                    Descripting = updatedActivity.Description,
-                    Services = updatedActivity.Services,
-                    Dates = updatedActivity.Dates
+                    Description = updatedActivity.Description,
+                    IsOutdoor = updatedActivity.IsOutdoor,
+                    ActivityImg = updatedActivity.ActivityImg,
+                    ServiceList = updatedActivity.ServiceList.Select(domainService => new UpdateActivity.Service
+                    {
+                        Icon = domainService.Icon,
+                        ServiceName = domainService.ServiceName,
+                    }).ToList(),
+                    DateList = updatedActivity.DateList.Select(domainDate => new UpdateActivity.ActivityDate
+                    {
+                        Date = domainDate.Date,
+                        TimeSlotList = domainDate.TimeSlotList.Select(domainTimeSlot => new UpdateActivity.ActivityTimeSlot
+                        {
+                            TimeSlot = domainTimeSlot.TimeSlot,
+                            IsAlreadyBooked = domainTimeSlot.IsAlreadyBooked
+                        }).ToList()
+                    }).ToList(),
                 }
             };
 

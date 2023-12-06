@@ -25,7 +25,13 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
                 {
                     Id = x.Id,
                     UserId = x.UserId,
-                    Date = x.Date
+                    Date = x.Date,
+                    IsLesson = x.IsLesson,
+                    activityID = x.activityID,
+                    price = x.price,
+                    bookingName = x.bookingName,
+                    phoneNumber = x.phoneNumber,
+                    timeSlot = x.timeSlot
                 })
                 .FirstOrDefaultAsync(),
         };

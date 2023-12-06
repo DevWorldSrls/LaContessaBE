@@ -19,7 +19,7 @@ namespace DevWorld.LaContessa.Query.UnitTests
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -51,6 +51,10 @@ namespace DevWorld.LaContessa.Query.UnitTests
                     options => options.Including(x => x.Id)
                                       .Including(x => x.Name)
                                       .Including(x => x.Email)
+                                      .Including(x => x.Surname)
+                                      .Including(x => x.CardNumber)
+                                      .Including(x => x.ImageProfile)
+                                      .Including(x => x.IsPro)
                                       .ExcludingMissingMembers() // Exclude fields that are not part of the response
                 );
         }

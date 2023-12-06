@@ -18,7 +18,7 @@ namespace DevWorld.LaContessa.Query.UnitTests
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -51,6 +51,12 @@ namespace DevWorld.LaContessa.Query.UnitTests
                         Id = expectedBooking.Id,
                         UserId = expectedBooking.UserId,
                         Date = expectedBooking.Date,
+                        activityID = expectedBooking.activityID,
+                        timeSlot = expectedBooking.timeSlot,
+                        bookingName = expectedBooking.bookingName,
+                        phoneNumber = expectedBooking.phoneNumber,
+                        price = expectedBooking.price,
+                        IsLesson = expectedBooking.IsLesson
                     },
                     options => options.ExcludingMissingMembers() // Exclude fields that are not part of the response
                 );

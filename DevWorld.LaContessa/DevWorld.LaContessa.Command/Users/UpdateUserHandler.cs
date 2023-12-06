@@ -24,6 +24,13 @@ public class UpdateUserHandler : IRequestHandler<UpdateUser>
 
         userToUpdate.Name = request.User.Name;
         userToUpdate.Email = request.User.Email;
+        userToUpdate.Name = request.User.Name;
+        userToUpdate.Surname = request.User.Surname;
+        userToUpdate.Email = request.User.Email;
+        userToUpdate.Password = request.User.Password;
+        userToUpdate.CardNumber = request.User.CardNumber;
+        userToUpdate.ImageProfile = request.User.ImageProfile;
+        userToUpdate.IsPro = request.User.IsPro;
 
         await _laContessaDbContext.SaveChangesAsync();
     }

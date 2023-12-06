@@ -23,11 +23,29 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
             throw new ActivityNotFoundException();
 
         activityToUpdate.Name = request.Activity.Name;
-        activityToUpdate.Type = request.Activity.Type;
-        activityToUpdate.Description = request.Activity.Descripting;
-        activityToUpdate.IsAvaible = request.Activity.IsAvaible;
-        activityToUpdate.Services = request.Activity.Services.ToList();
-        activityToUpdate.Dates = request.Activity.Dates.ToList();
+        activityToUpdate.Name = request.Activity.Name;
+        activityToUpdate.IsOutdoor = request.Activity.IsOutdoor;
+        activityToUpdate.Description = request.Activity.Description;
+        activityToUpdate.ActivityImg = request.Activity.ActivityImg;
+        activityToUpdate.ServiceList = request.Activity.ServiceList.Select(service =>
+            new DevWorld.LaContessa.Domain.Entities.Activities.Service
+            {
+                Icon = service.Icon,
+                ServiceName = service.ServiceName,
+            }).ToList();
+
+        activityToUpdate.DateList = request.Activity.DateList.Select(date =>
+            new DevWorld.LaContessa.Domain.Entities.Activities.ActivityDate
+            {
+                Date = date.Date,
+                TimeSlotList = date.TimeSlotList.Select(ts =>
+                    new DevWorld.LaContessa.Domain.Entities.Activities.ActivityTimeSlot
+                    {
+                        TimeSlot = ts.TimeSlot,
+                        IsAlreadyBooked = ts.IsAlreadyBooked
+                    }).ToList()
+            }).ToList();
+        
 
         await _laContessaDbContext.SaveChangesAsync();
     }

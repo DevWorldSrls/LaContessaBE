@@ -1,4 +1,5 @@
 using DevWorld.LaContessa.Domain.Entities.Activities;
+using DevWorld.LaContessa.Query.Abstractions;
 
 namespace DevWorld.LaContessa.TestUtils.TestFactories;
 
@@ -14,13 +15,11 @@ public class ActivityTestFactory
         {
             Id = id,
             Name = rnd.Next().ToString(),
-            Type = Guid.NewGuid().ToString(),
+            IsOutdoor = rnd.Next(2) == 0,
             Description = rnd.Next().ToString(),
-            Services = new List<string> { new Random().Next().ToString(), new Random().Next().ToString() },
-            Dates = new List<string> { new Random().Next().ToString(), new Random().Next().ToString() },
-            IsAvaible = rnd.Next(2) == 0,
-            IsDeleted = false,
-            // ...
+            ActivityImg = rnd.Next().ToString(),
+            ServiceList = new List<Service>(),
+            DateList = new List<ActivityDate>()
         };
 
         configure?.Invoke(activity);

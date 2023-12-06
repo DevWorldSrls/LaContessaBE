@@ -19,7 +19,7 @@ namespace DevWorld.LaContessa.Query.UnitTests
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -50,11 +50,11 @@ namespace DevWorld.LaContessa.Query.UnitTests
                     new[] { expectedActivity1, expectedActivity2 },
                     options => options.Including(x => x.Id)
                                       .Including(x => x.Name)
-                                      .Including(x => x.Type)
+                                      .Including(x => x.IsOutdoor)
                                       .Including(x => x.Description)
-                                      .Including(x => x.Services)
-                                      .Including(x => x.Dates)
-                                      .Including(x => x.IsAvaible)
+                                      .Including(x => x.ActivityImg)
+                                      .Including(x => x.ServiceList)
+                                      .Including(x => x.DateList)
                                       .ExcludingMissingMembers() // Exclude fields that are not part of the response
                 );
         }

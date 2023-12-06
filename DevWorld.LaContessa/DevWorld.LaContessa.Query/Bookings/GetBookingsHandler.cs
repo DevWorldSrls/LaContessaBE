@@ -25,7 +25,12 @@ public class GetBookingsHandler : IRequestHandler<GetBookings, GetBookings.Respo
                 Id = x.Id,
                 UserId = x.UserId,
                 Date = x.Date,
-                IsDeleted = x.IsDeleted,
+                IsLesson = x.IsLesson,
+                activityID = x.activityID,
+                price = x.price,
+                bookingName = x.bookingName,
+                phoneNumber = x.phoneNumber,
+                timeSlot = x.timeSlot
             }).ToArrayAsync()
         };
     }

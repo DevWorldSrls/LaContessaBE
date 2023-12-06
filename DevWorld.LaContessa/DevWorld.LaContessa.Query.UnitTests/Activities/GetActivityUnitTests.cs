@@ -18,7 +18,7 @@ namespace DevWorld.LaContessa.Query.UnitTests
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -29,7 +29,7 @@ namespace DevWorld.LaContessa.Query.UnitTests
         public async Task GetActivityHandler_ReturnsCorrectBooking()
         {
             // Arrange
-            var expectedActivity = ActivityTestFactory.Create(); // Ensure this sets the Id property
+            var expectedActivity = ActivityTestFactory.Create(); 
 
             _dbContext.Activities.Add(expectedActivity);
             await _dbContext.SaveChangesAsync();
@@ -50,8 +50,23 @@ namespace DevWorld.LaContessa.Query.UnitTests
                     {
                         Id = expectedActivity.Id,
                         Name = expectedActivity.Name,
-                        Type = expectedActivity.Type,
-                        IsAvaible = expectedActivity.IsAvaible
+                        IsOutdoor = expectedActivity.IsOutdoor,
+                        Description = expectedActivity.Description,
+                        ActivityImg = expectedActivity.ActivityImg,
+                        ServiceList = expectedActivity.ServiceList.Select(domainService => new GetActivity.Response.Service
+                        {
+                            Icon = domainService.Icon,
+                            ServiceName = domainService.ServiceName,
+                        }).ToList(),
+                        DateList = expectedActivity.DateList.Select(domainDate => new GetActivity.Response.ActivityDate
+                        {
+                            Date = domainDate.Date,
+                            TimeSlotList = domainDate.TimeSlotList.Select(domainTimeSlot => new GetActivity.Response.ActivityTimeSlot
+                            {
+                                TimeSlot = domainTimeSlot.TimeSlot,
+                                IsAlreadyBooked = domainTimeSlot.IsAlreadyBooked
+                            }).ToList()
+                        }).ToList(),
                     },
                         config => config.ExcludingMissingMembers() // Exclude fields that are not part of the response
                 );

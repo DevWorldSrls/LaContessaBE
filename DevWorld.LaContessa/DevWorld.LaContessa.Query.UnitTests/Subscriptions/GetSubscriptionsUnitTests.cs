@@ -19,7 +19,7 @@ namespace DevWorld.LaContessa.Query.UnitTests
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -50,8 +50,10 @@ namespace DevWorld.LaContessa.Query.UnitTests
                     new[] { expectedSubscription1, expectedSubscription2 },
                     options => options.Including(x => x.Id)
                                       .Including(x => x.UserId)
-                                      .Including(x => x.Number)
+                                      .Including(x => x.CardNumber)
                                       .Including(x => x.Valid)
+                                      .Including(x => x.ExpirationDate)
+                                      .Including(x => x.SubscriptionType)
                                       .ExcludingMissingMembers() // Exclude fields that are not part of the response
                 );
         }

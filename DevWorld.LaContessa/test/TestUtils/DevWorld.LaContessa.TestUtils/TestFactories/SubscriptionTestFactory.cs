@@ -13,9 +13,10 @@ public class SubscriptionTestFactory
         {
             Id = id,
             UserId = Guid.NewGuid().ToString(),
-            Number = new Random().Next(),
+            CardNumber = new Random().Next(),
             Valid = new Random().Next(2) == 0,
-            IsDeleted = false,
+            ExpirationDate = Guid.NewGuid().ToString(),
+            SubscriptionType = Guid.NewGuid().ToString()
             // ...
         };
 

@@ -17,6 +17,7 @@
 
 	<ItemGroup>
     <ProjectReference Include="..\..\..\DevWorld.LaContessa.Domain\DevWorld.LaContessa.Domain.csproj" />
+    <ProjectReference Include="..\..\..\DevWorld.LaContessa.Query.Abstractions\DevWorld.LaContessa.Query.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

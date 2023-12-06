@@ -9,8 +9,10 @@ public class UpdateSbscription : IRequest
     public class SubscriptionDetail
     {
         public Guid Id { get; set; }
-        public string UserId { get; set; } = null!;
-        public int Number { get; set; } 
+        public string UserId { get; set; }
+        public int CardNumber { get; set; }
         public bool Valid { get; set; }
+        public string ExpirationDate { get; set; }
+        public string SubscriptionType { get; set; }
     }
 }

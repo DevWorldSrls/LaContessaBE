@@ -20,7 +20,7 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
         _dbContext = new LaContessaDbContext(
             new LaContessaDbContextOptions
             {
-                DatabaseName = "lacontessadb",
+                DatabaseName = Guid.NewGuid().ToString(),
                 UseInMemoryProvider = true,
             });
 
@@ -38,8 +38,10 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
             Subscription = new CreateSubscription.SubscriptionDetail()
             {
                 UserId = testSubscription.UserId,
-                Number = testSubscription.Number,
-                Valid = testSubscription.Valid
+                CardNumber = testSubscription.CardNumber,
+                Valid = testSubscription.Valid,
+                ExpirationDate = testSubscription.ExpirationDate,
+                SubscriptionType = testSubscription.SubscriptionType
             }
         };
 
@@ -51,8 +53,10 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
             new[] {testSubscription},
             options => options
                 .Including(x => x.UserId)
-                .Including(x => x.Number)
+                .Including(x => x.CardNumber)
                 .Including(x => x.Valid)
+                .Including(x => x.ExpirationDate)
+                .Including(x => x.SubscriptionType)
                 .ExcludingMissingMembers() 
         );
     }
@@ -67,8 +71,10 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
             Subscription = new CreateSubscription.SubscriptionDetail()
             {
                 UserId = existingSubscription.UserId,
-                Number = existingSubscription.Number,
-                Valid = existingSubscription.Valid
+                CardNumber = existingSubscription.CardNumber,
+                Valid = existingSubscription.Valid,
+                ExpirationDate = existingSubscription.ExpirationDate,
+                SubscriptionType = existingSubscription.SubscriptionType
             }
         };
 

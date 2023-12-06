@@ -10,10 +10,33 @@ public class UpdateActivity : IRequest
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
-        public bool IsAvaible { get; set; }
-        public string Descripting { get; set; }
-        public List<string> Services { get; set; }
-        public List<string> Dates { get; set; }
+        public bool IsOutdoor { get; set; }
+        public string Description { get; set; } 
+        public string ActivityImg { get; set; } 
+        public List<Service> ServiceList { get; set; }
+        public List<ActivityDate> DateList { get; set; }
+    }
+    
+    public class Service
+    {
+        public string Icon { get; set; } // This should be the class name for an icon in a web application
+        public string ServiceName { get; set; }
+    }
+
+    public class ActivityDate
+    {
+        public string Date { get; set; } // Consider using DateTime for date representations
+        public List<ActivityTimeSlot> TimeSlotList { get; set; }
+
+        public ActivityDate()
+        {
+            TimeSlotList = new List<ActivityTimeSlot>();
+        }
+    }
+
+    public class ActivityTimeSlot
+    {
+        public string TimeSlot { get; set; } // Consider using TimeSpan or a custom struct
+        public bool IsAlreadyBooked { get; set; }
     }
 }

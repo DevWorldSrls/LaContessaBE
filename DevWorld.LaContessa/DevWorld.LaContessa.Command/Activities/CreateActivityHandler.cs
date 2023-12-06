@@ -26,11 +26,24 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
         { 
             Id = Guid.NewGuid(),
             Name = request.Activity.Name,
-            Type = request.Activity.Type,
-            IsAvaible = request.Activity.IsAvaible,
-            Description = request.Activity.Descripting,
-            Services = request.Activity.Services.ToList(),
-            Dates = request.Activity.Dates.ToList(),
+            IsOutdoor = request.Activity.IsOutdoor,
+            Description = request.Activity.Description,
+            ActivityImg = request.Activity.ActivityImg,
+            ServiceList = request.Activity.ServiceList.Select(service => new DevWorld.LaContessa.Domain.Entities.Activities.Service
+            {
+                Icon = service.Icon,
+                ServiceName = service.ServiceName,
+            }).ToList(),
+
+            DateList = request.Activity.DateList.Select(date => new DevWorld.LaContessa.Domain.Entities.Activities.ActivityDate
+            {   
+                Date = date.Date,
+                TimeSlotList = date.TimeSlotList.Select(ts => new DevWorld.LaContessa.Domain.Entities.Activities.ActivityTimeSlot
+                {
+                    TimeSlot = ts.TimeSlot,
+                    IsAlreadyBooked = ts.IsAlreadyBooked
+                }).ToList()
+            }).ToList()
         };
 
 

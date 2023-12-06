@@ -21,7 +21,7 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -45,7 +45,12 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings
                 {
                     Id = startingBooking.Id,
                     UserId = updatedBooking.UserId,
-                    Date = updatedBooking.Date
+                    Date = updatedBooking.Date,
+                    activityID = updatedBooking.activityID,
+                    bookingName = updatedBooking.bookingName,
+                    phoneNumber = updatedBooking.phoneNumber,
+                    price = updatedBooking.price,
+                    IsLesson = updatedBooking.IsLesson
                 }
             };
 
@@ -57,6 +62,12 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings
                 options => options
                     .Including(x => x.UserId)
                     .Including(x => x.Date)
+                    .Including(x => x.activityID)
+                    .Including(x => x.bookingName)
+                    .Including(x => x.bookingName)
+                    .Including(x => x.phoneNumber)
+                    .Including(x => x.price)
+                    .Including(x => x.IsLesson)
                     .ExcludingMissingMembers() 
             );
         }
@@ -78,7 +89,12 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings
                 {
                     Id = updatedBooking.Id,
                     UserId = updatedBooking.UserId,
-                    Date = updatedBooking.Date
+                    Date = updatedBooking.Date,
+                    activityID = updatedBooking.activityID,
+                    bookingName = updatedBooking.bookingName,
+                    phoneNumber = updatedBooking.phoneNumber,
+                    price = updatedBooking.price,
+                    IsLesson = updatedBooking.IsLesson
                 }
             };
 

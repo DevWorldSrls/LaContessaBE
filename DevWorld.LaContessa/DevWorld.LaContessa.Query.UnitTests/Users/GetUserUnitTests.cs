@@ -21,7 +21,7 @@ namespace DevWorld.LaContessa.Query.UnitTests
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -52,7 +52,13 @@ namespace DevWorld.LaContessa.Query.UnitTests
                     new GetUser.Response.UserDetail
                     {
                         Id = expectedUser.Id,
-                        Name = expectedUser.Name
+                        Name = expectedUser.Name,
+                        Email = expectedUser.Email,
+                        Surname = expectedUser.Surname,
+                        CardNumber = expectedUser.CardNumber,
+                        ImageProfile = expectedUser.ImageProfile,
+                        IsPro = expectedUser.IsPro,
+                        Password = expectedUser.Password
                     },
                     options => options.ExcludingMissingMembers() // Exclude fields that are not part of the response
                 );

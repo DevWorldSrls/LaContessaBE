@@ -21,7 +21,7 @@ namespace DevWorld.LaContessa.Command.UnitTests.Subscriptions
             _dbContext = new LaContessaDbContext(
                 new LaContessaDbContextOptions
                 {
-                    DatabaseName = "lacontessadb",
+                    DatabaseName = Guid.NewGuid().ToString(),
                     UseInMemoryProvider = true,
                 });
 
@@ -45,8 +45,10 @@ namespace DevWorld.LaContessa.Command.UnitTests.Subscriptions
                 {
                     Id = startingSubscription.Id,
                     UserId = updatedSubscription.UserId,
-                    Number = updatedSubscription.Number,
-                    Valid = updatedSubscription.Valid
+                    CardNumber = updatedSubscription.CardNumber,
+                    Valid = updatedSubscription.Valid,
+                    ExpirationDate = updatedSubscription.ExpirationDate,
+                    SubscriptionType = updatedSubscription.SubscriptionType
                 }
             };
 
@@ -57,8 +59,10 @@ namespace DevWorld.LaContessa.Command.UnitTests.Subscriptions
                 new[] {updatedSubscription},
                 options => options
                     .Including(x => x.UserId)
-                    .Including(x => x.Number)
+                    .Including(x => x.CardNumber)
                     .Including(x => x.Valid)
+                    .Including(x => x.ExpirationDate)
+                    .Including(x => x.SubscriptionType)
                     .ExcludingMissingMembers() 
             );
         }
@@ -80,8 +84,10 @@ namespace DevWorld.LaContessa.Command.UnitTests.Subscriptions
                 {
                     Id = updatedSubscription.Id,
                     UserId = updatedSubscription.UserId,
-                    Number = updatedSubscription.Number,
-                    Valid = updatedSubscription.Valid
+                    CardNumber = updatedSubscription.CardNumber,
+                    Valid = updatedSubscription.Valid,
+                    ExpirationDate = updatedSubscription.ExpirationDate,
+                    SubscriptionType = updatedSubscription.SubscriptionType
                 }
             };
 

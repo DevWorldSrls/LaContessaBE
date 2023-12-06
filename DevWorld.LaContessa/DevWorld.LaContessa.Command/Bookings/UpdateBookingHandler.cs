@@ -24,6 +24,11 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
 
         bookingToUpdate.UserId = request.Booking.UserId;
         bookingToUpdate.Date = request.Booking.Date;
+        bookingToUpdate.bookingName = request.Booking.bookingName;
+        bookingToUpdate.phoneNumber = request.Booking.phoneNumber;
+        bookingToUpdate.activityID = request.Booking.activityID;
+        bookingToUpdate.price = request.Booking.price;
+        bookingToUpdate.IsLesson = request.Booking.IsLesson;
 
         await _laContessaDbContext.SaveChangesAsync();
     }

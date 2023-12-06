@@ -27,7 +27,12 @@ public class CreateUserHandler : IRequestHandler<CreateUser>
         { 
             Id = Guid.NewGuid(),
             Name = request.User.Name,
-            Email = request.User.Email
+            Surname = request.User.Surname,
+            Email = request.User.Email,
+            Password = request.User.Password,
+            CardNumber = request.User.CardNumber,
+            ImageProfile = request.User.ImageProfile,
+            IsPro = request.User.IsPro,
         };
 
         await _laContessaDbContext.AddAsync(userToAdd);

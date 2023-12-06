@@ -25,8 +25,10 @@ public class GetSubscriptionsHandler : IRequestHandler<GetSubscriptions, GetSubs
             {
                 Id = x.Id,
                 UserId = x.UserId,
-                Number = x.Number,
-                Valid = x.Valid
+                CardNumber = x.CardNumber,
+                Valid = x.Valid,
+                ExpirationDate = x.ExpirationDate,
+                SubscriptionType = x.SubscriptionType
             }).ToArrayAsync()
         };
     }

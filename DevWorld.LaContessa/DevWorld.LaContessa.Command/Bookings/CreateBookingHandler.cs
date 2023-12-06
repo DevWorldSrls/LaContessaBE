@@ -26,7 +26,13 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
         { 
             Id = Guid.NewGuid(),
             UserId = request.Booking.UserId,
-            Date = request.Booking.Date
+            Date = request.Booking.Date,
+            bookingName = request.Booking.bookingName,
+            phoneNumber = request.Booking.phoneNumber,
+            activityID = request.Booking.activityID,
+            price = request.Booking.price,
+            IsLesson = request.Booking.IsLesson,
+            timeSlot = request.Booking.timeSlot
         };
 
         await _laContessaDbContext.AddAsync(bookingToAdd);

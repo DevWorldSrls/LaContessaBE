@@ -26,8 +26,10 @@ public class CreateSubscriptionHandler : IRequestHandler<CreateSubscription>
         { 
             Id = Guid.NewGuid(),
             UserId = request.Subscription.UserId,
-            Number = request.Subscription.Number,
-            Valid = request.Subscription.Valid
+            CardNumber = request.Subscription.CardNumber,
+            Valid = request.Subscription.Valid,
+            ExpirationDate = request.Subscription.ExpirationDate,
+            SubscriptionType = request.Subscription.SubscriptionType
         };
 
         await _laContessaDbContext.AddAsync(subscriptionToAdd);
