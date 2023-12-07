@@ -1,4 +1,3 @@
-using DevWorld.LaContessa.Domain.Entities.Users;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions;
 using MediatR;
@@ -31,7 +30,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
                     ServiceList = x.ServiceList.Select(service => new GetActivity.Response.Service
                     {
                         Icon = service.Icon,
-                        ServiceName = service.ServiceName,
+                        ServiceName = service.ServiceName
                     }).ToList(),
                     DateList = x.DateList.Select(date => new GetActivity.Response.ActivityDate
                     {
@@ -43,7 +42,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
                         }).ToList()
                     }).ToList()
                 })
-                .FirstOrDefaultAsync(),
+                .FirstOrDefaultAsync()
         };
     }
 }

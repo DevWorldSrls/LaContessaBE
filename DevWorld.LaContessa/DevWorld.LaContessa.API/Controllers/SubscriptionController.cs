@@ -24,9 +24,10 @@ public class SubscriptionController : ControllerBase
             cancellationToken
         );
     }
-    
+
     [HttpGet("id")]
-    public async Task<ActionResult<GetSubscription.Response>> GetSubscription(Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetSubscription.Response>> GetSubscription(Guid id,
+        CancellationToken cancellationToken)
     {
         return await _mediator.Send(
             new GetSubscription(id),
@@ -35,12 +36,13 @@ public class SubscriptionController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateSubscription([FromBody] CreateSubscription.SubscriptionDetail subscription, CancellationToken cancellationToken)
+    public async Task<ActionResult> CreateSubscription([FromBody] CreateSubscription.SubscriptionDetail subscription,
+        CancellationToken cancellationToken)
     {
         await _mediator.Send(
             new CreateSubscription
             {
-                Subscription = subscription,
+                Subscription = subscription
             },
             cancellationToken
         );
@@ -49,21 +51,23 @@ public class SubscriptionController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateSubscription([FromBody] UpdateSbscription.SubscriptionDetail subscription, CancellationToken cancellationToken)
+    public async Task<ActionResult> UpdateSubscription([FromBody] UpdateSbscription.SubscriptionDetail subscription,
+        CancellationToken cancellationToken)
     {
         await _mediator.Send(
-            new UpdateSbscription()
+            new UpdateSbscription
             {
-                Subscription = subscription,
+                Subscription = subscription
             },
             cancellationToken
         );
 
         return Ok();
     }
-    
+
     [HttpGet("userId")]
-    public async Task<ActionResult<GetSubscriptionByUserId.Response>> GetSubscription(string userId, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetSubscriptionByUserId.Response>> GetSubscription(string userId,
+        CancellationToken cancellationToken)
     {
         return await _mediator.Send(
             new GetSubscriptionByUserId(userId),

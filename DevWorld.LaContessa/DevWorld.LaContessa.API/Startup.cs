@@ -1,10 +1,10 @@
-﻿using DevWorld.LaContessa.API.Middleware;
+﻿using System.Reflection;
+using DevWorld.LaContessa.API.Middleware;
 using DevWorld.LaContessa.Command;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Persistance.Migrations;
 using DevWorld.LaContessa.Query;
 using MediatR;
-using System.Reflection;
 
 namespace DevWorld.LaContessa.API;
 
@@ -26,7 +26,7 @@ public class Startup
         services.AddPersistance(
             _configuration.GetSection("Persistance"),
             Assembly.GetAssembly(typeof(MigrationsAssemblyReferenceClass))!
-            );
+        );
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

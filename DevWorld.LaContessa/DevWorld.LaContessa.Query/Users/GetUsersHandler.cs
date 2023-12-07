@@ -26,8 +26,8 @@ public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
                 CardNumber = x.CardNumber,
                 Email = x.Email,
                 ImageProfile = x.ImageProfile,
-                IsPro = x.IsPro,
-            }).ToArrayAsync(),
+                IsPro = x.IsPro
+            }).ToArrayAsync()
         };
     }
 }

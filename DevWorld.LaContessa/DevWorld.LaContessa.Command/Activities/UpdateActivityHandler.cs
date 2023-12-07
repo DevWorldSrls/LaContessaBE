@@ -1,5 +1,6 @@
-﻿using DevWorld.LaContessa.Command.Abstractions.Exceptions;
-using DevWorld.LaContessa.Command.Abstractions.Booking;
+﻿using DevWorld.LaContessa.Command.Abstractions.Booking;
+using DevWorld.LaContessa.Command.Abstractions.Exceptions;
+using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +18,8 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
 
     public async Task Handle(UpdateActivity request, CancellationToken cancellationToken)
     {
-        var activityToUpdate = await _laContessaDbContext.Activities.FirstOrDefaultAsync(x => x.Id == request.Activity.Id && !x.IsDeleted);
+        var activityToUpdate =
+            await _laContessaDbContext.Activities.FirstOrDefaultAsync(x => x.Id == request.Activity.Id && !x.IsDeleted);
 
         if (activityToUpdate is null)
             throw new ActivityNotFoundException();
@@ -28,24 +30,24 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
         activityToUpdate.Description = request.Activity.Description;
         activityToUpdate.ActivityImg = request.Activity.ActivityImg;
         activityToUpdate.ServiceList = request.Activity.ServiceList.Select(service =>
-            new DevWorld.LaContessa.Domain.Entities.Activities.Service
+            new Service
             {
                 Icon = service.Icon,
-                ServiceName = service.ServiceName,
+                ServiceName = service.ServiceName
             }).ToList();
 
         activityToUpdate.DateList = request.Activity.DateList.Select(date =>
-            new DevWorld.LaContessa.Domain.Entities.Activities.ActivityDate
+            new ActivityDate
             {
                 Date = date.Date,
                 TimeSlotList = date.TimeSlotList.Select(ts =>
-                    new DevWorld.LaContessa.Domain.Entities.Activities.ActivityTimeSlot
+                    new ActivityTimeSlot
                     {
                         TimeSlot = ts.TimeSlot,
                         IsAlreadyBooked = ts.IsAlreadyBooked
                     }).ToList()
             }).ToList();
-        
+
 
         await _laContessaDbContext.SaveChangesAsync();
     }

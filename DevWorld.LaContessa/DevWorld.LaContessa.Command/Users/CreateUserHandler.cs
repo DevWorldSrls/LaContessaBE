@@ -23,8 +23,8 @@ public class CreateUserHandler : IRequestHandler<CreateUser>
         if (alreadyExist)
             throw new UserAlreadyExistException();
 
-        var userToAdd = new User 
-        { 
+        var userToAdd = new User
+        {
             Id = Guid.NewGuid(),
             Name = request.User.Name,
             Surname = request.User.Surname,
@@ -32,7 +32,7 @@ public class CreateUserHandler : IRequestHandler<CreateUser>
             Password = request.User.Password,
             CardNumber = request.User.CardNumber,
             ImageProfile = request.User.ImageProfile,
-            IsPro = request.User.IsPro,
+            IsPro = request.User.IsPro
         };
 
         await _laContessaDbContext.AddAsync(userToAdd);

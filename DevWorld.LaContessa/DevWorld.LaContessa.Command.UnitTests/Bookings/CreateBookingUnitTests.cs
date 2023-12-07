@@ -11,8 +11,8 @@ namespace DevWorld.LaContessa.Command.UnitTests.Bookings;
 [Parallelizable(ParallelScope.None)]
 public class CreateBookingUnitTests : UnitTestBase
 {
-    private CreateBookingHandler _handler;
     private LaContessaDbContext _dbContext;
+    private CreateBookingHandler _handler;
 
     [SetUp]
     public void Setup()
@@ -22,7 +22,7 @@ public class CreateBookingUnitTests : UnitTestBase
             new LaContessaDbContextOptions
             {
                 DatabaseName = Guid.NewGuid().ToString(),
-                UseInMemoryProvider = true,
+                UseInMemoryProvider = true
             });
 
         _handler = new CreateBookingHandler(_dbContext);
@@ -31,21 +31,21 @@ public class CreateBookingUnitTests : UnitTestBase
     [Test]
     public async Task Handle_GivenNewBooking_ShouldCreateBooking()
     {
-        var testBooking = BookingTestFactory.Create(); 
-            
+        var testBooking = BookingTestFactory.Create();
+
         // Arrange
-        var createBookingRequest = new CreateBooking()
+        var createBookingRequest = new CreateBooking
         {
             Booking = new CreateBooking.BookingDetail
             {
                 UserId = testBooking.UserId,
                 Date = testBooking.Date,
-                activityID = testBooking.activityID,
-                bookingName = testBooking.bookingName,
-                phoneNumber = testBooking.phoneNumber,
-                price = testBooking.price,
+                ActivityId = testBooking.ActivityID,
+                BookingName = testBooking.BookingName,
+                PhoneNumber = testBooking.PhoneNumber,
+                Price = testBooking.Price,
                 IsLesson = testBooking.IsLesson,
-                timeSlot = testBooking.timeSlot
+                TimeSlot = testBooking.TimeSlot
             }
         };
 
@@ -54,38 +54,30 @@ public class CreateBookingUnitTests : UnitTestBase
 
         // Assert
         _dbContext.Bookings.ToList().Should().BeEquivalentTo(
-            new[] {testBooking},
+            new[] { testBooking },
             options => options
-                .Including(x => x.UserId)
-                .Including(x => x.Date)
-                .Including(x => x.activityID)
-                .Including(x => x.bookingName)
-                .Including(x => x.bookingName)
-                .Including(x => x.phoneNumber)
-                .Including(x => x.price)
-                .Including(x => x.IsLesson)
-                .Including(x => x.timeSlot)
-                .ExcludingMissingMembers() 
+                .ExcludingMissingMembers()
+                .Excluding(x=>x.Id)
         );
     }
-    
+
     [Test]
     public void Handle_GivenExistingBookingUserId_ShouldThrowBookingAlreadyExistException()
     {
         // Arrange
         var existingBooking = BookingTestFactory.Create();
-        var createBookingRequest = new CreateBooking()
+        var createBookingRequest = new CreateBooking
         {
             Booking = new CreateBooking.BookingDetail
             {
                 UserId = existingBooking.UserId,
                 Date = existingBooking.Date,
-                activityID = existingBooking.activityID,
-                bookingName = existingBooking.bookingName,
-                phoneNumber = existingBooking.phoneNumber,
-                price = existingBooking.price,
+                ActivityId = existingBooking.ActivityID,
+                BookingName = existingBooking.BookingName,
+                PhoneNumber = existingBooking.PhoneNumber,
+                Price = existingBooking.Price,
                 IsLesson = existingBooking.IsLesson,
-                timeSlot = existingBooking.timeSlot
+                TimeSlot = existingBooking.TimeSlot
             }
         };
 
@@ -96,7 +88,7 @@ public class CreateBookingUnitTests : UnitTestBase
         // Seed the database with a user having the same email
 
         // Act & Assert
-        Assert.ThrowsAsync<BookingAlreadyExistException>(() => _handler.Handle(createBookingRequest, new CancellationToken()));
+        Assert.ThrowsAsync<BookingAlreadyExistException>(() =>
+            _handler.Handle(createBookingRequest, new CancellationToken()));
     }
-    
 }

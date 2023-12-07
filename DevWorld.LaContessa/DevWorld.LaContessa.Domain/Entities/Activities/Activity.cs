@@ -4,16 +4,14 @@ namespace DevWorld.LaContessa.Domain.Entities.Activities;
 
 public class Activity : SoftDeletable
 {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     public string Name { get; set; }
     public bool IsOutdoor { get; set; }
-    public string Description { get; set; } 
-    public string ActivityImg { get; set; } 
+    public string Description { get; set; }
+    public string ActivityImg { get; set; }
     public List<Service> ServiceList { get; set; }
     public List<ActivityDate> DateList { get; set; }
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public Activity() { }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 }
 
 [Owned]
@@ -26,13 +24,13 @@ public class Service
 [Owned]
 public class ActivityDate
 {
-    public string Date { get; set; } // Consider using DateTime for date representations
-    public List<ActivityTimeSlot> TimeSlotList { get; set; }
-
     public ActivityDate()
     {
         TimeSlotList = new List<ActivityTimeSlot>();
     }
+
+    public string Date { get; set; } // Consider using DateTime for date representations
+    public List<ActivityTimeSlot> TimeSlotList { get; set; }
 }
 
 [Owned]

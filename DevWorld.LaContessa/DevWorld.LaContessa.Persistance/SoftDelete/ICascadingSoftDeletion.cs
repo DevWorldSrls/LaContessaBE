@@ -12,5 +12,6 @@ public interface ICascadingSoftDeletion<T, TDbContext> : ICascadingSoftDeletion
 
 public interface ICascadingSoftDeletion
 {
-    public Task HandleCascadingSoftDeletionAsync(object entity, DbContext dbContext, CancellationToken cancellationToken);
+    public Task HandleCascadingSoftDeletionAsync(object entity, DbContext dbContext,
+        CancellationToken cancellationToken);
 }

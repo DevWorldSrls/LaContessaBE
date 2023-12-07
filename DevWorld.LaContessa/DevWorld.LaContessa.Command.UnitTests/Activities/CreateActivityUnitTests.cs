@@ -2,7 +2,6 @@ using DevWorld.LaContessa.Command.Abstractions.Booking;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Activity;
 using DevWorld.LaContessa.Persistance;
-using DevWorld.LaContessa.Query.Abstractions;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;
@@ -11,8 +10,8 @@ namespace DevWorld.LaContessa.Command.UnitTests.Activities;
 
 public class CreateActivityUnitTests : UnitTestBase
 {
-    private CreateActivityHandler _handler;
     private LaContessaDbContext _dbContext;
+    private CreateActivityHandler _handler;
 
     [SetUp]
     public void Setup()
@@ -22,7 +21,7 @@ public class CreateActivityUnitTests : UnitTestBase
             new LaContessaDbContextOptions
             {
                 DatabaseName = Guid.NewGuid().ToString(),
-                UseInMemoryProvider = true,
+                UseInMemoryProvider = true
             });
 
         _handler = new CreateActivityHandler(_dbContext);
@@ -34,7 +33,7 @@ public class CreateActivityUnitTests : UnitTestBase
         var testActivity = ActivityTestFactory.Create();
 
         // Arrange
-        var createActivityRequest = new CreateActivity()
+        var createActivityRequest = new CreateActivity
         {
             Activity = new CreateActivity.ActivityDetail
             {
@@ -45,7 +44,7 @@ public class CreateActivityUnitTests : UnitTestBase
                 ServiceList = testActivity.ServiceList.Select(domainService => new CreateActivity.Service
                 {
                     Icon = domainService.Icon,
-                    ServiceName = domainService.ServiceName,
+                    ServiceName = domainService.ServiceName
                 }).ToList(),
                 DateList = testActivity.DateList.Select(domainDate => new CreateActivity.ActivityDate
                 {
@@ -55,7 +54,7 @@ public class CreateActivityUnitTests : UnitTestBase
                         TimeSlot = domainTimeSlot.TimeSlot,
                         IsAlreadyBooked = domainTimeSlot.IsAlreadyBooked
                     }).ToList()
-                }).ToList(),
+                }).ToList()
             }
         };
 
@@ -66,13 +65,8 @@ public class CreateActivityUnitTests : UnitTestBase
         _dbContext.Activities.ToList().Should().BeEquivalentTo(
             new[] { testActivity },
             options => options
-                .Including(x => x.Name)
-                .Including(x => x.IsOutdoor)
-                .Including(x => x.Description)
-                .Including(x => x.ActivityImg)
-                .Including(x => x.ServiceList)
-                .Including(x => x.DateList)
                 .ExcludingMissingMembers()
+                .Excluding(x => x.Id)
         );
     }
 
@@ -82,7 +76,7 @@ public class CreateActivityUnitTests : UnitTestBase
         // Arrange
         var ExistingActivity = ActivityTestFactory.Create();
 
-        var createActivityRequest = new CreateActivity()
+        var createActivityRequest = new CreateActivity
         {
             Activity = new CreateActivity.ActivityDetail
             {
@@ -93,7 +87,7 @@ public class CreateActivityUnitTests : UnitTestBase
                 ServiceList = ExistingActivity.ServiceList.Select(domainService => new CreateActivity.Service
                 {
                     Icon = domainService.Icon,
-                    ServiceName = domainService.ServiceName,
+                    ServiceName = domainService.ServiceName
                 }).ToList(),
                 DateList = ExistingActivity.DateList.Select(domainDate => new CreateActivity.ActivityDate
                 {
@@ -103,7 +97,7 @@ public class CreateActivityUnitTests : UnitTestBase
                         TimeSlot = domainTimeSlot.TimeSlot,
                         IsAlreadyBooked = domainTimeSlot.IsAlreadyBooked
                     }).ToList()
-                }).ToList(),
+                }).ToList()
             }
         };
 

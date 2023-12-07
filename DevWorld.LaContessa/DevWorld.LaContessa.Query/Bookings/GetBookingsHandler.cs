@@ -17,21 +17,21 @@ public class GetBookingsHandler : IRequestHandler<GetBookings, GetBookings.Respo
     public async Task<GetBookings.Response> Handle(GetBookings request, CancellationToken cancellationToken)
     {
         return new GetBookings.Response
-        { 
+        {
             Bookings = await _laContessaDbContext.Bookings
                 .AsQueryable()
                 .Select(x => new GetBookings.Response.BookingDetail
-            {
-                Id = x.Id,
-                UserId = x.UserId,
-                Date = x.Date,
-                IsLesson = x.IsLesson,
-                activityID = x.activityID,
-                price = x.price,
-                bookingName = x.bookingName,
-                phoneNumber = x.phoneNumber,
-                timeSlot = x.timeSlot
-            }).ToArrayAsync()
+                {
+                    Id = x.Id,
+                    UserId = x.UserId,
+                    Date = x.Date,
+                    IsLesson = x.IsLesson,
+                    ActivityId = x.ActivityID,
+                    Price = x.Price,
+                    BookingName = x.BookingName,
+                    PhoneNumber = x.PhoneNumber,
+                    TimeSlot = x.TimeSlot
+                }).ToArrayAsync()
         };
     }
 }

@@ -1,5 +1,4 @@
 using DevWorld.LaContessa.Domain.Entities.Activities;
-using DevWorld.LaContessa.Query.Abstractions;
 
 namespace DevWorld.LaContessa.TestUtils.TestFactories;
 

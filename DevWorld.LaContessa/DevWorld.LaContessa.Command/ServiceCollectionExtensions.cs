@@ -14,10 +14,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCommandServices(this IServiceCollection services)
     {
-        services.AddMediatR(x =>
-        {
-            x.RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions));
-        });
+        services.AddMediatR(x => { x.RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)); });
 
         services.AddTransient<IRequestHandler<CreateUser>, CreateUserHandler>();
         services.AddTransient<IRequestHandler<UpdateUser>, UpdateUserHandler>();

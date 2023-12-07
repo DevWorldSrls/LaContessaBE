@@ -9,21 +9,21 @@ namespace DevWorld.LaContessa.API.Controllers;
 [Route("users")]
 public class UserController : ControllerBase
 {
-	private readonly IMediator _mediator;
+    private readonly IMediator _mediator;
 
-	public UserController(IMediator mediator)
-	{
-		_mediator = mediator;
-	}
+    public UserController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
 
-	[HttpGet]
-	public async Task<ActionResult<GetUsers.Response>> GetUsers(CancellationToken cancellationToken)
-	{
-		return await _mediator.Send(
-			new GetUsers(),
-			cancellationToken
-		);
-	}
+    [HttpGet]
+    public async Task<ActionResult<GetUsers.Response>> GetUsers(CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(
+            new GetUsers(),
+            cancellationToken
+        );
+    }
 
     [HttpGet("id")]
     public async Task<ActionResult<GetUser.Response>> GetUser(Guid id, CancellationToken cancellationToken)
@@ -35,26 +35,28 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-	public async Task<ActionResult> CreateUser([FromBody] CreateUser.UserDetail user, CancellationToken cancellationToken)
-	{
-		await _mediator.Send(
-			new CreateUser
-			{
-				User = user,
-			},
-			cancellationToken
-		);
+    public async Task<ActionResult> CreateUser([FromBody] CreateUser.UserDetail user,
+        CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new CreateUser
+            {
+                User = user
+            },
+            cancellationToken
+        );
 
-		return Ok();
+        return Ok();
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateUser([FromBody] UpdateUser.UserDetail user, CancellationToken cancellationToken)
+    public async Task<ActionResult> UpdateUser([FromBody] UpdateUser.UserDetail user,
+        CancellationToken cancellationToken)
     {
         await _mediator.Send(
             new UpdateUser
             {
-                User = user,
+                User = user
             },
             cancellationToken
         );

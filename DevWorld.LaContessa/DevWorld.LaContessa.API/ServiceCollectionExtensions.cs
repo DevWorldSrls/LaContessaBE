@@ -24,7 +24,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSwaggerGenNewtonsoftSupport();
         services.AddTransient<LaContessaProblemDetailsFactory>();
-        
+
         //TODO evaluate to add healthChecks
 
         services.AddHttpContextAccessor();

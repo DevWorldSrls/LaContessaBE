@@ -17,7 +17,8 @@ public class UpdateUserHandler : IRequestHandler<UpdateUser>
 
     public async Task Handle(UpdateUser request, CancellationToken cancellationToken)
     {
-        var userToUpdate = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Id == request.User.Id && !x.IsDeleted);
+        var userToUpdate =
+            await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Id == request.User.Id && !x.IsDeleted);
 
         if (userToUpdate is null)
             throw new UserNotFoundException();

@@ -4,12 +4,12 @@ namespace DevWorld.LaContessa.Query.Abstractions;
 
 public class GetSubscription : IRequest<GetSubscription.Response>
 {
-    public Guid Id { get; set; }
-
     public GetSubscription(Guid id)
     {
         Id = id;
     }
+
+    public Guid Id { get; set; }
 
     public class Response
     {
@@ -25,5 +25,4 @@ public class GetSubscription : IRequest<GetSubscription.Response>
             public string SubscriptionType { get; set; }
         }
     }
-
 }

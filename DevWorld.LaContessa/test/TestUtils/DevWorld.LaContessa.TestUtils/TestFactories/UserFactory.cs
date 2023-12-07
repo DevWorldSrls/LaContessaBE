@@ -1,4 +1,3 @@
-using DevWorld.LaContessa.Domain.Entities.Bookings;
 using DevWorld.LaContessa.Domain.Entities.Users;
 
 namespace DevWorld.LaContessa.TestUtils.TestFactories;
@@ -18,7 +17,7 @@ public class UserTestFactory
             Email = Guid.NewGuid().ToString(),
             ImageProfile = Guid.NewGuid().ToString(),
             IsPro = new Random().Next(2) == 0,
-            Password = new Random().Next().ToString(),
+            Password = new Random().Next().ToString()
         };
 
         configure?.Invoke(user);

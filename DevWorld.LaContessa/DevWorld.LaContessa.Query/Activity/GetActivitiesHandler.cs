@@ -17,7 +17,7 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
     public async Task<GetActivities.Response> Handle(GetActivities request, CancellationToken cancellationToken)
     {
         return new GetActivities.Response
-        { 
+        {
             Activities = await _laContessaDbContext.Activities
                 .AsQueryable()
                 .Select(x => new GetActivities.Response.ActivityDetail
@@ -30,7 +30,7 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
                     ServiceList = x.ServiceList.Select(service => new GetActivities.Response.Service
                     {
                         Icon = service.Icon,
-                        ServiceName = service.ServiceName,
+                        ServiceName = service.ServiceName
                     }).ToList(),
                     DateList = x.DateList.Select(date => new GetActivities.Response.ActivityDate
                     {

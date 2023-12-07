@@ -1,5 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Booking;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
+using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -22,23 +23,23 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
         if (alreadyExist)
             throw new ActivityAlreadyExistException();
 
-        var activityToAdd = new Domain.Entities.Activities.Activity 
-        { 
+        var activityToAdd = new Domain.Entities.Activities.Activity
+        {
             Id = Guid.NewGuid(),
             Name = request.Activity.Name,
             IsOutdoor = request.Activity.IsOutdoor,
             Description = request.Activity.Description,
             ActivityImg = request.Activity.ActivityImg,
-            ServiceList = request.Activity.ServiceList.Select(service => new DevWorld.LaContessa.Domain.Entities.Activities.Service
+            ServiceList = request.Activity.ServiceList.Select(service => new Service
             {
                 Icon = service.Icon,
-                ServiceName = service.ServiceName,
+                ServiceName = service.ServiceName
             }).ToList(),
 
-            DateList = request.Activity.DateList.Select(date => new DevWorld.LaContessa.Domain.Entities.Activities.ActivityDate
-            {   
+            DateList = request.Activity.DateList.Select(date => new ActivityDate
+            {
                 Date = date.Date,
-                TimeSlotList = date.TimeSlotList.Select(ts => new DevWorld.LaContessa.Domain.Entities.Activities.ActivityTimeSlot
+                TimeSlotList = date.TimeSlotList.Select(ts => new ActivityTimeSlot
                 {
                     TimeSlot = ts.TimeSlot,
                     IsAlreadyBooked = ts.IsAlreadyBooked

@@ -31,7 +31,7 @@ public class GetUserHandler : IRequestHandler<GetUser, GetUser.Response>
                     IsPro = x.IsPro,
                     Password = x.Password
                 })
-                .FirstOrDefaultAsync(),
+                .FirstOrDefaultAsync()
         };
     }
 }

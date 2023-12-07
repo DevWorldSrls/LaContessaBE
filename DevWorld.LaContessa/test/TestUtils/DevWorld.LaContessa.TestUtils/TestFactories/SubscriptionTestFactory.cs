@@ -1,4 +1,3 @@
-using DevWorld.LaContessa.Domain.Entities.Bookings;
 using DevWorld.LaContessa.Domain.Entities.Subscriptions;
 
 namespace DevWorld.LaContessa.TestUtils.TestFactories;
