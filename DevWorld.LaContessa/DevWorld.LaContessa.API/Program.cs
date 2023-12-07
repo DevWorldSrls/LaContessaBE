@@ -9,11 +9,10 @@ public class Program
             .Run();
     }
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        return Host
             .CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder => 
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+            .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+    }
 }

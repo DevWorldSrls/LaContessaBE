@@ -1,4 +1,3 @@
-using DevWorld.LaContessa.Domain.Entities.Users;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions;
 using MediatR;
@@ -15,7 +14,8 @@ public class GetSubscriptionByUserIdHandler : IRequestHandler<GetSubscriptionByU
         _laContessaDbContext = laContessaDbContext;
     }
 
-    public async Task<GetSubscriptionByUserId.Response> Handle(GetSubscriptionByUserId request, CancellationToken cancellationToken)
+    public async Task<GetSubscriptionByUserId.Response> Handle(GetSubscriptionByUserId request,
+        CancellationToken cancellationToken)
     {
         return new GetSubscriptionByUserId.Response
         {
@@ -25,10 +25,12 @@ public class GetSubscriptionByUserIdHandler : IRequestHandler<GetSubscriptionByU
                 {
                     Id = x.Id,
                     UserId = x.UserId,
-                    Number = x.Number,
-                    Valid = x.Valid
+                    CardNumber = x.CardNumber,
+                    Valid = x.Valid,
+                    ExpirationDate = x.ExpirationDate,
+                    SubscriptionType = x.SubscriptionType
                 })
-                .FirstOrDefaultAsync(),
+                .FirstOrDefaultAsync()
         };
     }
 }

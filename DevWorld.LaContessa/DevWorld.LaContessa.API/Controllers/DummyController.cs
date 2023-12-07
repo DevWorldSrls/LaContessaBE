@@ -6,8 +6,6 @@ namespace DevWorld.LaContessa.API.Controllers;
 [Route("dummy")]
 public class DummyController : ControllerBase
 {
-    public DummyController() { }
-
     [HttpGet]
     public async Task<ActionResult<string>> GetDummy(CancellationToken cancellationToken)
     {

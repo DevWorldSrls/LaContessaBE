@@ -1,16 +1,16 @@
-using DevWorld.LaContessa.Domain.Entities.Bookings; 
+using System.Diagnostics.CodeAnalysis;
+using DevWorld.LaContessa.Domain.Entities.Bookings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Diagnostics.CodeAnalysis;
 
-namespace DevWorld.LaContessa.Persistance.EntityMapping.Bookings; 
+namespace DevWorld.LaContessa.Persistance.EntityMapping.Bookings;
 
 [ExcludeFromCodeCoverage]
-public class BookingEntityMapping : IEntityTypeConfiguration<Booking> 
+public class BookingEntityMapping : IEntityTypeConfiguration<Booking>
 {
-    public void Configure(EntityTypeBuilder<Booking> builder) 
+    public void Configure(EntityTypeBuilder<Booking> builder)
     {
-        builder.ToTable("bookings"); 
+        builder.ToTable("bookings");
 
         builder.Property<DateTime>("InsertRecordDateTimeUtc");
         builder.Property<DateTime>("UpdateRecordDateTimeUtc");

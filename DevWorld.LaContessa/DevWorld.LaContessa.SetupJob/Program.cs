@@ -9,11 +9,10 @@ public class Program
             .RunAsync();
     }
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        return Host
             .CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) =>
-            {
-                services.AddSetupJobServices(hostContext.Configuration);
-            });
+            .ConfigureServices((hostContext, services) => { services.AddSetupJobServices(hostContext.Configuration); });
+    }
 }

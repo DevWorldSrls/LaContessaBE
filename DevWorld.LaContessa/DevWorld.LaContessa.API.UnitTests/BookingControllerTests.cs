@@ -1,124 +1,121 @@
-using Moq;
-using MediatR;
 using DevWorld.LaContessa.API.Controllers;
 using DevWorld.LaContessa.Command.Abstractions.Booking;
 using DevWorld.LaContessa.Query.Abstractions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NUnit.Framework;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
+using Moq;
 
-namespace DevWorld.LaContessa.Tests
+namespace DevWorld.LaContessa.Tests;
+
+[TestFixture]
+public class BookingControllerTests
 {
-    [TestFixture]
-    public class BookingControllerTests
+    [SetUp]
+    public void Setup()
     {
-        private Mock<IMediator> _mockMediator;
-        private BookingController _controller;
+        _mockMediator = new Mock<IMediator>();
+        _controller = new BookingController(_mockMediator.Object);
+    }
 
-        [SetUp]
-        public void Setup()
+    private Mock<IMediator> _mockMediator;
+    private BookingController _controller;
+
+    [Test]
+    public async Task GetBookings_ReturnsExpectedResult()
+    {
+        // Arrange
+        var expectedResponse = new GetBookings.Response
         {
-            _mockMediator = new Mock<IMediator>();
-            _controller = new BookingController(_mockMediator.Object);
-        }
-        
-        [Test]
-        public async Task GetBookings_ReturnsExpectedResult()
-        {
-            // Arrange
-            var expectedResponse = new GetBookings.Response()
+            Bookings = new[]
             {
-                Bookings = new[]
-                {
-                    new GetBookings.Response.BookingDetail() { Id = Guid.NewGuid() },
-                    new GetBookings.Response.BookingDetail() { Id = Guid.NewGuid() }
-                }
-            };
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetBookings>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(expectedResponse);
+                new GetBookings.Response.BookingDetail { Id = Guid.NewGuid() },
+                new GetBookings.Response.BookingDetail { Id = Guid.NewGuid() }
+            }
+        };
+        _mockMediator.Setup(m => m.Send(It.IsAny<GetBookings>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(expectedResponse);
 
-            // Act
-            var result = await _controller.GetBookings(CancellationToken.None);
+        // Act
+        var result = await _controller.GetBookings(CancellationToken.None);
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<ActionResult<GetBookings.Response>>(result);
-            Assert.AreEqual(expectedResponse, result.Value);
-        }
-        [Test]
-        public async Task GetBooking_ReturnsExpectedResult()
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOf<ActionResult<GetBookings.Response>>(result);
+        Assert.AreEqual(expectedResponse, result.Value);
+    }
+
+    [Test]
+    public async Task GetBooking_ReturnsExpectedResult()
+    {
+        // Arrange
+        var expectedId = Guid.NewGuid();
+        var expectedResponse = new GetBooking.Response
         {
-            // Arrange
-            var expectedId = Guid.NewGuid();
-            var expectedResponse = new GetBooking.Response()
-            {
-                Booking = new GetBooking.Response.BookingDetail() { Id = expectedId }
-            };
-            _mockMediator.Setup(m => m.Send(It.Is<GetBooking>(cmd => cmd.Id == expectedId), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(expectedResponse);
+            Booking = new GetBooking.Response.BookingDetail { Id = expectedId }
+        };
+        _mockMediator.Setup(m => m.Send(It.Is<GetBooking>(cmd => cmd.Id == expectedId), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(expectedResponse);
 
-            // Act
-            var result = await _controller.GetBooking(expectedId, CancellationToken.None);
+        // Act
+        var result = await _controller.GetBooking(expectedId, CancellationToken.None);
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<ActionResult<GetBooking.Response>>(result);
-            Assert.AreEqual(expectedResponse, result.Value);
-        }
-        
-        [Test]
-        public async Task CreateBooking_ReturnsOkResult()
-        {
-            // Arrange
-            var bookingDetail = new CreateBooking.BookingDetail();
-            _mockMediator.Setup(m => m.Send(It.Is<CreateBooking>(cmd => cmd.Booking == bookingDetail), It.IsAny<CancellationToken>()))
-                .Returns(Task.CompletedTask);
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOf<ActionResult<GetBooking.Response>>(result);
+        Assert.AreEqual(expectedResponse, result.Value);
+    }
 
-            // Act
-            var result = await _controller.CreateBooking(bookingDetail, CancellationToken.None);
+    [Test]
+    public async Task CreateBooking_ReturnsOkResult()
+    {
+        // Arrange
+        var bookingDetail = new CreateBooking.BookingDetail();
+        _mockMediator.Setup(m =>
+                m.Send(It.Is<CreateBooking>(cmd => cmd.Booking == bookingDetail), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<OkResult>(result);
-        }
-        
-        [Test]
-        public async Task UpdateBooking_ReturnsOkResult()
-        {
-            // Arrange
-            var bookingDetail = new UpdateBooking.BookingDetail();
-            _mockMediator.Setup(m => m.Send(It.Is<UpdateBooking>(cmd => cmd.Booking == bookingDetail), It.IsAny<CancellationToken>()))
-                .Returns(Task.CompletedTask);
+        // Act
+        var result = await _controller.CreateBooking(bookingDetail, CancellationToken.None);
 
-            // Act
-            var result = await _controller.UpdateBooking(bookingDetail, CancellationToken.None);
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOf<OkResult>(result);
+    }
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<OkResult>(result);
-        }
-        
-        [Test]
-        public async Task GetBookingByUserId_ReturnsExpectedResult()
-        {
-            // Arrange
-            var userId = "someUserId";
-            var expectedResponse = new GetBookingByUserId.Response();
-            _mockMediator.Setup(m => m.Send(It.Is<GetBookingByUserId>(cmd => cmd.UserId == userId), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(expectedResponse);
+    [Test]
+    public async Task UpdateBooking_ReturnsOkResult()
+    {
+        // Arrange
+        var bookingDetail = new UpdateBooking.BookingDetail();
+        _mockMediator.Setup(m =>
+                m.Send(It.Is<UpdateBooking>(cmd => cmd.Booking == bookingDetail), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
 
-            // Act
-            var result = await _controller.GetBooking(userId, CancellationToken.None);
+        // Act
+        var result = await _controller.UpdateBooking(bookingDetail, CancellationToken.None);
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<ActionResult<GetBookingByUserId.Response>>(result);
-            var actionResult = result.Result as OkObjectResult;
-            Assert.IsNotNull(actionResult);
-            Assert.AreEqual(expectedResponse, actionResult.Value);
-        }
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOf<OkResult>(result);
+    }
 
+    [Test]
+    public async Task GetBookingByUserId_ReturnsExpectedResult()
+    {
+        // Arrange
+        var userId = "someUserId";
+        var expectedResponse = new GetBookingByUserId.Response();
+        _mockMediator.Setup(m =>
+                m.Send(It.Is<GetBookingByUserId>(cmd => cmd.UserId == userId), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(expectedResponse);
+
+        // Act
+        var result = await _controller.GetBooking(userId, CancellationToken.None);
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsInstanceOf<ActionResult<GetBookingByUserId.Response>>(result);
+        var actionResult = result.Value;
+        Assert.AreEqual(expectedResponse, actionResult);
     }
 }

@@ -1,4 +1,3 @@
-using DevWorld.LaContessa.Domain.Entities.Users;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions;
 using MediatR;
@@ -26,8 +25,14 @@ public class GetBookingHandler : IRequestHandler<GetBooking, GetBooking.Response
                     Id = x.Id,
                     UserId = x.UserId,
                     Date = x.Date,
+                    IsLesson = x.IsLesson,
+                    ActivityID = x.ActivityID,
+                    Price = x.Price,
+                    BookingName = x.BookingName,
+                    PhoneNumber = x.PhoneNumber,
+                    TimeSlot = x.TimeSlot
                 })
-                .FirstOrDefaultAsync(),
+                .FirstOrDefaultAsync()
         };
     }
 }

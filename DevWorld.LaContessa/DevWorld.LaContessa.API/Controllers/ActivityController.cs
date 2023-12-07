@@ -24,7 +24,7 @@ public class ActivityController : ControllerBase
             cancellationToken
         );
     }
-    
+
     [HttpGet("id")]
     public async Task<ActionResult<GetActivity.Response>> GetActivity(Guid id, CancellationToken cancellationToken)
     {
@@ -35,12 +35,13 @@ public class ActivityController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateActivity([FromBody] CreateActivity.ActivityDetail activity, CancellationToken cancellationToken)
+    public async Task<ActionResult> CreateActivity([FromBody] CreateActivity.ActivityDetail activity,
+        CancellationToken cancellationToken)
     {
         await _mediator.Send(
             new CreateActivity
             {
-                Activity = activity,
+                Activity = activity
             },
             cancellationToken
         );
@@ -49,12 +50,13 @@ public class ActivityController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateActivity([FromBody] UpdateActivity.ActivityDetail activity, CancellationToken cancellationToken)
+    public async Task<ActionResult> UpdateActivity([FromBody] UpdateActivity.ActivityDetail activity,
+        CancellationToken cancellationToken)
     {
         await _mediator.Send(
             new UpdateActivity
             {
-                Activity = activity,
+                Activity = activity
             },
             cancellationToken
         );

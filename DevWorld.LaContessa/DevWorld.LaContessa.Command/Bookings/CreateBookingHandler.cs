@@ -17,16 +17,23 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
 
     public async Task Handle(CreateBooking request, CancellationToken cancellationToken)
     {
-        var alreadyExist = await _laContessaDbContext.Bookings.Where(x => request.Booking.UserId == x.UserId).AnyAsync();
+        var alreadyExist =
+            await _laContessaDbContext.Bookings.Where(x => request.Booking.UserId == x.UserId).AnyAsync();
 
         if (alreadyExist)
             throw new BookingAlreadyExistException();
 
-        var bookingToAdd = new Domain.Entities.Bookings.Booking 
-        { 
+        var bookingToAdd = new Domain.Entities.Bookings.Booking
+        {
             Id = Guid.NewGuid(),
             UserId = request.Booking.UserId,
-            Date = request.Booking.Date
+            Date = request.Booking.Date,
+            BookingName = request.Booking.BookingName,
+            PhoneNumber = request.Booking.PhoneNumber,
+            ActivityID = request.Booking.ActivityId,
+            Price = request.Booking.Price,
+            IsLesson = request.Booking.IsLesson,
+            TimeSlot = request.Booking.TimeSlot
         };
 
         await _laContessaDbContext.AddAsync(bookingToAdd);

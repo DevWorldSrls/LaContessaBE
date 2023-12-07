@@ -1,7 +1,7 @@
-﻿using DevWorld.LaContessa.Domain.Entities.Users;
+﻿using System.Diagnostics.CodeAnalysis;
+using DevWorld.LaContessa.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Diagnostics.CodeAnalysis;
 
 namespace DevWorld.LaContessa.Persistance.EntityMapping.Users;
 

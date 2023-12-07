@@ -1,7 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
 using DevWorld.LaContessa.Domain.Entities.Subscriptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Diagnostics.CodeAnalysis;
 
 namespace DevWorld.LaContessa.Persistance.EntityMapping.Subscriptions;
 

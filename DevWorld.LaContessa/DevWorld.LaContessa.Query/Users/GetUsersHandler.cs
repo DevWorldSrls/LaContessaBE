@@ -22,7 +22,12 @@ public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
             {
                 Id = x.Id,
                 Name = x.Name,
-            }).ToArrayAsync(),
+                Surname = x.Surname,
+                CardNumber = x.CardNumber,
+                Email = x.Email,
+                ImageProfile = x.ImageProfile,
+                IsPro = x.IsPro
+            }).ToArrayAsync()
         };
     }
 }

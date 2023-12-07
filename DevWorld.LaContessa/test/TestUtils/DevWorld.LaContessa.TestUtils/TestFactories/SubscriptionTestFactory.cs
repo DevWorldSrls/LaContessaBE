@@ -1,4 +1,3 @@
-using DevWorld.LaContessa.Domain.Entities.Bookings;
 using DevWorld.LaContessa.Domain.Entities.Subscriptions;
 
 namespace DevWorld.LaContessa.TestUtils.TestFactories;
@@ -13,9 +12,10 @@ public class SubscriptionTestFactory
         {
             Id = id,
             UserId = Guid.NewGuid().ToString(),
-            Number = new Random().Next(),
+            CardNumber = new Random().Next(),
             Valid = new Random().Next(2) == 0,
-            IsDeleted = false,
+            ExpirationDate = Guid.NewGuid().ToString(),
+            SubscriptionType = Guid.NewGuid().ToString()
             // ...
         };
 

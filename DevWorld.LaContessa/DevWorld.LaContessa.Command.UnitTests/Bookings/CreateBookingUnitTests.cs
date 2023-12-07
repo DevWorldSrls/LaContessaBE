@@ -8,10 +8,11 @@ using FluentAssertions;
 
 namespace DevWorld.LaContessa.Command.UnitTests.Bookings;
 
+[Parallelizable(ParallelScope.None)]
 public class CreateBookingUnitTests : UnitTestBase
 {
-    private CreateBookingHandler _handler;
     private LaContessaDbContext _dbContext;
+    private CreateBookingHandler _handler;
 
     [SetUp]
     public void Setup()
@@ -20,8 +21,8 @@ public class CreateBookingUnitTests : UnitTestBase
         _dbContext = new LaContessaDbContext(
             new LaContessaDbContextOptions
             {
-                DatabaseName = "lacontessadb",
-                UseInMemoryProvider = true,
+                DatabaseName = Guid.NewGuid().ToString(),
+                UseInMemoryProvider = true
             });
 
         _handler = new CreateBookingHandler(_dbContext);
@@ -30,15 +31,21 @@ public class CreateBookingUnitTests : UnitTestBase
     [Test]
     public async Task Handle_GivenNewBooking_ShouldCreateBooking()
     {
-        var testBooking = BookingTestFactory.Create(); 
-            
+        var testBooking = BookingTestFactory.Create();
+
         // Arrange
-        var createBookingRequest = new CreateBooking()
+        var createBookingRequest = new CreateBooking
         {
             Booking = new CreateBooking.BookingDetail
             {
                 UserId = testBooking.UserId,
                 Date = testBooking.Date,
+                ActivityId = testBooking.ActivityID,
+                BookingName = testBooking.BookingName,
+                PhoneNumber = testBooking.PhoneNumber,
+                Price = testBooking.Price,
+                IsLesson = testBooking.IsLesson,
+                TimeSlot = testBooking.TimeSlot
             }
         };
 
@@ -47,25 +54,30 @@ public class CreateBookingUnitTests : UnitTestBase
 
         // Assert
         _dbContext.Bookings.ToList().Should().BeEquivalentTo(
-            new[] {testBooking},
+            new[] { testBooking },
             options => options
-                .Including(x => x.UserId)
-                .Including(x => x.Date)
-                .ExcludingMissingMembers() 
+                .ExcludingMissingMembers()
+                .Excluding(x=>x.Id)
         );
     }
-    
+
     [Test]
     public void Handle_GivenExistingBookingUserId_ShouldThrowBookingAlreadyExistException()
     {
         // Arrange
         var existingBooking = BookingTestFactory.Create();
-        var createBookingRequest = new CreateBooking()
+        var createBookingRequest = new CreateBooking
         {
             Booking = new CreateBooking.BookingDetail
             {
                 UserId = existingBooking.UserId,
                 Date = existingBooking.Date,
+                ActivityId = existingBooking.ActivityID,
+                BookingName = existingBooking.BookingName,
+                PhoneNumber = existingBooking.PhoneNumber,
+                Price = existingBooking.Price,
+                IsLesson = existingBooking.IsLesson,
+                TimeSlot = existingBooking.TimeSlot
             }
         };
 
@@ -76,7 +88,7 @@ public class CreateBookingUnitTests : UnitTestBase
         // Seed the database with a user having the same email
 
         // Act & Assert
-        Assert.ThrowsAsync<BookingAlreadyExistException>(() => _handler.Handle(createBookingRequest, new CancellationToken()));
+        Assert.ThrowsAsync<BookingAlreadyExistException>(() =>
+            _handler.Handle(createBookingRequest, new CancellationToken()));
     }
-    
 }

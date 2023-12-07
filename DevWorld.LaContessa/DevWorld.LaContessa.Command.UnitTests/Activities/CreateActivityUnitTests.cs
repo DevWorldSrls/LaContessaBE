@@ -10,8 +10,8 @@ namespace DevWorld.LaContessa.Command.UnitTests.Activities;
 
 public class CreateActivityUnitTests : UnitTestBase
 {
-    private CreateActivityHandler _handler;
     private LaContessaDbContext _dbContext;
+    private CreateActivityHandler _handler;
 
     [SetUp]
     public void Setup()
@@ -20,8 +20,8 @@ public class CreateActivityUnitTests : UnitTestBase
         _dbContext = new LaContessaDbContext(
             new LaContessaDbContextOptions
             {
-                DatabaseName = "lacontessadb",
-                UseInMemoryProvider = true,
+                DatabaseName = Guid.NewGuid().ToString(),
+                UseInMemoryProvider = true
             });
 
         _handler = new CreateActivityHandler(_dbContext);
@@ -30,19 +30,31 @@ public class CreateActivityUnitTests : UnitTestBase
     [Test]
     public async Task Handle_GivenNewActivity_ShouldCreateActivity()
     {
-        var testActivity = ActivityTestFactory.Create(); 
-            
+        var testActivity = ActivityTestFactory.Create();
+
         // Arrange
-        var createActivityRequest = new CreateActivity()
+        var createActivityRequest = new CreateActivity
         {
             Activity = new CreateActivity.ActivityDetail
             {
                 Name = testActivity.Name,
-                Type = testActivity.Type,
-                IsAvaible = testActivity.IsAvaible,
-                Descripting = testActivity.Description,
-                Services = testActivity.Services,
-                Dates = testActivity.Dates
+                IsOutdoor = testActivity.IsOutdoor,
+                Description = testActivity.Description,
+                ActivityImg = testActivity.ActivityImg,
+                ServiceList = testActivity.ServiceList.Select(domainService => new CreateActivity.Service
+                {
+                    Icon = domainService.Icon,
+                    ServiceName = domainService.ServiceName
+                }).ToList(),
+                DateList = testActivity.DateList.Select(domainDate => new CreateActivity.ActivityDate
+                {
+                    Date = domainDate.Date,
+                    TimeSlotList = domainDate.TimeSlotList.Select(domainTimeSlot => new CreateActivity.ActivityTimeSlot
+                    {
+                        TimeSlot = domainTimeSlot.TimeSlot,
+                        IsAlreadyBooked = domainTimeSlot.IsAlreadyBooked
+                    }).ToList()
+                }).ToList()
             }
         };
 
@@ -51,34 +63,41 @@ public class CreateActivityUnitTests : UnitTestBase
 
         // Assert
         _dbContext.Activities.ToList().Should().BeEquivalentTo(
-            new[] {testActivity},
+            new[] { testActivity },
             options => options
-                .Including(x => x.Name)
-                .Including(x => x.Type)
-                .Including(x => x.IsAvaible)
-                .Including(x => x.Description)
-                .Including(x => x.Services)
-                .Including(x => x.Dates)
-                .ExcludingMissingMembers() 
+                .ExcludingMissingMembers()
+                .Excluding(x => x.Id)
         );
     }
-    
+
     [Test]
     public void Handle_GivenExistingBookingUserId_ShouldThrowBookingAlreadyExistException()
     {
         // Arrange
-        var ExistingActivity = ActivityTestFactory.Create(); 
-            
-        var createActivityRequest = new CreateActivity()
+        var ExistingActivity = ActivityTestFactory.Create();
+
+        var createActivityRequest = new CreateActivity
         {
             Activity = new CreateActivity.ActivityDetail
             {
                 Name = ExistingActivity.Name,
-                Type = ExistingActivity.Type,
-                IsAvaible = ExistingActivity.IsAvaible,
-                Descripting = ExistingActivity.Description,
-                Services = ExistingActivity.Services,
-                Dates = ExistingActivity.Dates
+                IsOutdoor = ExistingActivity.IsOutdoor,
+                Description = ExistingActivity.Description,
+                ActivityImg = ExistingActivity.ActivityImg,
+                ServiceList = ExistingActivity.ServiceList.Select(domainService => new CreateActivity.Service
+                {
+                    Icon = domainService.Icon,
+                    ServiceName = domainService.ServiceName
+                }).ToList(),
+                DateList = ExistingActivity.DateList.Select(domainDate => new CreateActivity.ActivityDate
+                {
+                    Date = domainDate.Date,
+                    TimeSlotList = domainDate.TimeSlotList.Select(domainTimeSlot => new CreateActivity.ActivityTimeSlot
+                    {
+                        TimeSlot = domainTimeSlot.TimeSlot,
+                        IsAlreadyBooked = domainTimeSlot.IsAlreadyBooked
+                    }).ToList()
+                }).ToList()
             }
         };
 
@@ -89,7 +108,7 @@ public class CreateActivityUnitTests : UnitTestBase
         // Seed the database with a activity having the same name
 
         // Act & Assert
-        Assert.ThrowsAsync<ActivityAlreadyExistException>(() => _handler.Handle(createActivityRequest, new CancellationToken()));
+        Assert.ThrowsAsync<ActivityAlreadyExistException>(() =>
+            _handler.Handle(createActivityRequest, new CancellationToken()));
     }
-    
 }

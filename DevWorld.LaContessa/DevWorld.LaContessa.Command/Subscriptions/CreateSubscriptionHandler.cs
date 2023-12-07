@@ -17,17 +17,20 @@ public class CreateSubscriptionHandler : IRequestHandler<CreateSubscription>
 
     public async Task Handle(CreateSubscription request, CancellationToken cancellationToken)
     {
-        var alreadyExist = await _laContessaDbContext.Subscriptions.Where(x => request.Subscription.UserId == x.UserId).AnyAsync();
+        var alreadyExist = await _laContessaDbContext.Subscriptions.Where(x => request.Subscription.UserId == x.UserId)
+            .AnyAsync();
 
         if (alreadyExist)
             throw new SubscriptionAlreadyExistException();
 
         var subscriptionToAdd = new Domain.Entities.Subscriptions.Subscription
-        { 
+        {
             Id = Guid.NewGuid(),
             UserId = request.Subscription.UserId,
-            Number = request.Subscription.Number,
-            Valid = request.Subscription.Valid
+            CardNumber = request.Subscription.CardNumber,
+            Valid = request.Subscription.Valid,
+            ExpirationDate = request.Subscription.ExpirationDate,
+            SubscriptionType = request.Subscription.SubscriptionType
         };
 
         await _laContessaDbContext.AddAsync(subscriptionToAdd);

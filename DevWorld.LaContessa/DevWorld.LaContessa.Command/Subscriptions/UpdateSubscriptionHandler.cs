@@ -17,14 +17,18 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
 
     public async Task Handle(UpdateSbscription request, CancellationToken cancellationToken)
     {
-        var subscriptionToUpdate = await _laContessaDbContext.Subscriptions.FirstOrDefaultAsync(x => x.Id == request.Subscription.Id && !x.IsDeleted);
+        var subscriptionToUpdate =
+            await _laContessaDbContext.Subscriptions.FirstOrDefaultAsync(x =>
+                x.Id == request.Subscription.Id && !x.IsDeleted);
 
         if (subscriptionToUpdate is null)
             throw new SubscriptionNotFoundException();
 
         subscriptionToUpdate.UserId = request.Subscription.UserId;
-        subscriptionToUpdate.Number = request.Subscription.Number;
+        subscriptionToUpdate.CardNumber = request.Subscription.CardNumber;
         subscriptionToUpdate.Valid = request.Subscription.Valid;
+        subscriptionToUpdate.ExpirationDate = request.Subscription.ExpirationDate;
+        subscriptionToUpdate.SubscriptionType = request.Subscription.SubscriptionType;
 
         await _laContessaDbContext.SaveChangesAsync();
     }

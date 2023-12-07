@@ -1,59 +1,64 @@
-using FluentAssertions;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
+using FluentAssertions;
 
-namespace DevWorld.LaContessa.Query.UnitTests
+namespace DevWorld.LaContessa.Query.UnitTests;
+
+[TestFixture]
+public class GetBookingHandlerTests : UnitTestBase
 {
-    [TestFixture]
-    public class GetBookingHandlerTests : UnitTestBase
+    [SetUp]
+    public void Setup()
     {
-        private GetBookingHandler _handler;
-        private LaContessaDbContext _dbContext;
+        _dbContext = new LaContessaDbContext(
+            new LaContessaDbContextOptions
+            {
+                DatabaseName = Guid.NewGuid().ToString(),
+                UseInMemoryProvider = true
+            });
 
-        [SetUp]
-        public void Setup()
-        {
-            _dbContext = new LaContessaDbContext(
-                new LaContessaDbContextOptions
+        _handler = new GetBookingHandler(_dbContext);
+    }
+
+    private GetBookingHandler _handler;
+    private LaContessaDbContext _dbContext;
+
+    [Test]
+    public async Task GetBookingHandler_ReturnsCorrectBooking()
+    {
+        // Arrange
+        var expectedBooking = BookingTestFactory.Create(); // Ensure this sets the Id property
+
+        _dbContext.Bookings.Add(expectedBooking);
+        await _dbContext.SaveChangesAsync();
+
+        var request = new GetBooking(expectedBooking.Id) { Id = expectedBooking.Id };
+
+        // Act
+        var response = await _handler.Handle(request, new CancellationToken());
+
+        // Assert
+        Assert.IsNotNull(response);
+        Assert.IsNotNull(response.Booking);
+
+        response.Booking
+            .Should()
+            .BeEquivalentTo(
+                new GetBooking.Response.BookingDetail
                 {
-                    DatabaseName = "lacontessadb",
-                    UseInMemoryProvider = true,
-                });
-
-            _handler = new GetBookingHandler(_dbContext);
-        }
-
-        [Test]
-        public async Task GetBookingHandler_ReturnsCorrectBooking()
-        {
-            // Arrange
-            var expectedBooking = BookingTestFactory.Create(); // Ensure this sets the Id property
-
-            _dbContext.Bookings.Add(expectedBooking);
-            await _dbContext.SaveChangesAsync();
-
-            var request = new GetBooking(expectedBooking.Id) { Id = expectedBooking.Id };
-
-            // Act
-            var response = await _handler.Handle(request, new CancellationToken());
-
-            // Assert
-            Assert.IsNotNull(response);
-            Assert.IsNotNull(response.Booking);
-
-            response.Booking
-                .Should()
-                .BeEquivalentTo(
-                    new GetBooking.Response.BookingDetail
-                    {
-                        Id = expectedBooking.Id,
-                        UserId = expectedBooking.UserId,
-                        Date = expectedBooking.Date,
-                    },
-                    options => options.ExcludingMissingMembers() // Exclude fields that are not part of the response
-                );
-        }
+                    Id = expectedBooking.Id,
+                    UserId = expectedBooking.UserId,
+                    Date = expectedBooking.Date,
+                    ActivityID = expectedBooking.ActivityID,
+                    TimeSlot = expectedBooking.TimeSlot,
+                    BookingName = expectedBooking.BookingName,
+                    PhoneNumber = expectedBooking.PhoneNumber,
+                    Price = expectedBooking.Price,
+                    IsLesson = expectedBooking.IsLesson
+                },
+                options => options.ExcludingMissingMembers() // Exclude fields that are not part of the response
+            );
     }
 }

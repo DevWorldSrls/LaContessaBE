@@ -1,19 +1,18 @@
 ﻿using DevWorld.LaContessa.Persistance;
 
-namespace DevWorld.LaContessa.SetupJob
+namespace DevWorld.LaContessa.SetupJob;
+
+public class MigrationJob : IJob
 {
-    public class MigrationJob : IJob
+    private readonly LaContessaDbContext _laContessaDbContext;
+
+    public MigrationJob(LaContessaDbContext laContessaDbContext)
     {
-        private readonly LaContessaDbContext _laContessaDbContext;
+        _laContessaDbContext = laContessaDbContext;
+    }
 
-        public MigrationJob(LaContessaDbContext laContessaDbContext)
-        {
-            _laContessaDbContext = laContessaDbContext;
-        }
-
-        public async Task ExecuteAsync(CancellationToken cancellationToken)
-        {
-            await _laContessaDbContext.ApplyMigrationAsync(cancellationToken);
-        }
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
+    {
+        await _laContessaDbContext.ApplyMigrationAsync(cancellationToken);
     }
 }

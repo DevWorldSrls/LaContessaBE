@@ -1,4 +1,3 @@
-using DevWorld.LaContessa.Domain.Entities.Users;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions;
 using MediatR;
@@ -25,10 +24,12 @@ public class GetSubscriptionHandler : IRequestHandler<GetSubscription, GetSubscr
                 {
                     Id = x.Id,
                     UserId = x.UserId,
-                    Number = x.Number,
-                    Valid = x.Valid
+                    CardNumber = x.CardNumber,
+                    Valid = x.Valid,
+                    ExpirationDate = x.ExpirationDate,
+                    SubscriptionType = x.SubscriptionType
                 })
-                .FirstOrDefaultAsync(),
+                .FirstOrDefaultAsync()
         };
     }
 }

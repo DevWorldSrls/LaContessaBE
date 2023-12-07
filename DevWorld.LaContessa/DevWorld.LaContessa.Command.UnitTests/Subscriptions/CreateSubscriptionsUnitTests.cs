@@ -10,8 +10,8 @@ namespace DevWorld.LaContessa.Command.UnitTests.Subscriptions;
 
 public class CreateSubscriptionsUnitTests : UnitTestBase
 {
-    private CreateSubscriptionHandler _handler;
     private LaContessaDbContext _dbContext;
+    private CreateSubscriptionHandler _handler;
 
     [SetUp]
     public void Setup()
@@ -20,8 +20,8 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
         _dbContext = new LaContessaDbContext(
             new LaContessaDbContextOptions
             {
-                DatabaseName = "lacontessadb",
-                UseInMemoryProvider = true,
+                DatabaseName = Guid.NewGuid().ToString(),
+                UseInMemoryProvider = true
             });
 
         _handler = new CreateSubscriptionHandler(_dbContext);
@@ -30,16 +30,18 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
     [Test]
     public async Task Handle_GivenNewSubscription_ShouldCreateSubscription()
     {
-        var testSubscription = SubscriptionTestFactory.Create(); 
-            
+        var testSubscription = SubscriptionTestFactory.Create();
+
         // Arrange
         var createSubscriptionRequest = new CreateSubscription
         {
-            Subscription = new CreateSubscription.SubscriptionDetail()
+            Subscription = new CreateSubscription.SubscriptionDetail
             {
                 UserId = testSubscription.UserId,
-                Number = testSubscription.Number,
-                Valid = testSubscription.Valid
+                CardNumber = testSubscription.CardNumber,
+                Valid = testSubscription.Valid,
+                ExpirationDate = testSubscription.ExpirationDate,
+                SubscriptionType = testSubscription.SubscriptionType
             }
         };
 
@@ -48,15 +50,10 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
 
         // Assert
         _dbContext.Subscriptions.ToList().Should().BeEquivalentTo(
-            new[] {testSubscription},
-            options => options
-                .Including(x => x.UserId)
-                .Including(x => x.Number)
-                .Including(x => x.Valid)
-                .ExcludingMissingMembers() 
-        );
+            new[] { testSubscription },
+            options => options.Excluding(x => x.Id));
     }
-    
+
     [Test]
     public void Handle_GivenExistingUserEmail_ShouldThrowSubscriptionAlreadyExistException()
     {
@@ -64,11 +61,13 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
         var existingSubscription = SubscriptionTestFactory.Create();
         var createSubscriptionRequest = new CreateSubscription
         {
-            Subscription = new CreateSubscription.SubscriptionDetail()
+            Subscription = new CreateSubscription.SubscriptionDetail
             {
                 UserId = existingSubscription.UserId,
-                Number = existingSubscription.Number,
-                Valid = existingSubscription.Valid
+                CardNumber = existingSubscription.CardNumber,
+                Valid = existingSubscription.Valid,
+                ExpirationDate = existingSubscription.ExpirationDate,
+                SubscriptionType = existingSubscription.SubscriptionType
             }
         };
 
@@ -79,7 +78,7 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
         // Seed the database with a user having the same email
 
         // Act & Assert
-        Assert.ThrowsAsync<SubscriptionAlreadyExistException>(() => _handler.Handle(createSubscriptionRequest, new CancellationToken()));
+        Assert.ThrowsAsync<SubscriptionAlreadyExistException>(() =>
+            _handler.Handle(createSubscriptionRequest, new CancellationToken()));
     }
-    
 }

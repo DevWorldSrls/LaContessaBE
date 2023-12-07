@@ -24,8 +24,14 @@ public class GetUserHandler : IRequestHandler<GetUser, GetUser.Response>
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Surname = x.Surname,
+                    CardNumber = x.CardNumber,
+                    Email = x.Email,
+                    ImageProfile = x.ImageProfile,
+                    IsPro = x.IsPro,
+                    Password = x.Password
                 })
-                .FirstOrDefaultAsync(),
+                .FirstOrDefaultAsync()
         };
     }
 }

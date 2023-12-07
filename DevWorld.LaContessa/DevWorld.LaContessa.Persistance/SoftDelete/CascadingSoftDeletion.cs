@@ -7,11 +7,13 @@ public abstract class CascadingSoftDeletion<T, TDbContext> : ICascadingSoftDelet
     where T : ISoftDeletable
     where TDbContext : DbContext
 {
-    public abstract Task HandleCascadingSoftDeletionAsync(T entity, TDbContext dbContext, CancellationToken cancellationToken);
+    public abstract Task HandleCascadingSoftDeletionAsync(T entity, TDbContext dbContext,
+        CancellationToken cancellationToken);
 
-    public async Task HandleCascadingSoftDeletionAsync(object entity, DbContext dbContext, CancellationToken cancellationToken)
+    public async Task HandleCascadingSoftDeletionAsync(object entity, DbContext dbContext,
+        CancellationToken cancellationToken)
     {
-        if(entity is T typedEntity)
+        if (entity is T typedEntity)
         {
             await HandleCascadingSoftDeletionAsync(typedEntity, (TDbContext)dbContext, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);

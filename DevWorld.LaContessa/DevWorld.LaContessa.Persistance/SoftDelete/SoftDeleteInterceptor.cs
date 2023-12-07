@@ -13,10 +13,13 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
         _cascadingSoftDeletions = cascadingSoftDeletions;
     }
 
-    public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result) =>
-        SavingChangesAsync(eventData, result, default).ConfigureAwait(false).GetAwaiter().GetResult();
+    public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+    {
+        return SavingChangesAsync(eventData, result, default).ConfigureAwait(false).GetAwaiter().GetResult();
+    }
 
-    public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken)
+    public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData,
+        InterceptionResult<int> result, CancellationToken cancellationToken)
     {
         if (eventData.Context is null)
             return result;
@@ -28,9 +31,9 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
             if (entry is not
                 {
                     State: EntityState.Deleted,
-                    Entity: ISoftDeletable delete,
+                    Entity: ISoftDeletable delete
                 }
-            )
+               )
                 continue;
 
             entry.State = EntityState.Modified;
@@ -38,7 +41,8 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
             delete.DeletedAt = DateTimeOffset.UtcNow;
 
             foreach (var cascadingSoftDeletion in _cascadingSoftDeletions)
-                await cascadingSoftDeletion.HandleCascadingSoftDeletionAsync(entry.Entity, eventData.Context, cancellationToken); 
+                await cascadingSoftDeletion.HandleCascadingSoftDeletionAsync(entry.Entity, eventData.Context,
+                    cancellationToken);
         }
 
         return result;
