@@ -31,20 +31,26 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
     [Test]
     public async Task Handle_WhenSubscriptionExists_ShouldUpdateSubscription()
     {
+        var user = UserTestFactory.Create();
         var startingSubscription = SubscriptionTestFactory.Create();
 
+        _dbContext.Users.Add(user);
         _dbContext.Subscriptions.Add(startingSubscription);
 
         await _dbContext.SaveChangesAsync();
 
-        var updatedSubscription = SubscriptionTestFactory.Create();
+        var updatedSubscription = SubscriptionTestFactory.Create(x =>
+        {
+            x.Id = startingSubscription.Id;
+            x.User = user;
+        });
 
         var UpdateSubscriptionRequest = new UpdateSbscription
         {
             Subscription = new UpdateSbscription.SubscriptionDetail
             {
                 Id = startingSubscription.Id,
-                UserId = updatedSubscription.User.Id.ToString(),
+                UserId = user.Id.ToString(),
                 CardNumber = updatedSubscription.CardNumber,
                 Valid = updatedSubscription.Valid,
                 ExpirationDate = updatedSubscription.ExpirationDate,

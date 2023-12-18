@@ -31,9 +31,21 @@ public class CreateBookingUnitTests : UnitTestBase
     [Test]
     public async Task Handle_GivenNewBooking_ShouldCreateBooking()
     {
-        var testBooking = BookingTestFactory.Create();
-
         // Arrange
+        var user = UserTestFactory.Create();
+        var activity = ActivityTestFactory.Create();
+
+        _dbContext.Users.Add(user);
+        _dbContext.Activities.Add(activity);
+
+        await _dbContext.SaveChangesAsync();
+
+        var testBooking = BookingTestFactory.Create( x =>
+        {
+            x.User = user;
+            x.Activity = activity;
+        });
+
         var createBookingRequest = new CreateBooking
         {
             Booking = new CreateBooking.BookingDetail

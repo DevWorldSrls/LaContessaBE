@@ -31,13 +31,22 @@ public class UpdateBookingUnitTests : UnitTestBase
     [Test]
     public async Task Handle_WhenBookingExists_ShouldUpdateBooking()
     {
+        var user = UserTestFactory.Create();
+        var activity = ActivityTestFactory.Create();
         var startingBooking = BookingTestFactory.Create();
 
+        _dbContext.Users.Add(user);
+        _dbContext.Activities.Add(activity);
         _dbContext.Bookings.Add(startingBooking);
 
         await _dbContext.SaveChangesAsync();
 
-        var updatedBooking = BookingTestFactory.Create(x=>x.Id = startingBooking.Id);
+        var updatedBooking = BookingTestFactory.Create(x =>
+        {
+            x.Id = startingBooking.Id;
+            x.User = user;
+            x.Activity = activity;
+        });
 
         var UpdateBookingRequest = new UpdateBooking
         {

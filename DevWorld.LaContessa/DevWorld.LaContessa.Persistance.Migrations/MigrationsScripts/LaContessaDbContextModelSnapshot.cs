@@ -60,6 +60,13 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("ActivityId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("BookingName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("text");
@@ -73,30 +80,25 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<bool>("IsLesson")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("activityID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("bookingName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("phoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("price")
+                    b.Property<double>("Price")
                         .HasColumnType("double precision");
 
-                    b.Property<string>("timeSlot")
+                    b.Property<string>("TimeSlot")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
                 });
@@ -124,14 +126,15 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("Valid")
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -266,6 +269,36 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Navigation("DateList");
 
                     b.Navigation("ServiceList");
+                });
+
+            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Bookings.Booking", b =>
+                {
+                    b.HasOne("DevWorld.LaContessa.Domain.Entities.Activities.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DevWorld.LaContessa.Domain.Entities.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Subscriptions.Subscription", b =>
+                {
+                    b.HasOne("DevWorld.LaContessa.Domain.Entities.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

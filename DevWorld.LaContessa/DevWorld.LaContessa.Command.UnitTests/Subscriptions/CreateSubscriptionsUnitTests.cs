@@ -30,7 +30,15 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
     [Test]
     public async Task Handle_GivenNewSubscription_ShouldCreateSubscription()
     {
-        var testSubscription = SubscriptionTestFactory.Create();
+        var user = UserTestFactory.Create();
+        _dbContext.Users.Add(user);
+
+        await _dbContext.SaveChangesAsync();
+
+        var testSubscription = SubscriptionTestFactory.Create(x =>
+        {
+            x.User = user;
+        });
 
         // Arrange
         var createSubscriptionRequest = new CreateSubscription
