@@ -14,7 +14,7 @@ public class BookingTestFactory
             UserId = Guid.NewGuid().ToString(),
             Date = Guid.NewGuid().ToString(),
             IsLesson = new Random().Next(2) == 0,
-            ActivityID = Guid.NewGuid().ToString(),
+            Activity = Guid.NewGuid().ToString(),
             Price = new Random().Next(),
             BookingName = Guid.NewGuid().ToString(),
             PhoneNumber = Guid.NewGuid().ToString(),

@@ -40,7 +40,7 @@ public class CreateBookingUnitTests : UnitTestBase
             {
                 UserId = testBooking.UserId,
                 Date = testBooking.Date,
-                ActivityId = testBooking.ActivityID,
+                ActivityId = testBooking.Activity,
                 BookingName = testBooking.BookingName,
                 PhoneNumber = testBooking.PhoneNumber,
                 Price = testBooking.Price,
@@ -72,7 +72,7 @@ public class CreateBookingUnitTests : UnitTestBase
             {
                 UserId = existingBooking.UserId,
                 Date = existingBooking.Date,
-                ActivityId = existingBooking.ActivityID,
+                ActivityId = existingBooking.Activity,
                 BookingName = existingBooking.BookingName,
                 PhoneNumber = existingBooking.PhoneNumber,
                 Price = existingBooking.Price,

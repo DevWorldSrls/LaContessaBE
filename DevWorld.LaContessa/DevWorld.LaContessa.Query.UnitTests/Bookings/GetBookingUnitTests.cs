@@ -51,7 +51,7 @@ public class GetBookingHandlerTests : UnitTestBase
                     Id = expectedBooking.Id,
                     UserId = expectedBooking.UserId,
                     Date = expectedBooking.Date,
-                    ActivityID = expectedBooking.ActivityID,
+                    ActivityID = expectedBooking.Activity,
                     TimeSlot = expectedBooking.TimeSlot,
                     BookingName = expectedBooking.BookingName,
                     PhoneNumber = expectedBooking.PhoneNumber,

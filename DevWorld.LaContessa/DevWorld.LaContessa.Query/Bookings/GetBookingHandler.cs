@@ -23,10 +23,10 @@ public class GetBookingHandler : IRequestHandler<GetBooking, GetBooking.Response
                 .Select(x => new GetBooking.Response.BookingDetail
                 {
                     Id = x.Id,
-                    UserId = x.UserId,
+                    User = x.User,
                     Date = x.Date,
                     IsLesson = x.IsLesson,
-                    ActivityID = x.ActivityID,
+                    ActivityID = x.Activity,
                     Price = x.Price,
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,

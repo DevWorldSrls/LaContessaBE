@@ -22,12 +22,21 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
 
         if (bookingToUpdate is null)
             throw new BookingNotFoundException();
+        
+        var user = await _laContessaDbContext.Users
+            .FirstOrDefaultAsync(u => u.Id == new Guid(request.Booking.UserId));
+        
+        if (user == null)
+        {
+            // throw an exception or handle any other way you see fit
+            throw new UserNotFoundException();
+        }
 
-        bookingToUpdate.UserId = request.Booking.UserId;
+        bookingToUpdate.User = user;
         bookingToUpdate.Date = request.Booking.Date;
         bookingToUpdate.BookingName = request.Booking.BookingName;
         bookingToUpdate.PhoneNumber = request.Booking.PhoneNumber;
-        bookingToUpdate.ActivityID = request.Booking.ActivityID;
+        bookingToUpdate.Activity = request.Booking.ActivityID;
         bookingToUpdate.Price = request.Booking.Price;
         bookingToUpdate.IsLesson = request.Booking.IsLesson;
         bookingToUpdate.TimeSlot = request.Booking.TimeSlot;

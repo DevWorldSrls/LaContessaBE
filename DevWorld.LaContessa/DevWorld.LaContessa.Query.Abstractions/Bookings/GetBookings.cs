@@ -1,3 +1,4 @@
+using DevWorld.LaContessa.Domain.Entities.Users;
 using MediatR;
 
 namespace DevWorld.LaContessa.Query.Abstractions;
@@ -11,7 +12,7 @@ public class GetBookings : IRequest<GetBookings.Response>
         public class BookingDetail
         {
             public Guid Id { get; set; }
-            public string UserId { get; set; }
+            public User User { get; set; }
             public string Date { get; set; }
             public string ActivityId { get; set; }
             public string TimeSlot { get; set; }

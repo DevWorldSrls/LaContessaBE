@@ -11,6 +11,7 @@ public class BookingEntityMapping : IEntityTypeConfiguration<Booking>
     public void Configure(EntityTypeBuilder<Booking> builder)
     {
         builder.ToTable("bookings");
+        builder.HasOne("user").WithMany();
 
         builder.Property<DateTime>("InsertRecordDateTimeUtc");
         builder.Property<DateTime>("UpdateRecordDateTimeUtc");
