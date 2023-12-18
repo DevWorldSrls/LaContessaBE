@@ -27,7 +27,7 @@ public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
                 Email = x.Email,
                 ImageProfile = x.ImageProfile,
                 IsPro = x.IsPro
-            }).ToArrayAsync()
+            }).ToArrayAsync(cancellationToken)
         };
     }
 }

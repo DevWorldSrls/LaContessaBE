@@ -48,7 +48,7 @@ public class SubscriptionControllerTests
         Assert.IsNotNull(result);
         Assert.IsInstanceOf<ActionResult<GetSubscriptions.Response>>(result);
 
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 
     [Test]
@@ -73,7 +73,7 @@ public class SubscriptionControllerTests
         Assert.IsNotNull(result);
         Assert.IsInstanceOf<ActionResult<GetSubscription.Response>>(result);
 
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 
     [Test]
@@ -126,6 +126,6 @@ public class SubscriptionControllerTests
         // Assert
         Assert.IsNotNull(result);
         Assert.IsInstanceOf<ActionResult<GetSubscriptionByUserId.Response>>(result);
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 }

@@ -19,7 +19,6 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
         return new GetActivity.Response
         {
             Activity = await _laContessaDbContext.Activities
-                .Where(x => x.Id == request.Id)
                 .Select(x => new GetActivity.Response.ActivityDetail
                 {
                     Id = x.Id,
@@ -42,7 +41,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
                         }).ToList()
                     }).ToList()
                 })
-                .FirstOrDefaultAsync()
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
         };
     }
 }

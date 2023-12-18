@@ -18,11 +18,7 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
 
     public async Task Handle(UpdateActivity request, CancellationToken cancellationToken)
     {
-        var activityToUpdate =
-            await _laContessaDbContext.Activities.FirstOrDefaultAsync(x => x.Id == request.Activity.Id && !x.IsDeleted);
-
-        if (activityToUpdate is null)
-            throw new ActivityNotFoundException();
+        var activityToUpdate = await _laContessaDbContext.Activities.FirstOrDefaultAsync(x => x.Id == request.Activity.Id && !x.IsDeleted, cancellationToken) ?? throw new ActivityNotFoundException();
 
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.Name = request.Activity.Name;
@@ -48,7 +44,6 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
                     }).ToList()
             }).ToList();
 
-
-        await _laContessaDbContext.SaveChangesAsync();
+        await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }
 }

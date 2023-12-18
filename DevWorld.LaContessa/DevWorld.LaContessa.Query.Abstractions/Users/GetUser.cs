@@ -13,18 +13,18 @@ public class GetUser : IRequest<GetUser.Response>
 
     public class Response
     {
-        public UserDetail? User { get; set; }
+        public UserDetail? User { get; set; } = null!;
 
         public class UserDetail
         {
             public Guid Id { get; set; }
             public string Name { get; set; } = null!;
-            public string Surname { get; set; }
-            public string CardNumber { get; set; }
+            public string Surname { get; set; } = null!;
+            public string CardNumber { get; set; } = null!;
             public bool IsPro { get; set; } = false;
-            public string Email { get; set; }
-            public string Password { get; set; }
-            public string ImageProfile { get; set; }
+            public string Email { get; set; } = null!;
+            public string Password { get; set; } = null!;
+            public string ImageProfile { get; set; } = null!;
         }
     }
 }

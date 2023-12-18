@@ -16,6 +16,11 @@ public class ActivityController : ControllerBase
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Retrieves activities.
+    /// </summary>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>The response containing activities.</returns>
     [HttpGet]
     public async Task<ActionResult<GetActivities.Response>> GetActivities(CancellationToken cancellationToken)
     {

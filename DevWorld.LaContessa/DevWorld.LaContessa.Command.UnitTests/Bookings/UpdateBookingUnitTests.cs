@@ -31,22 +31,31 @@ public class UpdateBookingUnitTests : UnitTestBase
     [Test]
     public async Task Handle_WhenBookingExists_ShouldUpdateBooking()
     {
+        var user = UserTestFactory.Create();
+        var activity = ActivityTestFactory.Create();
         var startingBooking = BookingTestFactory.Create();
 
+        _dbContext.Users.Add(user);
+        _dbContext.Activities.Add(activity);
         _dbContext.Bookings.Add(startingBooking);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
-        var updatedBooking = BookingTestFactory.Create(x=>x.Id = startingBooking.Id);
+        var updatedBooking = BookingTestFactory.Create(x =>
+        {
+            x.Id = startingBooking.Id;
+            x.User = user;
+            x.Activity = activity;
+        });
 
         var UpdateBookingRequest = new UpdateBooking
         {
             Booking = new UpdateBooking.BookingDetail
             {
                 Id = startingBooking.Id,
-                UserId = updatedBooking.UserId,
+                UserId = updatedBooking.User.Id.ToString(),
                 Date = updatedBooking.Date,
-                ActivityID = updatedBooking.ActivityID,
+                ActivityId = updatedBooking.Activity.Id.ToString(),
                 BookingName = updatedBooking.BookingName,
                 PhoneNumber = updatedBooking.PhoneNumber,
                 Price = updatedBooking.Price,
@@ -72,7 +81,7 @@ public class UpdateBookingUnitTests : UnitTestBase
 
         _dbContext.Bookings.Add(startingBooking);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         var updatedBooking = BookingTestFactory.Create();
 
@@ -81,9 +90,9 @@ public class UpdateBookingUnitTests : UnitTestBase
             Booking = new UpdateBooking.BookingDetail
             {
                 Id = updatedBooking.Id,
-                UserId = updatedBooking.UserId,
+                UserId = updatedBooking.User.Id.ToString(),
                 Date = updatedBooking.Date,
-                ActivityID = updatedBooking.ActivityID,
+                ActivityId = updatedBooking.Activity.Id.ToString(),
                 BookingName = updatedBooking.BookingName,
                 PhoneNumber = updatedBooking.PhoneNumber,
                 Price = updatedBooking.Price,

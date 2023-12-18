@@ -34,7 +34,7 @@ public class GetBookingByUserIdUnitTests : UnitTestBase
         _dbContext.Bookings.Add(expectedBooking);
         await _dbContext.SaveChangesAsync();
 
-        var request = new GetBookingByUserId(expectedBooking.UserId) { UserId = expectedBooking.UserId };
+        var request = new GetBookingByUserId(expectedBooking.User.Id.ToString()) { UserId = expectedBooking.User.Id.ToString() };
 
         // Act
         var response = await _handler.Handle(request, new CancellationToken());
@@ -49,9 +49,9 @@ public class GetBookingByUserIdUnitTests : UnitTestBase
                 new GetBooking.Response.BookingDetail
                 {
                     Id = expectedBooking.Id,
-                    UserId = expectedBooking.UserId,
+                    User = expectedBooking.User,
                     Date = expectedBooking.Date,
-                    ActivityID = expectedBooking.ActivityID,
+                    Activity = expectedBooking.Activity,
                     TimeSlot = expectedBooking.TimeSlot,
                     BookingName = expectedBooking.BookingName,
                     PhoneNumber = expectedBooking.PhoneNumber,

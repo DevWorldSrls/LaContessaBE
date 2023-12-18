@@ -7,29 +7,29 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.14"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.14" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DevWorld.LaContessa.Domain\DevWorld.LaContessa.Domain.csproj"/>
+        <ProjectReference Include="..\DevWorld.LaContessa.Domain\DevWorld.LaContessa.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="EntityMapping\Activities"/>
-        <Folder Include="EntityMapping\Bookings"/>
-        <Folder Include="EntityMapping\Subscriptions"/>
+        <Folder Include="EntityMapping\Activities" />
+        <Folder Include="EntityMapping\Bookings" />
+        <Folder Include="EntityMapping\Subscriptions" />
     </ItemGroup>
 
 </Project>

@@ -17,11 +17,7 @@ public class UpdateUserHandler : IRequestHandler<UpdateUser>
 
     public async Task Handle(UpdateUser request, CancellationToken cancellationToken)
     {
-        var userToUpdate =
-            await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Id == request.User.Id && !x.IsDeleted);
-
-        if (userToUpdate is null)
-            throw new UserNotFoundException();
+        var userToUpdate = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Id == request.User.Id && !x.IsDeleted, cancellationToken) ?? throw new UserNotFoundException();
 
         userToUpdate.Name = request.User.Name;
         userToUpdate.Email = request.User.Email;
@@ -33,6 +29,6 @@ public class UpdateUserHandler : IRequestHandler<UpdateUser>
         userToUpdate.ImageProfile = request.User.ImageProfile;
         userToUpdate.IsPro = request.User.IsPro;
 
-        await _laContessaDbContext.SaveChangesAsync();
+        await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }
 }

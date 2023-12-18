@@ -41,7 +41,7 @@ public class BookingControllerTests
         // Assert
         Assert.IsNotNull(result);
         Assert.IsInstanceOf<ActionResult<GetBookings.Response>>(result);
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 
     [Test]
@@ -62,7 +62,7 @@ public class BookingControllerTests
         // Assert
         Assert.IsNotNull(result);
         Assert.IsInstanceOf<ActionResult<GetBooking.Response>>(result);
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 
     [Test]
@@ -116,6 +116,6 @@ public class BookingControllerTests
         Assert.IsNotNull(result);
         Assert.IsInstanceOf<ActionResult<GetBookingByUserId.Response>>(result);
         var actionResult = result.Value;
-        Assert.AreEqual(expectedResponse, actionResult);
+        Assert.That(actionResult, Is.EqualTo(expectedResponse));
     }
 }

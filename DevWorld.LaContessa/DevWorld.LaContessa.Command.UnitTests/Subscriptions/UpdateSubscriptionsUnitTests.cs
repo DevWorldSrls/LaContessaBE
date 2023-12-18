@@ -31,20 +31,26 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
     [Test]
     public async Task Handle_WhenSubscriptionExists_ShouldUpdateSubscription()
     {
+        var user = UserTestFactory.Create();
         var startingSubscription = SubscriptionTestFactory.Create();
 
+        _dbContext.Users.Add(user);
         _dbContext.Subscriptions.Add(startingSubscription);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
-        var updatedSubscription = SubscriptionTestFactory.Create();
+        var updatedSubscription = SubscriptionTestFactory.Create(x =>
+        {
+            x.Id = startingSubscription.Id;
+            x.User = user;
+        });
 
         var UpdateSubscriptionRequest = new UpdateSbscription
         {
             Subscription = new UpdateSbscription.SubscriptionDetail
             {
                 Id = startingSubscription.Id,
-                UserId = updatedSubscription.UserId,
+                UserId = user.Id.ToString(),
                 CardNumber = updatedSubscription.CardNumber,
                 Valid = updatedSubscription.Valid,
                 ExpirationDate = updatedSubscription.ExpirationDate,
@@ -58,7 +64,7 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
         _dbContext.Subscriptions.ToList().Should().BeEquivalentTo(
             new[] { updatedSubscription },
             options => options
-                .Including(x => x.UserId)
+                .Including(x => x.User)
                 .Including(x => x.CardNumber)
                 .Including(x => x.Valid)
                 .Including(x => x.ExpirationDate)
@@ -74,7 +80,7 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
 
         _dbContext.Subscriptions.Add(startingSubscription);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         var updatedSubscription = SubscriptionTestFactory.Create();
 
@@ -83,7 +89,7 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
             Subscription = new UpdateSbscription.SubscriptionDetail
             {
                 Id = updatedSubscription.Id,
-                UserId = updatedSubscription.UserId,
+                UserId = updatedSubscription.User.Id.ToString(),
                 CardNumber = updatedSubscription.CardNumber,
                 Valid = updatedSubscription.Valid,
                 ExpirationDate = updatedSubscription.ExpirationDate,

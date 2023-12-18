@@ -8,15 +8,16 @@ public class SubscriptionTestFactory
     {
         var id = idOverride ?? Guid.NewGuid();
 
+        var user = UserTestFactory.Create();
+
         var subscription = new Subscription
         {
             Id = id,
-            UserId = Guid.NewGuid().ToString(),
+            User = user,
             CardNumber = new Random().Next(),
             Valid = new Random().Next(2) == 0,
             ExpirationDate = Guid.NewGuid().ToString(),
             SubscriptionType = Guid.NewGuid().ToString()
-            // ...
         };
 
         configure?.Invoke(subscription);

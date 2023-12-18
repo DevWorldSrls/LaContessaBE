@@ -35,7 +35,7 @@ public class UpdateUserUnitTests : UnitTestBase
 
         _dbContext.Users.Add(startingUser);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         var updatedUser = UserTestFactory.Create();
 
@@ -68,7 +68,7 @@ public class UpdateUserUnitTests : UnitTestBase
 
         _dbContext.Users.Add(startingUser);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         var updatedUser = UserTestFactory.Create();
 

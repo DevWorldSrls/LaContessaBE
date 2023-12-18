@@ -4,39 +4,32 @@ namespace DevWorld.LaContessa.Domain.Entities.Activities;
 
 public class Activity : SoftDeletable
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     public bool IsOutdoor { get; set; }
-    public string Description { get; set; }
-    public string ActivityImg { get; set; }
-    public List<Service> ServiceList { get; set; }
-    public List<ActivityDate> DateList { get; set; }
+    public string Description { get; set; } = null!;
+    public string ActivityImg { get; set; } = null!;
+    public List<Service> ServiceList { get; set; } = null!;
+    public List<ActivityDate> DateList { get; set; } = null!;
 }
 
 [Owned]
 public class Service
 {
-    public string Icon { get; set; } // This should be the class name for an icon in a web application
-    public string ServiceName { get; set; }
+    public string Icon { get; set; } = null!; 
+    public string ServiceName { get; set; } = null!;
 }
 
 [Owned]
 public class ActivityDate
 {
-    public ActivityDate()
-    {
-        TimeSlotList = new List<ActivityTimeSlot>();
-    }
-
-    public string Date { get; set; } // Consider using DateTime for date representations
-    public List<ActivityTimeSlot> TimeSlotList { get; set; }
+    public string Date { get; set; } = null!; 
+    public List<ActivityTimeSlot> TimeSlotList { get; set; } = null!;
 }
 
 [Owned]
 public class ActivityTimeSlot
 {
-    public string TimeSlot { get; set; } // Consider using TimeSpan or a custom struct
+    public string TimeSlot { get; set; } = null!; 
     public bool IsAlreadyBooked { get; set; }
 }
 

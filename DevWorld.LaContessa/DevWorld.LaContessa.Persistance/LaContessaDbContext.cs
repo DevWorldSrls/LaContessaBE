@@ -69,25 +69,6 @@ public class LaContessaDbContext : DbContext
         });
     }
 
-    // protected override void OnModelCreating(ModelBuilder modelBuilder)
-    // {
-    //     modelBuilder.Entity<Activity>()
-    //         .Property(x => x.Dates)
-    //         .HasConversion(new ValueConverter<List<string>, string>(
-    //             v => JsonConvert.SerializeObject(v),
-    //             v => JsonConvert.DeserializeObject<List<string>>(v) ?? new List<string>()));
-    //
-    //     modelBuilder.Entity<Activity>()
-    //         .Property(x => x.Services)
-    //         .HasConversion(new ValueConverter<List<string>, string>(
-    //             v => JsonConvert.SerializeObject(v),
-    //             v => JsonConvert.DeserializeObject<List<string>>(v) ?? new List<string>()));
-    //
-    //     base.OnModelCreating(modelBuilder);
-    //
-    //     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(LaContessaDbContext))!);
-    // }
-
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         UpdateRecordDates();

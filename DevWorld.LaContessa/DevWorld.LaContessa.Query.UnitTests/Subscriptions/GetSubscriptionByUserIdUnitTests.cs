@@ -35,7 +35,7 @@ public class GetSubscriptionByUserIdUnitTests : UnitTestBase
         _dbContext.Subscriptions.Add(expectedSubscription);
         await _dbContext.SaveChangesAsync();
 
-        var request = new GetSubscriptionByUserId(expectedSubscription.UserId) { UserId = expectedSubscription.UserId };
+        var request = new GetSubscriptionByUserId(expectedSubscription.User.Id.ToString()) { UserId = expectedSubscription.User.Id.ToString() };
 
         // Act
         var response = await _handler.Handle(request, new CancellationToken());
@@ -50,7 +50,7 @@ public class GetSubscriptionByUserIdUnitTests : UnitTestBase
                 new GetSubscriptionByUserId.Response.SubscriptionDetail
                 {
                     Id = expectedSubscription.Id,
-                    UserId = expectedSubscription.UserId,
+                    User = expectedSubscription.User,
                     CardNumber = expectedSubscription.CardNumber,
                     Valid = expectedSubscription.Valid,
                     SubscriptionType = expectedSubscription.SubscriptionType,

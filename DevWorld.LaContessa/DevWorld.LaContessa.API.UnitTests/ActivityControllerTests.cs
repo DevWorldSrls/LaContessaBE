@@ -39,9 +39,9 @@ public class ActivityControllerTests
         var result = await _controller.GetActivities(CancellationToken.None);
 
         // Assert
-        Assert.IsNotNull(result);
+        Assert.That(result, Is.Not.Null);
         Assert.IsInstanceOf<ActionResult<GetActivities.Response>>(result);
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 
     [Test]
@@ -60,9 +60,9 @@ public class ActivityControllerTests
         var result = await _controller.GetActivity(expectedId, CancellationToken.None);
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.IsInstanceOf<ActionResult<GetActivity.Response>>(result);
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result, Is.InstanceOf<ActionResult<GetActivity.Response>>());
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 
     [Test]
@@ -79,7 +79,7 @@ public class ActivityControllerTests
 
         // Assert
         Assert.IsNotNull(result);
-        Assert.IsInstanceOf<OkResult>(result);
+        Assert.That(result, Is.InstanceOf<OkResult>());
     }
 
     [Test]

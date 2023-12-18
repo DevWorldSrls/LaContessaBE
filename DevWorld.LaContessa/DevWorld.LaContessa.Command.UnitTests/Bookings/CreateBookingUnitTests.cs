@@ -31,16 +31,28 @@ public class CreateBookingUnitTests : UnitTestBase
     [Test]
     public async Task Handle_GivenNewBooking_ShouldCreateBooking()
     {
-        var testBooking = BookingTestFactory.Create();
-
         // Arrange
+        var user = UserTestFactory.Create();
+        var activity = ActivityTestFactory.Create();
+
+        _dbContext.Users.Add(user);
+        _dbContext.Activities.Add(activity);
+
+        await _dbContext.SaveChangesAsync();
+
+        var testBooking = BookingTestFactory.Create( x =>
+        {
+            x.User = user;
+            x.Activity = activity;
+        });
+
         var createBookingRequest = new CreateBooking
         {
             Booking = new CreateBooking.BookingDetail
             {
-                UserId = testBooking.UserId,
+                UserId = testBooking.User.Id.ToString(),
                 Date = testBooking.Date,
-                ActivityId = testBooking.ActivityID,
+                ActivityId = testBooking.Activity.Id.ToString(),
                 BookingName = testBooking.BookingName,
                 PhoneNumber = testBooking.PhoneNumber,
                 Price = testBooking.Price,
@@ -70,9 +82,9 @@ public class CreateBookingUnitTests : UnitTestBase
         {
             Booking = new CreateBooking.BookingDetail
             {
-                UserId = existingBooking.UserId,
+                UserId = existingBooking.User.Id.ToString(),
                 Date = existingBooking.Date,
-                ActivityId = existingBooking.ActivityID,
+                ActivityId = existingBooking.Activity.Id.ToString(),
                 BookingName = existingBooking.BookingName,
                 PhoneNumber = existingBooking.PhoneNumber,
                 Price = existingBooking.Price,

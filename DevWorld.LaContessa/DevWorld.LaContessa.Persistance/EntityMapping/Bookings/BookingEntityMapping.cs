@@ -12,6 +12,9 @@ public class BookingEntityMapping : IEntityTypeConfiguration<Booking>
     {
         builder.ToTable("bookings");
 
+        builder.HasOne(x => x.User).WithMany();
+        builder.HasOne(x => x.Activity).WithMany();
+
         builder.Property<DateTime>("InsertRecordDateTimeUtc");
         builder.Property<DateTime>("UpdateRecordDateTimeUtc");
     }

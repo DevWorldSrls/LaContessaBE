@@ -49,7 +49,7 @@ public class GetSubscriptionsUnitTests : UnitTestBase
             .BeEquivalentTo(
                 new[] { expectedSubscription1, expectedSubscription2 },
                 options => options.Including(x => x.Id)
-                    .Including(x => x.UserId)
+                    .Including(x => x.User)
                     .Including(x => x.CardNumber)
                     .Including(x => x.Valid)
                     .Including(x => x.ExpirationDate)
