@@ -53,9 +53,9 @@ public class GetBookingsUnitTests : UnitTestBase
                 new GetBookings.Response.BookingDetail
                 {
                     Id = expectedBooking.Id,
-                    UserId = expectedBooking.UserId,
+                    User= expectedBooking.User,
                     Date = expectedBooking.Date,
-                    ActivityId = expectedBooking.Activity,
+                    Activity = expectedBooking.Activity,
                     TimeSlot = expectedBooking.TimeSlot,
                     BookingName = expectedBooking.BookingName,
                     PhoneNumber = expectedBooking.PhoneNumber,

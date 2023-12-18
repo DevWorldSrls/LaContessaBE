@@ -23,12 +23,12 @@ public class GetSubscriptionsHandler : IRequestHandler<GetSubscriptions, GetSubs
                 .Select(x => new GetSubscriptions.Response.SubscriptionDetail
                 {
                     Id = x.Id,
-                    UserId = x.UserId,
+                    User = x.User,
                     CardNumber = x.CardNumber,
                     Valid = x.Valid,
                     ExpirationDate = x.ExpirationDate,
                     SubscriptionType = x.SubscriptionType
-                }).ToArrayAsync()
+                }).ToArrayAsync(cancellationToken)
         };
     }
 }

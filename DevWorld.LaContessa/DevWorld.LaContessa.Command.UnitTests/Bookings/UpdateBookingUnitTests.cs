@@ -35,7 +35,7 @@ public class UpdateBookingUnitTests : UnitTestBase
 
         _dbContext.Bookings.Add(startingBooking);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         var updatedBooking = BookingTestFactory.Create(x=>x.Id = startingBooking.Id);
 
@@ -44,9 +44,9 @@ public class UpdateBookingUnitTests : UnitTestBase
             Booking = new UpdateBooking.BookingDetail
             {
                 Id = startingBooking.Id,
-                UserId = updatedBooking.UserId,
+                UserId = updatedBooking.User.Id.ToString(),
                 Date = updatedBooking.Date,
-                ActivityID = updatedBooking.Activity,
+                ActivityId = updatedBooking.Activity.Id.ToString(),
                 BookingName = updatedBooking.BookingName,
                 PhoneNumber = updatedBooking.PhoneNumber,
                 Price = updatedBooking.Price,
@@ -72,7 +72,7 @@ public class UpdateBookingUnitTests : UnitTestBase
 
         _dbContext.Bookings.Add(startingBooking);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         var updatedBooking = BookingTestFactory.Create();
 
@@ -81,9 +81,9 @@ public class UpdateBookingUnitTests : UnitTestBase
             Booking = new UpdateBooking.BookingDetail
             {
                 Id = updatedBooking.Id,
-                UserId = updatedBooking.UserId,
+                UserId = updatedBooking.User.Id.ToString(),
                 Date = updatedBooking.Date,
-                ActivityID = updatedBooking.Activity,
+                ActivityId = updatedBooking.Activity.Id.ToString(),
                 BookingName = updatedBooking.BookingName,
                 PhoneNumber = updatedBooking.PhoneNumber,
                 Price = updatedBooking.Price,

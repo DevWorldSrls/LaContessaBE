@@ -37,7 +37,7 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
         {
             Subscription = new CreateSubscription.SubscriptionDetail
             {
-                UserId = testSubscription.UserId,
+                UserId = testSubscription.User.Id.ToString(),
                 CardNumber = testSubscription.CardNumber,
                 Valid = testSubscription.Valid,
                 ExpirationDate = testSubscription.ExpirationDate,
@@ -63,7 +63,7 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
         {
             Subscription = new CreateSubscription.SubscriptionDetail
             {
-                UserId = existingSubscription.UserId,
+                UserId = existingSubscription.User.Id.ToString(),
                 CardNumber = existingSubscription.CardNumber,
                 Valid = existingSubscription.Valid,
                 ExpirationDate = existingSubscription.ExpirationDate,

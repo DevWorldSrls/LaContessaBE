@@ -35,7 +35,7 @@ public class UpdateActivityUnitTests : UnitTestBase
 
         _dbContext.Activities.Add(startingActivity);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         var updatedActivity = ActivityTestFactory.Create(x => x.Id = startingActivity.Id);
 
@@ -82,7 +82,7 @@ public class UpdateActivityUnitTests : UnitTestBase
 
         _dbContext.Activities.Add(startingActivity);
 
-        _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
 
         var updatedActivity = ActivityTestFactory.Create();
 

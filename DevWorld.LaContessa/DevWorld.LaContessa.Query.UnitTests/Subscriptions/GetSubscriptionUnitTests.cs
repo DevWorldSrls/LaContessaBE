@@ -50,7 +50,7 @@ public class GetSubscriptionUnitTests : UnitTestBase
                 new GetSubscription.Response.SubscriptionDetail
                 {
                     Id = expectedSubscription.Id,
-                    UserId = expectedSubscription.UserId,
+                    User = expectedSubscription.User,
                     CardNumber = expectedSubscription.CardNumber,
                     Valid = expectedSubscription.Valid,
                     SubscriptionType = expectedSubscription.SubscriptionType,

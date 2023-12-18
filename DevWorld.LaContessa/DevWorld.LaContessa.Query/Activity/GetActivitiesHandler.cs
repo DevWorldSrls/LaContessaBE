@@ -41,7 +41,7 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
                             IsAlreadyBooked = ts.IsAlreadyBooked
                         }).ToList()
                     }).ToList()
-                }).ToArrayAsync()
+                }).ToArrayAsync(cancellationToken)
         };
     }
 }

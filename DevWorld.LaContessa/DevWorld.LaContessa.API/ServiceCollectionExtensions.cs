@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "DevWorld LaContessa API", Version = "v1" });
-            c.CustomSchemaIds(x => x.FullName.Replace("+", "."));
+            c.CustomSchemaIds(x => x.FullName!.Replace("+", "."));
         });
 
         services.AddSwaggerGenNewtonsoftSupport();

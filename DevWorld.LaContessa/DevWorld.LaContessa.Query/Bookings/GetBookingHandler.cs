@@ -19,20 +19,19 @@ public class GetBookingHandler : IRequestHandler<GetBooking, GetBooking.Response
         return new GetBooking.Response
         {
             Booking = await _laContessaDbContext.Bookings
-                .Where(x => x.Id == request.Id)
                 .Select(x => new GetBooking.Response.BookingDetail
                 {
                     Id = x.Id,
                     User = x.User,
                     Date = x.Date,
                     IsLesson = x.IsLesson,
-                    ActivityID = x.Activity,
+                    Activity = x.Activity,
                     Price = x.Price,
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,
                     TimeSlot = x.TimeSlot
                 })
-                .FirstOrDefaultAsync()
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
         };
     }
 }

@@ -19,7 +19,6 @@ public class GetUserHandler : IRequestHandler<GetUser, GetUser.Response>
         return new GetUser.Response
         {
             User = await _laContessaDbContext.Users
-                .Where(x => x.Id == request.Id)
                 .Select(x => new GetUser.Response.UserDetail
                 {
                     Id = x.Id,
@@ -31,7 +30,7 @@ public class GetUserHandler : IRequestHandler<GetUser, GetUser.Response>
                     IsPro = x.IsPro,
                     Password = x.Password
                 })
-                .FirstOrDefaultAsync()
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
         };
     }
 }

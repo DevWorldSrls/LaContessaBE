@@ -20,7 +20,6 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
         return new GetBookingByUserId.Response
         {
             Booking = await _laContessaDbContext.Bookings
-                .Where(x => x.User.Id.ToString() == request.UserId)
                 .Select(x => new GetBookingByUserId.Response.BookingDetail
                 {
                     Id = x.Id,
@@ -33,7 +32,7 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
                     PhoneNumber = x.PhoneNumber,
                     TimeSlot = x.TimeSlot
                 })
-                .FirstOrDefaultAsync()
+                .FirstOrDefaultAsync(x => x.User.Id.ToString() == request.UserId, cancellationToken)
         };
     }
 }

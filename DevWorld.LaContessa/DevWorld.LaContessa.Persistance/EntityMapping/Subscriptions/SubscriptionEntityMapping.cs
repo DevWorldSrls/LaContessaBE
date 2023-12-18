@@ -12,6 +12,8 @@ public class SubscriptionEntityMapping : IEntityTypeConfiguration<Subscription>
     {
         builder.ToTable("subscriptions");
 
+        builder.HasOne(x => x.User).WithMany();
+
         builder.Property<DateTime>("InsertRecordDateTimeUtc");
         builder.Property<DateTime>("UpdateRecordDateTimeUtc");
     }

@@ -38,9 +38,9 @@ public class CreateBookingUnitTests : UnitTestBase
         {
             Booking = new CreateBooking.BookingDetail
             {
-                UserId = testBooking.UserId,
+                UserId = testBooking.User.Id.ToString(),
                 Date = testBooking.Date,
-                ActivityId = testBooking.Activity,
+                ActivityId = testBooking.Activity.Id.ToString(),
                 BookingName = testBooking.BookingName,
                 PhoneNumber = testBooking.PhoneNumber,
                 Price = testBooking.Price,
@@ -70,9 +70,9 @@ public class CreateBookingUnitTests : UnitTestBase
         {
             Booking = new CreateBooking.BookingDetail
             {
-                UserId = existingBooking.UserId,
+                UserId = existingBooking.User.Id.ToString(),
                 Date = existingBooking.Date,
-                ActivityId = existingBooking.Activity,
+                ActivityId = existingBooking.Activity.Id.ToString(),
                 BookingName = existingBooking.BookingName,
                 PhoneNumber = existingBooking.PhoneNumber,
                 Price = existingBooking.Price,

@@ -19,17 +19,16 @@ public class GetSubscriptionHandler : IRequestHandler<GetSubscription, GetSubscr
         return new GetSubscription.Response
         {
             Subscription = await _laContessaDbContext.Subscriptions
-                .Where(x => x.Id == request.Id)
                 .Select(x => new GetSubscription.Response.SubscriptionDetail
                 {
                     Id = x.Id,
-                    UserId = x.UserId,
+                    User = x.User,
                     CardNumber = x.CardNumber,
                     Valid = x.Valid,
                     ExpirationDate = x.ExpirationDate,
                     SubscriptionType = x.SubscriptionType
                 })
-                .FirstOrDefaultAsync()
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
         };
     }
 }

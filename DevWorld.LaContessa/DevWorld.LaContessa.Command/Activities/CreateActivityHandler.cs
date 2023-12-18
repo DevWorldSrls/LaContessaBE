@@ -18,7 +18,7 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
 
     public async Task Handle(CreateActivity request, CancellationToken cancellationToken)
     {
-        var alreadyExist = await _laContessaDbContext.Activities.Where(x => request.Activity.Name == x.Name).AnyAsync();
+        var alreadyExist = await _laContessaDbContext.Activities.AnyAsync(x => request.Activity.Name == x.Name, cancellationToken);
 
         if (alreadyExist)
             throw new ActivityAlreadyExistException();
@@ -35,7 +35,6 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
                 Icon = service.Icon,
                 ServiceName = service.ServiceName
             }).ToList(),
-
             DateList = request.Activity.DateList.Select(date => new ActivityDate
             {
                 Date = date.Date,
@@ -47,9 +46,7 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
             }).ToList()
         };
 
-
-        await _laContessaDbContext.AddAsync(activityToAdd);
-
-        await _laContessaDbContext.SaveChangesAsync();
+        await _laContessaDbContext.AddAsync(activityToAdd, cancellationToken);
+        await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }
 }

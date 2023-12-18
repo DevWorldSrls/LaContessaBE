@@ -8,13 +8,16 @@ public class BookingTestFactory
     {
         var id = idOverride ?? Guid.NewGuid();
 
+        var user = UserTestFactory.Create();
+        var activity = ActivityTestFactory.Create();
+
         var booking = new Booking
         {
             Id = id,
-            UserId = Guid.NewGuid().ToString(),
+            User = user,
             Date = Guid.NewGuid().ToString(),
             IsLesson = new Random().Next(2) == 0,
-            Activity = Guid.NewGuid().ToString(),
+            Activity = activity,
             Price = new Random().Next(),
             BookingName = Guid.NewGuid().ToString(),
             PhoneNumber = Guid.NewGuid().ToString(),

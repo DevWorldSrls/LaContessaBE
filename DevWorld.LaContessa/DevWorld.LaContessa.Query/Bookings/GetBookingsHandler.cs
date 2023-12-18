@@ -26,7 +26,7 @@ public class GetBookingsHandler : IRequestHandler<GetBookings, GetBookings.Respo
                     User = x.User,
                     Date = x.Date,
                     IsLesson = x.IsLesson,
-                    ActivityId = x.Activity,
+                    Activity = x.Activity,
                     Price = x.Price,
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,

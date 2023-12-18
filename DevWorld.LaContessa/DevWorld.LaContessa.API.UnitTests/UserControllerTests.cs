@@ -49,7 +49,7 @@ public class UserControllerTests
         Assert.IsNotNull(result, "Result should not be null.");
 
         Assert.IsInstanceOf<GetUsers.Response>(result.Value);
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 
     [Test]
@@ -74,7 +74,7 @@ public class UserControllerTests
         Assert.IsNotNull(result, "Result should not be null.");
 
         Assert.IsInstanceOf<GetUser.Response>(result.Value);
-        Assert.AreEqual(expectedResponse, result.Value);
+        Assert.That(result.Value, Is.EqualTo(expectedResponse));
     }
 
     [Test]

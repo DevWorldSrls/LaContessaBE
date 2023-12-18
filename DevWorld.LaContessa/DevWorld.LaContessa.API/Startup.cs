@@ -29,7 +29,9 @@ public class Startup
         );
     }
 
+#pragma warning disable IDE0060 // Remove unused parameter
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+#pragma warning restore IDE0060 // Remove unused parameter
     {
         app.UseRouting();
         app.UseMiddleware<ErrorHandlerMiddleware>();

@@ -18,7 +18,7 @@ public class CreateUserHandler : IRequestHandler<CreateUser>
 
     public async Task Handle(CreateUser request, CancellationToken cancellationToken)
     {
-        var alreadyExist = await _laContessaDbContext.Users.Where(x => request.User.Email == x.Email).AnyAsync();
+        var alreadyExist = await _laContessaDbContext.Users.AnyAsync(x => request.User.Email == x.Email);
 
         if (alreadyExist)
             throw new UserAlreadyExistException();
@@ -36,7 +36,6 @@ public class CreateUserHandler : IRequestHandler<CreateUser>
         };
 
         await _laContessaDbContext.AddAsync(userToAdd);
-
         await _laContessaDbContext.SaveChangesAsync();
     }
 }
