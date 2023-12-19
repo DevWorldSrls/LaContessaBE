@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Domain"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Persistance", "DevWorld.LaContessa.Persistance\DevWorld.LaContessa.Persistance.csproj", "{C6875E70-92B6-44F4-8D40-D0EED2AD51F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Persistance.Migrations", "DevWorld.LaContessa.Persistance.Migrations\DevWorld.LaContessa.Persistance.Migrations.csproj", "{8A664204-4395-4EFC-825B-138EEA082C7F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Query.Abstractions", "DevWorld.LaContessa.Query.Abstractions\DevWorld.LaContessa.Query.Abstractions.csproj", "{0B1B9FF6-401E-445A-912E-FD00E1C84CD5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Query", "DevWorld.LaContessa.Query\DevWorld.LaContessa.Query.csproj", "{11A235EE-6DB6-46CF-97FD-DD7C65E17517}"
@@ -31,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.TestUti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.Command.UnitTests", "DevWorld.LaContessa.Command.UnitTests\DevWorld.LaContessa.Command.UnitTests.csproj", "{B66F0438-0EBF-4BFB-882E-DA562E18058E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevWorld.LaContessa.SetupJob", "DevWorld.LaContessa.SetupJob\DevWorld.LaContessa.SetupJob.csproj", "{17A2F9B5-2092-4DB2-AAD8-0F6D04A89312}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevWorld.LaContessa.SetupJob", "DevWorld.LaContessa.SetupJob\DevWorld.LaContessa.SetupJob.csproj", "{17A2F9B5-2092-4DB2-AAD8-0F6D04A89312}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +49,6 @@ Global
 		{C6875E70-92B6-44F4-8D40-D0EED2AD51F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6875E70-92B6-44F4-8D40-D0EED2AD51F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6875E70-92B6-44F4-8D40-D0EED2AD51F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A664204-4395-4EFC-825B-138EEA082C7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A664204-4395-4EFC-825B-138EEA082C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8A664204-4395-4EFC-825B-138EEA082C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A664204-4395-4EFC-825B-138EEA082C7F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B1B9FF6-401E-445A-912E-FD00E1C84CD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B1B9FF6-401E-445A-912E-FD00E1C84CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B1B9FF6-401E-445A-912E-FD00E1C84CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
