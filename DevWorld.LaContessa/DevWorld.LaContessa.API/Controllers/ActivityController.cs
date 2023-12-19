@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DevWorld.LaContessa.API.Controllers;
 
 [ApiController]
-[Route("activties")]
+[Route("activities")]
 public class ActivityController : ControllerBase
 {
     private readonly IMediator _mediator;
