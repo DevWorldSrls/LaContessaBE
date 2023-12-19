@@ -24,10 +24,15 @@ public class CreateSubscriptionHandler : IRequestHandler<CreateSubscription>
 
         var user = await _laContessaDbContext.Users
             .FirstOrDefaultAsync(u => u.Id == Guid.Parse(request.Subscription.UserId), cancellationToken) ?? throw new UserNotFoundException();
+
+        var activity = await _laContessaDbContext.Activities
+            .FirstOrDefaultAsync(a => a.Id == Guid.Parse(request.Subscription.ActivityId), cancellationToken) ?? throw new ActivityNotFoundException();
+
         var subscriptionToAdd = new Domain.Entities.Subscriptions.Subscription
         {
             Id = Guid.NewGuid(),
             User = user,
+            Activity = activity,
             CardNumber = request.Subscription.CardNumber,
             Valid = request.Subscription.Valid,
             ExpirationDate = request.Subscription.ExpirationDate,

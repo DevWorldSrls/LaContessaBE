@@ -51,6 +51,7 @@ public class GetSubscriptionUnitTests : UnitTestBase
                 {
                     Id = expectedSubscription.Id,
                     User = expectedSubscription.User,
+                    Activity = expectedSubscription.Activity,
                     CardNumber = expectedSubscription.CardNumber,
                     Valid = expectedSubscription.Valid,
                     SubscriptionType = expectedSubscription.SubscriptionType,

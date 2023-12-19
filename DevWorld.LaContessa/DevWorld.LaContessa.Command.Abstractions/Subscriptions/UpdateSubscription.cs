@@ -10,6 +10,7 @@ public class UpdateSbscription : IRequest
     {
         public Guid Id { get; set; }
         public string UserId { get; set; } = null!;
+        public string ActivityId { get; set; } = null!;
         public int CardNumber { get; set; }
         public bool Valid { get; set; }
         public string ExpirationDate { get; set; } = null!;

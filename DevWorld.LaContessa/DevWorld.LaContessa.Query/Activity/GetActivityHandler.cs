@@ -24,6 +24,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
                     Id = x.Id,
                     Name = x.Name,
                     IsOutdoor = x.IsOutdoor,
+                    IsSubscriptionRequired = x.IsSubscriptionRequired,
                     Description = x.Description,
                     ActivityImg = x.ActivityImg,
                     ServiceList = x.ServiceList.Select(service => new GetActivity.Response.Service

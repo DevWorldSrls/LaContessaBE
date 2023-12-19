@@ -6,6 +6,7 @@ public class Activity : SoftDeletable
 {
     public string Name { get; set; } = null!;
     public bool IsOutdoor { get; set; }
+    public bool IsSubscriptionRequired { get; set; }
     public string Description { get; set; } = null!;
     public string ActivityImg { get; set; } = null!;
     public List<Service> ServiceList { get; set; } = null!;

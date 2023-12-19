@@ -9,11 +9,13 @@ public class SubscriptionTestFactory
         var id = idOverride ?? Guid.NewGuid();
 
         var user = UserTestFactory.Create();
+        var activity = ActivityTestFactory.Create();
 
         var subscription = new Subscription
         {
             Id = id,
             User = user,
+            Activity = activity,
             CardNumber = new Random().Next(),
             Valid = new Random().Next(2) == 0,
             ExpirationDate = Guid.NewGuid().ToString(),

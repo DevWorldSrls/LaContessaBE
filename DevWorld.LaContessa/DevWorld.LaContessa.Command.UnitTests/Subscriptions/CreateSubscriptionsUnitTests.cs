@@ -31,13 +31,16 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
     public async Task Handle_GivenNewSubscription_ShouldCreateSubscription()
     {
         var user = UserTestFactory.Create();
+        var activity = ActivityTestFactory.Create();
         _dbContext.Users.Add(user);
+        _dbContext.Activities.Add(activity);
 
         await _dbContext.SaveChangesAsync();
 
         var testSubscription = SubscriptionTestFactory.Create(x =>
         {
             x.User = user;
+            x.Activity = activity;
         });
 
         // Arrange
@@ -46,6 +49,7 @@ public class CreateSubscriptionsUnitTests : UnitTestBase
             Subscription = new CreateSubscription.SubscriptionDetail
             {
                 UserId = testSubscription.User.Id.ToString(),
+                ActivityId = testSubscription.Activity.Id.ToString(),
                 CardNumber = testSubscription.CardNumber,
                 Valid = testSubscription.Valid,
                 ExpirationDate = testSubscription.ExpirationDate,

@@ -51,6 +51,7 @@ public class GetActivityHandlerTests : UnitTestBase
                     Id = expectedActivity.Id,
                     Name = expectedActivity.Name,
                     IsOutdoor = expectedActivity.IsOutdoor,
+                    IsSubscriptionRequired = expectedActivity.IsSubscriptionRequired,
                     Description = expectedActivity.Description,
                     ActivityImg = expectedActivity.ActivityImg,
                     ServiceList = expectedActivity.ServiceList.Select(domainService => new GetActivity.Response.Service

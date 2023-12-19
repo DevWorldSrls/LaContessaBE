@@ -32,9 +32,11 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
     public async Task Handle_WhenSubscriptionExists_ShouldUpdateSubscription()
     {
         var user = UserTestFactory.Create();
+        var activity = ActivityTestFactory.Create();
         var startingSubscription = SubscriptionTestFactory.Create();
 
         _dbContext.Users.Add(user);
+        _dbContext.Activities.Add(activity);
         _dbContext.Subscriptions.Add(startingSubscription);
 
         await _dbContext.SaveChangesAsync();
@@ -43,6 +45,7 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
         {
             x.Id = startingSubscription.Id;
             x.User = user;
+            x.Activity = activity;
         });
 
         var UpdateSubscriptionRequest = new UpdateSbscription
@@ -51,6 +54,7 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
             {
                 Id = startingSubscription.Id,
                 UserId = user.Id.ToString(),
+                ActivityId = activity.Id.ToString(),
                 CardNumber = updatedSubscription.CardNumber,
                 Valid = updatedSubscription.Valid,
                 ExpirationDate = updatedSubscription.ExpirationDate,
@@ -65,6 +69,7 @@ public class UpdateSubscriptionsUnitTests : UnitTestBase
             new[] { updatedSubscription },
             options => options
                 .Including(x => x.User)
+                .Including(x => x.Activity)
                 .Including(x => x.CardNumber)
                 .Including(x => x.Valid)
                 .Including(x => x.ExpirationDate)

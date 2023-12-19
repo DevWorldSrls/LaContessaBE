@@ -39,6 +39,7 @@ public class CreateActivityUnitTests : UnitTestBase
             {
                 Name = testActivity.Name,
                 IsOutdoor = testActivity.IsOutdoor,
+                IsSubscriptionRequired = testActivity.IsSubscriptionRequired,
                 Description = testActivity.Description,
                 ActivityImg = testActivity.ActivityImg,
                 ServiceList = testActivity.ServiceList.Select(domainService => new CreateActivity.Service

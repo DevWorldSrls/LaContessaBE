@@ -22,7 +22,11 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
         var user = await _laContessaDbContext.Users
             .FirstOrDefaultAsync(u => u.Id == new Guid(request.Subscription.UserId), cancellationToken) ?? throw new UserNotFoundException();
 
+        var activity = await _laContessaDbContext.Activities
+            .FirstOrDefaultAsync(a => a.Id == Guid.Parse(request.Subscription.ActivityId), cancellationToken) ?? throw new ActivityNotFoundException();
+
         subscriptionToUpdate.User = user;
+        subscriptionToUpdate.Activity = activity;
         subscriptionToUpdate.CardNumber = request.Subscription.CardNumber;
         subscriptionToUpdate.Valid = request.Subscription.Valid;
         subscriptionToUpdate.ExpirationDate = request.Subscription.ExpirationDate;

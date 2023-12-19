@@ -23,6 +23,7 @@ public class GetSubscriptionHandler : IRequestHandler<GetSubscription, GetSubscr
                 {
                     Id = x.Id,
                     User = x.User,
+                    Activity = x.Activity,
                     CardNumber = x.CardNumber,
                     Valid = x.Valid,
                     ExpirationDate = x.ExpirationDate,

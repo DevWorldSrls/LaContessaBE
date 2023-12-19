@@ -24,6 +24,7 @@ public class GetSubscriptionsHandler : IRequestHandler<GetSubscriptions, GetSubs
                 {
                     Id = x.Id,
                     User = x.User,
+                    Activity = x.Activity,
                     CardNumber = x.CardNumber,
                     Valid = x.Valid,
                     ExpirationDate = x.ExpirationDate,

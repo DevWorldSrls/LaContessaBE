@@ -23,6 +23,7 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.IsOutdoor = request.Activity.IsOutdoor;
+        activityToUpdate.IsSubscriptionRequired = request.Activity.IsSubscriptionRequired;
         activityToUpdate.Description = request.Activity.Description;
         activityToUpdate.ActivityImg = request.Activity.ActivityImg;
         activityToUpdate.ServiceList = request.Activity.ServiceList.Select(service =>

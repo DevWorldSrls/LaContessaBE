@@ -28,6 +28,7 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
             Id = Guid.NewGuid(),
             Name = request.Activity.Name,
             IsOutdoor = request.Activity.IsOutdoor,
+            IsSubscriptionRequired = request.Activity.IsSubscriptionRequired,
             Description = request.Activity.Description,
             ActivityImg = request.Activity.ActivityImg,
             ServiceList = request.Activity.ServiceList.Select(service => new Service

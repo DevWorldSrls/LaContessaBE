@@ -15,6 +15,7 @@ public class ActivityTestFactory
             Id = id,
             Name = rnd.Next().ToString(),
             IsOutdoor = rnd.Next(2) == 0,
+            IsSubscriptionRequired = rnd.Next(2) == 0,
             Description = rnd.Next().ToString(),
             ActivityImg = rnd.Next().ToString(),
             ServiceList = new List<Service>(),

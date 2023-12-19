@@ -46,6 +46,7 @@ public class UpdateActivityUnitTests : UnitTestBase
                 Id = startingActivity.Id,
                 Name = updatedActivity.Name,
                 IsOutdoor = updatedActivity.IsOutdoor,
+                IsSubscriptionRequired = updatedActivity.IsSubscriptionRequired,
                 Description = updatedActivity.Description,
                 ActivityImg = updatedActivity.ActivityImg,
                 ServiceList = updatedActivity.ServiceList.Select(domainService => new UpdateActivity.Service
