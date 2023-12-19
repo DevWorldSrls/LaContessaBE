@@ -19,6 +19,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     IsOutdoor = table.Column<bool>(type: "boolean", nullable: false),
+                    IsSubscriptionRequired = table.Column<bool>(type: "boolean", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     ActivityImg = table.Column<string>(type: "text", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -129,6 +130,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ActivityId = table.Column<Guid>(type: "uuid", nullable: false),
                     CardNumber = table.Column<int>(type: "integer", nullable: false),
                     Valid = table.Column<bool>(type: "boolean", nullable: false),
                     ExpirationDate = table.Column<string>(type: "text", nullable: false),
@@ -139,6 +141,12 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscriptions_Activities_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Subscriptions_Users_UserId",
                         column: x => x.UserId,
@@ -178,6 +186,11 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                 name: "IX_Bookings_UserId",
                 table: "Bookings",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscriptions_ActivityId",
+                table: "Subscriptions",
+                column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subscriptions_UserId",

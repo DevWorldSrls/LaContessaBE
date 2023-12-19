@@ -45,6 +45,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<bool>("IsOutdoor")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("IsSubscriptionRequired")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -109,6 +112,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("ActivityId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("CardNumber")
                         .HasColumnType("integer");
 
@@ -133,6 +139,8 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("boolean");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
 
                     b.HasIndex("UserId");
 
@@ -292,11 +300,19 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
             modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Subscriptions.Subscription", b =>
                 {
+                    b.HasOne("DevWorld.LaContessa.Domain.Entities.Activities.Activity", "Activity")
+                        .WithMany()
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DevWorld.LaContessa.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Activity");
 
                     b.Navigation("User");
                 });
