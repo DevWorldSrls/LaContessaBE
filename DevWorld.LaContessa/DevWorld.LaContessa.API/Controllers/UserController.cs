@@ -1,5 +1,5 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Users;
-using DevWorld.LaContessa.Query.Abstractions;
+using DevWorld.LaContessa.Query.Abstractions.Users;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,5 +62,18 @@ public class UserController : ControllerBase
         );
 
         return Ok();
+    }
+
+    [HttpGet("login")]
+    public async Task<ActionResult<GetUser.Response>> Login(string email, string password, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(
+            new LoginRequest
+            {
+                Email = email,
+                Password = password
+            },
+            cancellationToken
+        );
     }
 }

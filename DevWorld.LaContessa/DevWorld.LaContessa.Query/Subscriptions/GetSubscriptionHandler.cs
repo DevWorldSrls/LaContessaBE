@@ -1,5 +1,6 @@
 using DevWorld.LaContessa.Persistance;
-using DevWorld.LaContessa.Query.Abstractions;
+using DevWorld.LaContessa.Query.Abstractions.Exceptions;
+using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +30,7 @@ public class GetSubscriptionHandler : IRequestHandler<GetSubscription, GetSubscr
                     ExpirationDate = x.ExpirationDate,
                     SubscriptionType = x.SubscriptionType
                 })
-                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new SubscriptionNotFoundException()
         };
     }
 }

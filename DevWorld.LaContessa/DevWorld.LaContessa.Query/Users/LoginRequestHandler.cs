@@ -4,18 +4,18 @@ using DevWorld.LaContessa.Query.Abstractions.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevWorld.LaContessa.Query;
+namespace DevWorld.LaContessa.Query.Users;
 
-public class GetUserHandler : IRequestHandler<GetUser, GetUser.Response>
+public class LoginRequestHandler : IRequestHandler<LoginRequest, GetUser.Response>
 {
     private readonly LaContessaDbContext _laContessaDbContext;
 
-    public GetUserHandler(LaContessaDbContext laContessaDbContext)
+    public LoginRequestHandler(LaContessaDbContext laContessaDbContext)
     {
         _laContessaDbContext = laContessaDbContext;
     }
 
-    public async Task<GetUser.Response> Handle(GetUser request, CancellationToken cancellationToken)
+    public async Task<GetUser.Response> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
         return new GetUser.Response
         {
@@ -31,7 +31,8 @@ public class GetUserHandler : IRequestHandler<GetUser, GetUser.Response>
                     IsPro = x.IsPro,
                     Password = x.Password
                 })
-                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new UserNotFoundException()
+                .FirstOrDefaultAsync(x => x.Email == request.Email && x.Password == request.Password, cancellationToken) ?? throw new UserNotFoundException()
         };
     }
 }
+

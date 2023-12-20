@@ -1,4 +1,8 @@
-﻿using DevWorld.LaContessa.Query.Abstractions;
+﻿using DevWorld.LaContessa.Query.Abstractions.Activity;
+using DevWorld.LaContessa.Query.Abstractions.Bookings;
+using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
+using DevWorld.LaContessa.Query.Abstractions.Users;
+using DevWorld.LaContessa.Query.Users;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +15,9 @@ public static class ServiceCollectionExtensions
     )
     {
         services.AddTransient<IRequestHandler<GetUsers, GetUsers.Response>, GetUsersHandler>();
+        services.AddTransient<IRequestHandler<GetUser, GetUser.Response>, GetUserHandler>();
+        services.AddTransient<IRequestHandler<LoginRequest, GetUser.Response>, LoginRequestHandler>();
+
         services.AddTransient<IRequestHandler<GetSubscriptions, GetSubscriptions.Response>, GetSubscriptionsHandler>();
         services.AddTransient<IRequestHandler<GetSubscription, GetSubscription.Response>, GetSubscriptionHandler>();
         services

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace DevWorld.LaContessa.Query.Abstractions;
+namespace DevWorld.LaContessa.Query.Abstractions.Activity;
 
 public class GetActivity : IRequest<GetActivity.Response>
 {

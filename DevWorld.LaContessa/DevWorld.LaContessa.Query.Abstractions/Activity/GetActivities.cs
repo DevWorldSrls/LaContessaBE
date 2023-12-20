@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace DevWorld.LaContessa.Query.Abstractions;
+namespace DevWorld.LaContessa.Query.Abstractions.Activity;
 
 public class GetActivities : IRequest<GetActivities.Response>
 {
@@ -22,7 +22,7 @@ public class GetActivities : IRequest<GetActivities.Response>
 
         public class Service
         {
-            public string Icon { get; set; } = null!; 
+            public string Icon { get; set; } = null!;
             public string ServiceName { get; set; } = null!;
         }
 

@@ -2,7 +2,7 @@ using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Domain.Entities.Users;
 using MediatR;
 
-namespace DevWorld.LaContessa.Query.Abstractions;
+namespace DevWorld.LaContessa.Query.Abstractions.Bookings;
 
 public class GetBookingByUserId : IRequest<GetBookingByUserId.Response>
 {

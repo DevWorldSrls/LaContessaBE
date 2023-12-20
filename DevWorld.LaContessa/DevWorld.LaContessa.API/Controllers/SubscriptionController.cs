@@ -1,5 +1,5 @@
 using DevWorld.LaContessa.Command.Abstractions.Subscription;
-using DevWorld.LaContessa.Query.Abstractions;
+using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

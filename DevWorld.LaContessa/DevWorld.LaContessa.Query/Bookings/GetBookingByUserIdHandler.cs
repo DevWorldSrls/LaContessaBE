@@ -1,5 +1,6 @@
 using DevWorld.LaContessa.Persistance;
-using DevWorld.LaContessa.Query.Abstractions;
+using DevWorld.LaContessa.Query.Abstractions.Bookings;
+using DevWorld.LaContessa.Query.Abstractions.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,7 +33,7 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
                     PhoneNumber = x.PhoneNumber,
                     TimeSlot = x.TimeSlot
                 })
-                .FirstOrDefaultAsync(x => x.User.Id.ToString() == request.UserId, cancellationToken)
+                .FirstOrDefaultAsync(x => x.User.Id.ToString() == request.UserId, cancellationToken) ?? throw new BookingNotFoundException()
         };
     }
 }

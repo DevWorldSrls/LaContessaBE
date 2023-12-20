@@ -1,5 +1,5 @@
 using DevWorld.LaContessa.Persistance;
-using DevWorld.LaContessa.Query.Abstractions;
+using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

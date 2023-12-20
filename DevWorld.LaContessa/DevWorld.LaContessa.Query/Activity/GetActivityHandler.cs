@@ -1,5 +1,6 @@
 using DevWorld.LaContessa.Persistance;
-using DevWorld.LaContessa.Query.Abstractions;
+using DevWorld.LaContessa.Query.Abstractions.Activity;
+using DevWorld.LaContessa.Query.Abstractions.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,7 +43,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
                         }).ToList()
                     }).ToList()
                 })
-                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new ActivityNotFoundException()
         };
     }
 }
