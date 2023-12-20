@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Query.Abstractions.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace DevWorld.LaContessa.API.Middleware;
 
+[ExcludeFromCodeCoverage]
 public class LaContessaProblemDetailsFactory
 {
     private readonly IWebHostEnvironment _env;

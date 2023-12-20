@@ -5,6 +5,7 @@ using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevWorld.LaContessa.Command.UnitTests.Users;
 
@@ -52,18 +53,18 @@ public class CreateUserHandlerTests : UnitTestBase
         await _handler.Handle(createUserRequest, new CancellationToken());
 
         // Assert
-        _dbContext.Users.ToList().Should().BeEquivalentTo(
-            new[] { exampleUser },
+        var user = await _dbContext.Users.FirstOrDefaultAsync();
+
+        Assert.That(user, Is.Not.Null);
+        user.Should().BeEquivalentTo(
+            exampleUser,
             options => options
-                .Including(x => x.Name)
-                .Including(x => x.Email)
-                .Including(x => x.Surname)
-                .Including(x => x.CardNumber)
-                .Including(x => x.IsPro)
-                .Including(x => x.ImageProfile)
-                .Including(x => x.Password)
-                .ExcludingMissingMembers()
+                .Excluding(x => x.Id)
+                .Excluding(x => x.Password)
         );
+
+        bool isPasswordCorrect = PasswordManager.VerifyPassword(exampleUser.Password, user.Password);
+        Assert.That(isPasswordCorrect, Is.True);
     }
 
     [Test]

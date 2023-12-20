@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using DevWorld.LaContessa.API.Middleware;
 using DevWorld.LaContessa.Command;
 using DevWorld.LaContessa.Persistance;
@@ -8,6 +9,7 @@ using MediatR;
 
 namespace DevWorld.LaContessa.API;
 
+[ExcludeFromCodeCoverage]
 public class Startup
 {
     private readonly IConfiguration _configuration;

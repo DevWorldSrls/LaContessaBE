@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using System.Text.Json;
 
 namespace DevWorld.LaContessa.API.Middleware;
 
+[ExcludeFromCodeCoverage]
 public class ErrorHandlerMiddleware
 {
     private readonly LaContessaProblemDetailsFactory _laContessaProblemDetailsFactory;
