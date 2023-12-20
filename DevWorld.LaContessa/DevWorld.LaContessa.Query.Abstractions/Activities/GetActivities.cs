@@ -1,19 +1,12 @@
 using MediatR;
 
-namespace DevWorld.LaContessa.Query.Abstractions.Activity;
+namespace DevWorld.LaContessa.Query.Abstractions.Activities;
 
-public class GetActivity : IRequest<GetActivity.Response>
+public class GetActivities : IRequest<GetActivities.Response>
 {
-    public GetActivity(Guid id)
-    {
-        Id = id;
-    }
-
-    public Guid Id { get; set; }
-
     public class Response
     {
-        public ActivityDetail? Activity { get; set; } = null!;
+        public ActivityDetail[] Activities { get; set; } = null!;
 
         public class ActivityDetail
         {

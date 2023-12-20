@@ -1,4 +1,4 @@
-﻿using DevWorld.LaContessa.Query.Abstractions.Activity;
+﻿using DevWorld.LaContessa.Query.Abstractions.Activities;
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Query.Abstractions.Users;

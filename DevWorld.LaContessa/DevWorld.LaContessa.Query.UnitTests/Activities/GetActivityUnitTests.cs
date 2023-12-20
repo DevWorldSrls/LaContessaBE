@@ -1,5 +1,5 @@
 using DevWorld.LaContessa.Persistance;
-using DevWorld.LaContessa.Query.Abstractions.Activity;
+using DevWorld.LaContessa.Query.Abstractions.Activities;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;

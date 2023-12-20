@@ -1,6 +1,6 @@
 using DevWorld.LaContessa.API.Controllers;
 using DevWorld.LaContessa.Command.Abstractions.Booking;
-using DevWorld.LaContessa.Query.Abstractions.Activity;
+using DevWorld.LaContessa.Query.Abstractions.Activities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

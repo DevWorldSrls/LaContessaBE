@@ -55,8 +55,7 @@ public class GetUserUnitTests : UnitTestBase
                     Surname = expectedUser.Surname,
                     CardNumber = expectedUser.CardNumber,
                     ImageProfile = expectedUser.ImageProfile,
-                    IsPro = expectedUser.IsPro,
-                    Password = expectedUser.Password
+                    IsPro = expectedUser.IsPro
                 },
                 options => options.ExcludingMissingMembers() // Exclude fields that are not part of the response
             );

@@ -76,4 +76,19 @@ public class UserController : ControllerBase
             cancellationToken
         );
     }
+
+    [HttpPut("psw")]
+    public async Task<ActionResult> UpdateUserPassword(string email, string password, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new UpdateUserPassword
+            {
+                Email = email,
+                NewPassword = password
+            },
+            cancellationToken
+        );
+
+        return Ok();
+    }
 }

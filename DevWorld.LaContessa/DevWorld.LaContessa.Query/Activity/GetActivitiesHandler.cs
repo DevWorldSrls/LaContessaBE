@@ -1,5 +1,5 @@
 using DevWorld.LaContessa.Persistance;
-using DevWorld.LaContessa.Query.Abstractions.Activity;
+using DevWorld.LaContessa.Query.Abstractions.Activities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

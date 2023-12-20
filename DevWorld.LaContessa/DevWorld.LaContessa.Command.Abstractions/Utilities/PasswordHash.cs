@@ -12,12 +12,14 @@ public class PasswordManager
     // Metodo per generare un salt casuale
     private static byte[] GenerateSalt()
     {
+#pragma warning disable SYSLIB0023 // Type or member is obsolete
         using (var rng = new RNGCryptoServiceProvider())
         {
             var salt = new byte[SaltSize];
             rng.GetBytes(salt);
             return salt;
         }
+#pragma warning restore SYSLIB0023 // Type or member is obsolete
     }
 
     // Metodo per criptare la password
@@ -25,6 +27,7 @@ public class PasswordManager
     {
         byte[] salt = GenerateSalt();
 
+#pragma warning disable SYSLIB0041 // Type or member is obsolete
         using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations))
         {
             byte[] hash = pbkdf2.GetBytes(KeySize);
@@ -36,6 +39,7 @@ public class PasswordManager
 
             return Convert.ToBase64String(hashBytes);
         }
+#pragma warning restore SYSLIB0041 // Type or member is obsolete
     }
 
     // Metodo per verificare la corrispondenza di una password decriptata
@@ -49,6 +53,7 @@ public class PasswordManager
         Array.Copy(hashBytes, 0, salt, 0, SaltSize);
 
         // Calcola l'hash della password inserita con lo stesso salt
+#pragma warning disable SYSLIB0041 // Type or member is obsolete
         using (var pbkdf2 = new Rfc2898DeriveBytes(enteredPassword, salt, Iterations))
         {
             byte[] hash = pbkdf2.GetBytes(KeySize);
@@ -62,6 +67,7 @@ public class PasswordManager
                 }
             }
         }
+#pragma warning restore SYSLIB0041 // Type or member is obsolete
 
         return true;
     }
