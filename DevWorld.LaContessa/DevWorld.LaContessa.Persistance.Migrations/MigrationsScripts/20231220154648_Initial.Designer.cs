@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 {
     [DbContext(typeof(LaContessaDbContext))]
-    [Migration("20231219151919_Initial")]
+    [Migration("20231220154648_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -157,7 +157,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("uuid");
 
                     b.Property<string>("CardNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
@@ -168,7 +167,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("text");
 
                     b.Property<string>("ImageProfile")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")

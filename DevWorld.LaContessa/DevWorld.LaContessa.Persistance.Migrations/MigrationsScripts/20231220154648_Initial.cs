@@ -37,11 +37,11 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Surname = table.Column<string>(type: "text", nullable: false),
-                    CardNumber = table.Column<string>(type: "text", nullable: false),
+                    CardNumber = table.Column<string>(type: "text", nullable: true),
                     IsPro = table.Column<bool>(type: "boolean", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    ImageProfile = table.Column<string>(type: "text", nullable: false),
+                    ImageProfile = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },

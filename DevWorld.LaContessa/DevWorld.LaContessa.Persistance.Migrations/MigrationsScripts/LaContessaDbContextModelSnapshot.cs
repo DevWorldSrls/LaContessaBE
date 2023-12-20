@@ -154,7 +154,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("uuid");
 
                     b.Property<string>("CardNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
@@ -165,7 +164,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("text");
 
                     b.Property<string>("ImageProfile")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
