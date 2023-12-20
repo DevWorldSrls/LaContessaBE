@@ -1,11 +1,11 @@
-﻿using DevWorld.LaContessa.Command.Abstractions.Booking;
+﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevWorld.LaContessa.Command.Activity;
+namespace DevWorld.LaContessa.Command.Activities;
 
 public class CreateActivityHandler : IRequestHandler<CreateActivity>
 {
@@ -23,7 +23,7 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
         if (alreadyExist)
             throw new ActivityAlreadyExistException();
 
-        var activityToAdd = new Domain.Entities.Activities.Activity
+        var activityToAdd = new Activity
         {
             Id = Guid.NewGuid(),
             Name = request.Activity.Name,

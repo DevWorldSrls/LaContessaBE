@@ -2,6 +2,9 @@
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Query.Abstractions.Users;
+using DevWorld.LaContessa.Query.Activity;
+using DevWorld.LaContessa.Query.Bookings;
+using DevWorld.LaContessa.Query.Subscriptions;
 using DevWorld.LaContessa.Query.Users;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

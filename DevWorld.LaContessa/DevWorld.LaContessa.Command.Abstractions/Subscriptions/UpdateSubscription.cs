@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DevWorld.LaContessa.Command.Abstractions.Subscription;
+namespace DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 
 public class UpdateSbscription : IRequest
 {

@@ -1,10 +1,10 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Exceptions;
-using DevWorld.LaContessa.Command.Abstractions.Subscription;
+using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevWorld.LaContessa.Command.Subscription;
+namespace DevWorld.LaContessa.Command.Subscriptions;
 
 public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
 {

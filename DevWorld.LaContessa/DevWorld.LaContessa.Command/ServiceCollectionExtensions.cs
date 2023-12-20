@@ -1,9 +1,10 @@
-﻿using DevWorld.LaContessa.Command.Abstractions.Booking;
-using DevWorld.LaContessa.Command.Abstractions.Subscription;
+﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
+using DevWorld.LaContessa.Command.Abstractions.Bookings;
+using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Command.Abstractions.Users;
-using DevWorld.LaContessa.Command.Activity;
-using DevWorld.LaContessa.Command.Booking;
-using DevWorld.LaContessa.Command.Subscription;
+using DevWorld.LaContessa.Command.Activities;
+using DevWorld.LaContessa.Command.Bookings;
+using DevWorld.LaContessa.Command.Subscriptions;
 using DevWorld.LaContessa.Command.Users;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

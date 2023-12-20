@@ -1,6 +1,6 @@
-using DevWorld.LaContessa.Command.Abstractions.Booking;
+using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
-using DevWorld.LaContessa.Command.Activity;
+using DevWorld.LaContessa.Command.Activities;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;

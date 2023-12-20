@@ -3,7 +3,7 @@ using DevWorld.LaContessa.Query.Abstractions.Activities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevWorld.LaContessa.Query;
+namespace DevWorld.LaContessa.Query.Activity;
 
 public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities.Response>
 {

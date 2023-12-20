@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DevWorld.LaContessa.Command.Abstractions.Booking;
+namespace DevWorld.LaContessa.Command.Abstractions.Activites;
 
 public class CreateActivity : IRequest
 {

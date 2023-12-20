@@ -1,11 +1,11 @@
 using DevWorld.LaContessa.API.Controllers;
-using DevWorld.LaContessa.Command.Abstractions.Booking;
+using DevWorld.LaContessa.Command.Abstractions.Bookings;
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace DevWorld.LaContessa.Tests;
+namespace DevWorld.LaContessa.API.UnitTests;
 
 [TestFixture]
 public class BookingControllerTests

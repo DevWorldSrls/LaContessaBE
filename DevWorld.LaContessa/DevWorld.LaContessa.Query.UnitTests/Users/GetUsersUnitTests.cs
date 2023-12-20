@@ -1,10 +1,11 @@
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions.Users;
+using DevWorld.LaContessa.Query.Users;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;
 
-namespace DevWorld.LaContessa.Query.UnitTests;
+namespace DevWorld.LaContessa.Query.UnitTests.Users;
 
 [TestFixture]
 public class GetUsersUnitTests : UnitTestBase

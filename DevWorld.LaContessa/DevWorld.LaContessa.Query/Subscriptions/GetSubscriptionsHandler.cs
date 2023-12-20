@@ -3,7 +3,7 @@ using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevWorld.LaContessa.Query;
+namespace DevWorld.LaContessa.Query.Subscriptions;
 
 public class GetSubscriptionsHandler : IRequestHandler<GetSubscriptions, GetSubscriptions.Response>
 {

@@ -1,11 +1,11 @@
 using DevWorld.LaContessa.API.Controllers;
-using DevWorld.LaContessa.Command.Abstractions.Subscription;
+using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace DevWorld.LaContessa.Tests;
+namespace DevWorld.LaContessa.API.UnitTests;
 
 [TestFixture]
 public class SubscriptionControllerTests

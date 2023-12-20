@@ -1,12 +1,12 @@
-using DevWorld.LaContessa.Command.Abstractions.Booking;
+using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
-using DevWorld.LaContessa.Command.Booking;
+using DevWorld.LaContessa.Command.Activities;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;
 
-namespace DevWorld.LaContessa.Command.UnitTests.Bookings;
+namespace DevWorld.LaContessa.Command.UnitTests.Activities;
 
 [TestFixture]
 public class UpdateActivityUnitTests : UnitTestBase

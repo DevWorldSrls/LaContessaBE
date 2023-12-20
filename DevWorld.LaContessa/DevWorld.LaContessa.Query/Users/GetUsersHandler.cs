@@ -3,7 +3,7 @@ using DevWorld.LaContessa.Query.Abstractions.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevWorld.LaContessa.Query;
+namespace DevWorld.LaContessa.Query.Users;
 
 public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
 {

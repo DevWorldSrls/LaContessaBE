@@ -3,7 +3,7 @@ using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevWorld.LaContessa.Query;
+namespace DevWorld.LaContessa.Query.Bookings;
 
 public class GetBookingsHandler : IRequestHandler<GetBookings, GetBookings.Response>
 {

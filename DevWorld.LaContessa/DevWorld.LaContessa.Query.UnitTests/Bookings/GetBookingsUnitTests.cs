@@ -1,10 +1,11 @@
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
+using DevWorld.LaContessa.Query.Bookings;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;
 
-namespace DevWorld.LaContessa.Query.UnitTests;
+namespace DevWorld.LaContessa.Query.UnitTests.Bookings;
 
 [TestFixture]
 public class GetBookingsUnitTests : UnitTestBase
@@ -53,7 +54,7 @@ public class GetBookingsUnitTests : UnitTestBase
                 new GetBookings.Response.BookingDetail
                 {
                     Id = expectedBooking.Id,
-                    User= expectedBooking.User,
+                    User = expectedBooking.User,
                     Date = expectedBooking.Date,
                     Activity = expectedBooking.Activity,
                     TimeSlot = expectedBooking.TimeSlot,
@@ -62,7 +63,7 @@ public class GetBookingsUnitTests : UnitTestBase
                     Price = expectedBooking.Price,
                     IsLesson = expectedBooking.IsLesson
                 },
-                options => options.ExcludingMissingMembers() 
+                options => options.ExcludingMissingMembers()
             );
     }
 }

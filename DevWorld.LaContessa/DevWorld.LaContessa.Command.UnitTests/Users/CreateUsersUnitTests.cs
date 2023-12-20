@@ -6,7 +6,7 @@ using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;
 
-namespace DevWorld.LaContessa.Tests;
+namespace DevWorld.LaContessa.Command.UnitTests.Users;
 
 [TestFixture]
 public class CreateUserHandlerTests : UnitTestBase

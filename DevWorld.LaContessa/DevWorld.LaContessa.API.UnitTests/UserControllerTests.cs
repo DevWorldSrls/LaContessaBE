@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
-namespace DevWorld.LaContessa.Tests;
+namespace DevWorld.LaContessa.API.UnitTests;
 
 [TestFixture]
 public class UserControllerTests

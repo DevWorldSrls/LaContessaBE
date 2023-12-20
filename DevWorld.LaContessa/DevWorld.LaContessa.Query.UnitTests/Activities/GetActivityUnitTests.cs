@@ -1,10 +1,11 @@
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions.Activities;
+using DevWorld.LaContessa.Query.Activity;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;
 
-namespace DevWorld.LaContessa.Query.UnitTests;
+namespace DevWorld.LaContessa.Query.UnitTests.Activities;
 
 [TestFixture]
 public class GetActivityHandlerTests : UnitTestBase

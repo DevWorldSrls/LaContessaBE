@@ -1,6 +1,6 @@
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
-using DevWorld.LaContessa.Command.Abstractions.Subscription;
-using DevWorld.LaContessa.Command.Subscription;
+using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
+using DevWorld.LaContessa.Command.Subscriptions;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;

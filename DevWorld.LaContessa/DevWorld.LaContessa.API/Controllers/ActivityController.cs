@@ -1,4 +1,4 @@
-using DevWorld.LaContessa.Command.Abstractions.Booking;
+using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Query.Abstractions.Activities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

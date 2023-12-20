@@ -1,11 +1,11 @@
-﻿using DevWorld.LaContessa.Command.Abstractions.Booking;
+﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevWorld.LaContessa.Command.Booking;
+namespace DevWorld.LaContessa.Command.Activities;
 
 public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
 {

@@ -1,11 +1,12 @@
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions;
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
+using DevWorld.LaContessa.Query.Bookings;
 using DevWorld.LaContessa.TestUtils.TestFactories;
 using DevWorld.LaContessa.TestUtils.Utils;
 using FluentAssertions;
 
-namespace DevWorld.LaContessa.Query.UnitTests;
+namespace DevWorld.LaContessa.Query.UnitTests.Bookings;
 
 [TestFixture]
 public class GetBookingByUserIdUnitTests : UnitTestBase
