@@ -23,7 +23,6 @@ public class GetUser : IRequest<GetUser.Response>
             public string CardNumber { get; set; } = null!;
             public bool IsPro { get; set; } = false;
             public string Email { get; set; } = null!;
-            public string Password { get; set; } = null!;
             public string ImageProfile { get; set; } = null!;
         }
     }

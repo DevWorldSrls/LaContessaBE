@@ -1,5 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Abstractions.Users;
+using DevWorld.LaContessa.Command.Abstractions.Utilities;
 using DevWorld.LaContessa.Domain.Entities.Users;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
@@ -23,13 +24,15 @@ public class CreateUserHandler : IRequestHandler<CreateUser>
         if (alreadyExist)
             throw new UserAlreadyExistException();
 
+        var generatedPassword = PasswordManager.EncryptPassword(request.User.Password);
+
         var userToAdd = new User
         {
             Id = Guid.NewGuid(),
             Name = request.User.Name,
             Surname = request.User.Surname,
             Email = request.User.Email,
-            Password = request.User.Password,
+            Password = generatedPassword,
             CardNumber = request.User.CardNumber,
             ImageProfile = request.User.ImageProfile,
             IsPro = request.User.IsPro

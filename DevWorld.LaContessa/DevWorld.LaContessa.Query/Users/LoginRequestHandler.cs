@@ -1,6 +1,7 @@
 ﻿using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions.Exceptions;
 using DevWorld.LaContessa.Query.Abstractions.Users;
+using DevWorld.LaContessa.Query.Abstractions.Utilities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,21 +18,25 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, GetUser.Respons
 
     public async Task<GetUser.Response> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
+        string enteredPassword = PasswordManager.EncryptPassword(request.Password);
+        var user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken) ?? throw new UserNotFoundException();
+
+        bool isPasswordCorrect = PasswordManager.VerifyPassword(enteredPassword, user.Password);
+        if (!isPasswordCorrect)
+            throw new WrongPasswordException();
+
         return new GetUser.Response
         {
-            User = await _laContessaDbContext.Users
-                .Select(x => new GetUser.Response.UserDetail
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Surname = x.Surname,
-                    CardNumber = x.CardNumber,
-                    Email = x.Email,
-                    ImageProfile = x.ImageProfile,
-                    IsPro = x.IsPro,
-                    Password = x.Password
-                })
-                .FirstOrDefaultAsync(x => x.Email == request.Email && x.Password == request.Password, cancellationToken) ?? throw new UserNotFoundException()
+            User = new GetUser.Response.UserDetail
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Surname = user.Surname,
+                CardNumber = user.CardNumber,
+                Email = user.Email,
+                ImageProfile = user.ImageProfile,
+                IsPro = user.IsPro,
+            }
         };
     }
 }
