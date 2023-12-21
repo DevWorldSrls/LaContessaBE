@@ -110,4 +110,19 @@ public class UserController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet("login/admin")]
+    [AllowAnonymous]
+    public async Task<ActionResult<GetUser.Response>> LoginAdmin(string email, string password, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(
+            new LoginRequest
+            {
+                Email = email,
+                Password = password,
+                IsAdmin = true
+            },
+            cancellationToken
+        );
+    }
 }

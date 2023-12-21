@@ -40,6 +40,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Surname = table.Column<string>(type: "text", nullable: false),
                     CardNumber = table.Column<string>(type: "text", nullable: true),
                     IsPro = table.Column<bool>(type: "boolean", nullable: false),
+                    IsAdmin = table.Column<bool>(type: "boolean", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
                     ImageProfile = table.Column<string>(type: "text", nullable: true),
