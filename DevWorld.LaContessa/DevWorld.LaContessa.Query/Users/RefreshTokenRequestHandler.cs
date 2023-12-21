@@ -1,43 +1,32 @@
 ﻿using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions.Exceptions;
 using DevWorld.LaContessa.Query.Abstractions.Users;
-using DevWorld.LaContessa.Query.Abstractions.Utilities;
 using DevWorld.LaContessa.Query.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+
 
 namespace DevWorld.LaContessa.Query.Users;
 
-public class LoginRequestHandler : IRequestHandler<LoginRequest, GetUser.Response>
+public class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, GetUser.Response>
 {
     private readonly LaContessaDbContext _laContessaDbContext;
     private readonly ITokenService _tokenService;
 
-    public LoginRequestHandler(LaContessaDbContext laContessaDbContext, ITokenService tokenService)
+    public RefreshTokenRequestHandler(LaContessaDbContext laContessaDbContext, ITokenService tokenService)
     {
         _laContessaDbContext = laContessaDbContext;
         _tokenService = tokenService;
     }
 
-    public async Task<GetUser.Response> Handle(LoginRequest request, CancellationToken cancellationToken)
+    public async Task<GetUser.Response> Handle(RefreshTokenRequest request, CancellationToken cancellationToken)
     {
-        var user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken) ?? throw new UserNotFoundException();
+        var principal = _tokenService.GetPrincipalFromExpiredToken(request.AuthenticationToken);
+        var userEmail = principal.Identity?.Name ?? throw new UserNotFoundException(); //TODO change in PrincipalMailNotFound
+        
+        var user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Email == userEmail && x.RefreshToken == request.RefreshToken, cancellationToken) ?? throw new UserNotFoundException();
 
-        bool isPasswordCorrect = PasswordManager.VerifyPassword(request.Password, user.Password);
-        if (!isPasswordCorrect)
-            throw new WrongPasswordException();
-
-        var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.Name, user.Email)
-        };
-
-        var token = _tokenService.GenerateAccessToken(claims);
+        var token = _tokenService.GenerateAccessToken(principal.Claims);
         var newRefreshToken = _tokenService.GenerateRefreshToken();
 
         user.RefreshToken = newRefreshToken;

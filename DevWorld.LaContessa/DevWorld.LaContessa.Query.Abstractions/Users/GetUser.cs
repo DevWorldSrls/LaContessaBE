@@ -14,6 +14,8 @@ public class GetUser : IRequest<GetUser.Response>
     public class Response
     {
         public UserDetail? User { get; set; } = null!;
+        public string Token { get; set; } = null!;
+        public string RefreshToken { get; set; } = null!;
 
         public class UserDetail
         {

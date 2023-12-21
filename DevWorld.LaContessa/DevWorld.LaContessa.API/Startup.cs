@@ -22,7 +22,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<IMediator>());
-        services.AddApiServices();
+        services.AddApiServices(_configuration);
         services.AddQueryServices();
         services.AddCommandServices();
         services.AddPersistance(
@@ -36,6 +36,9 @@ public class Startup
 #pragma warning restore IDE0060 // Remove unused parameter
     {
         app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+
         app.UseMiddleware<ErrorHandlerMiddleware>();
         app.UseForwardedHeaders();
 

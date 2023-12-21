@@ -1,11 +1,13 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Users;
 using DevWorld.LaContessa.Query.Abstractions.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevWorld.LaContessa.API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("users")]
 public class UserController : ControllerBase
 {
@@ -35,6 +37,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<ActionResult> CreateUser([FromBody] CreateUser.UserDetail user,
         CancellationToken cancellationToken)
     {
@@ -65,6 +68,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("login")]
+    [AllowAnonymous]
     public async Task<ActionResult<GetUser.Response>> Login(string email, string password, CancellationToken cancellationToken)
     {
         return await _mediator.Send(
@@ -77,7 +81,22 @@ public class UserController : ControllerBase
         );
     }
 
+    [HttpGet("refresh")]
+    [AllowAnonymous]
+    public async Task<ActionResult<GetUser.Response>> RefreshToken(string authenticationToken, string refreshToken, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(
+            new RefreshTokenRequest
+            {
+                AuthenticationToken = authenticationToken,
+                RefreshToken = refreshToken
+            },
+            cancellationToken
+        );
+    }
+
     [HttpPut("psw")]
+    [AllowAnonymous]
     public async Task<ActionResult> UpdateUserPassword(string email, string password, CancellationToken cancellationToken)
     {
         await _mediator.Send(

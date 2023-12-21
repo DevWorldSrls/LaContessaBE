@@ -1,11 +1,13 @@
 using DevWorld.LaContessa.Command.Abstractions.Bookings;
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevWorld.LaContessa.API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("bookings")]
 public class BookingController : ControllerBase
 {

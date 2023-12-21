@@ -1,11 +1,13 @@
 using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Query.Abstractions.Activities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevWorld.LaContessa.API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("activities")]
 public class ActivityController : ControllerBase
 {

@@ -1,11 +1,13 @@
 using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevWorld.LaContessa.API.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("subscriptions")]
 public class SubscriptionController : ControllerBase
 {
