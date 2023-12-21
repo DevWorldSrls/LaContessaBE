@@ -30,7 +30,6 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
         bookingToUpdate.BookingName = request.Booking.BookingName;
         bookingToUpdate.PhoneNumber = request.Booking.PhoneNumber;
         bookingToUpdate.Activity = activity;
-        bookingToUpdate.Price = request.Booking.Price;
         bookingToUpdate.IsLesson = request.Booking.IsLesson;
         bookingToUpdate.TimeSlot = request.Booking.TimeSlot;
 

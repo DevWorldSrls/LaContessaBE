@@ -58,7 +58,6 @@ public class UpdateBookingUnitTests : UnitTestBase
                 ActivityId = updatedBooking.Activity.Id.ToString(),
                 BookingName = updatedBooking.BookingName,
                 PhoneNumber = updatedBooking.PhoneNumber,
-                Price = updatedBooking.Price,
                 IsLesson = updatedBooking.IsLesson,
                 TimeSlot = updatedBooking.TimeSlot
             }
@@ -95,7 +94,6 @@ public class UpdateBookingUnitTests : UnitTestBase
                 ActivityId = updatedBooking.Activity.Id.ToString(),
                 BookingName = updatedBooking.BookingName,
                 PhoneNumber = updatedBooking.PhoneNumber,
-                Price = updatedBooking.Price,
                 IsLesson = updatedBooking.IsLesson,
                 TimeSlot = updatedBooking.TimeSlot
             }

@@ -22,6 +22,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     IsSubscriptionRequired = table.Column<bool>(type: "boolean", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     ActivityImg = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
@@ -103,7 +104,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     TimeSlot = table.Column<string>(type: "text", nullable: false),
                     BookingName = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<double>(type: "double precision", nullable: false),
                     IsLesson = table.Column<bool>(type: "boolean", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)

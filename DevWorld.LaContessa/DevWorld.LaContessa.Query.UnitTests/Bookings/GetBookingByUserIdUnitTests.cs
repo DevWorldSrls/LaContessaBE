@@ -57,7 +57,6 @@ public class GetBookingByUserIdUnitTests : UnitTestBase
                     TimeSlot = expectedBooking.TimeSlot,
                     BookingName = expectedBooking.BookingName,
                     PhoneNumber = expectedBooking.PhoneNumber,
-                    Price = expectedBooking.Price,
                     IsLesson = expectedBooking.IsLesson
                 },
                 options => options.ExcludingMissingMembers() // Exclude fields that are not part of the response

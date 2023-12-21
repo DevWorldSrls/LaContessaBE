@@ -36,7 +36,6 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
             BookingName = request.Booking.BookingName,
             PhoneNumber = request.Booking.PhoneNumber,
             Activity = activity,
-            Price = request.Booking.Price,
             IsLesson = request.Booking.IsLesson,
             TimeSlot = request.Booking.TimeSlot
         };

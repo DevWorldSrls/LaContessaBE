@@ -27,7 +27,6 @@ public class GetBookingHandler : IRequestHandler<GetBooking, GetBooking.Response
                     Date = x.Date,
                     IsLesson = x.IsLesson,
                     Activity = x.Activity,
-                    Price = x.Price,
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,
                     TimeSlot = x.TimeSlot

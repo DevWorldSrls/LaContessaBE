@@ -31,6 +31,7 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
             IsSubscriptionRequired = request.Activity.IsSubscriptionRequired,
             Description = request.Activity.Description,
             ActivityImg = request.Activity.ActivityImg,
+            Price = request.Activity.Price,
             ServiceList = request.Activity.ServiceList.Select(service => new Service
             {
                 Icon = service.Icon,

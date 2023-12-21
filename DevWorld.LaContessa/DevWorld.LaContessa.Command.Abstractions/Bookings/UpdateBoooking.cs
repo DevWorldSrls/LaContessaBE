@@ -15,7 +15,6 @@ public class UpdateBooking : IRequest
         public string TimeSlot { get; set; } = null!;
         public string BookingName { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
-        public double Price { get; set; }
         public bool IsLesson { get; set; }
     }
 }

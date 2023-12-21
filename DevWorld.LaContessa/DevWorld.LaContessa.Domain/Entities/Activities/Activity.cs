@@ -9,6 +9,7 @@ public class Activity : SoftDeletable
     public bool IsSubscriptionRequired { get; set; }
     public string Description { get; set; } = null!;
     public string ActivityImg { get; set; } = null!;
+    public double Price { get; set; }
     public List<Service> ServiceList { get; set; } = null!;
     public List<ActivityDate> DateList { get; set; } = null!;
 }

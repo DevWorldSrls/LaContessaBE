@@ -28,6 +28,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
                     IsSubscriptionRequired = x.IsSubscriptionRequired,
                     Description = x.Description,
                     ActivityImg = x.ActivityImg,
+                    Price = x.Price,
                     ServiceList = x.ServiceList.Select(service => new GetActivity.Response.Service
                     {
                         Icon = service.Icon,

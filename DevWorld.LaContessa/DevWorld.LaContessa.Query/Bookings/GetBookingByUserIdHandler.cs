@@ -28,7 +28,6 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
                     Date = x.Date,
                     IsLesson = x.IsLesson,
                     Activity = x.Activity,
-                    Price = x.Price,
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,
                     TimeSlot = x.TimeSlot

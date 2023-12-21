@@ -26,6 +26,7 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
         activityToUpdate.IsSubscriptionRequired = request.Activity.IsSubscriptionRequired;
         activityToUpdate.Description = request.Activity.Description;
         activityToUpdate.ActivityImg = request.Activity.ActivityImg;
+        activityToUpdate.Price = request.Activity.Price;
         activityToUpdate.ServiceList = request.Activity.ServiceList.Select(service =>
             new Service
             {
