@@ -48,7 +48,7 @@ public static class ServiceCollectionExtensions
             options.AddPolicy(name: "_allowSpecificOrigins",
                               builder =>
                               {
-                                  builder.WithOrigins("http://localhost:3001");
+                                  builder.WithOrigins("http://localhost:3000");
                               });
         });
 
