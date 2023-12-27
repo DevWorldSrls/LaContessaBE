@@ -43,6 +43,15 @@ public static class ServiceCollectionExtensions
                     };
                 });
 
+        services.AddCors(options =>
+        {
+            options.AddPolicy(name: "_allowSpecificOrigins",
+                              builder =>
+                              {
+                                  builder.WithOrigins("http://localhost:3001");
+                              });
+        });
+
         services.AddControllers(options =>
         {
             options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
