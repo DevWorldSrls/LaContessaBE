@@ -18,20 +18,6 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpOptions("id")]
-    [AllowAnonymous]
-    public IActionResult PreflightRoute(Guid id)
-    {
-        return NoContent();
-    }
-
-    [HttpOptions]
-    [AllowAnonymous]
-    public IActionResult PreflightRoute()
-    {
-        return NoContent();
-    }
-
     [HttpGet]
     public async Task<ActionResult<GetUsers.Response>> GetUsers(CancellationToken cancellationToken)
     {
