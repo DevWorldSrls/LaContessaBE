@@ -125,4 +125,10 @@ public class UserController : ControllerBase
             cancellationToken
         );
     }
+
+    [HttpGet("auth")]
+    public ActionResult IsAuthorized() 
+    { 
+        return Ok(); 
+    }
 }
