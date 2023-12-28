@@ -45,10 +45,10 @@ public static class ServiceCollectionExtensions
 
         services.AddCors(options =>
         {
-            options.AddPolicy(name: "_allowSpecificOrigins",
+            options.AddDefaultPolicy(
                               builder =>
                               {
-                                  builder.WithOrigins("http://localhost:3000");
+                                  builder.WithOrigins("http://127.0.0.1");
                               });
         });
 
