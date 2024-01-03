@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DevWorld.LaContessa.Domain.Enums;
+using MediatR;
 
 namespace DevWorld.LaContessa.Command.Abstractions.Activites;
 
@@ -16,6 +17,8 @@ public class CreateActivity : IRequest
         public double Price { get; set; }
         public List<Service> ServiceList { get; set; } = null!;
         public List<ActivityDate> DateList { get; set; } = null!;
+        public int Limit { get; set; }
+        public ActivityBookingType BookingType { get; set; }
     }
 
     public class Service

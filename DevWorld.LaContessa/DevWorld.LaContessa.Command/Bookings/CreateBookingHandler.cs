@@ -35,6 +35,31 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
             var activity = await _laContessaDbContext.Activities
                 .FirstOrDefaultAsync(a => a.Id == Guid.Parse(bookingRequest.ActivityId), cancellationToken) ?? throw new ActivityNotFoundException();
 
+            switch (activity.BookingType)
+            {
+                case Domain.Enums.ActivityBookingType.APM:
+
+                    var bookingForActivity = await _laContessaDbContext.Bookings.CountAsync(x => x.Activity.Id == activity.Id && x.Date == bookingRequest.Date && x.TimeSlot == bookingRequest.TimeSlot);
+
+                    if (bookingForActivity >= activity.Limit)
+                    {
+                        var activityDateAPM = activity.DateList.FirstOrDefault(x => x.Date == bookingRequest.Date) ?? throw new ActivityNotFoundException();
+                        var timeSlotToUpdateAPM = activityDateAPM.TimeSlotList.FirstOrDefault(x => x.TimeSlot == bookingRequest.TimeSlot) ?? throw new ActivityNotFoundException();
+                        timeSlotToUpdateAPM.IsAlreadyBooked = true;
+                    }
+
+                    break;
+                case Domain.Enums.ActivityBookingType.APS:
+
+                    var activityDateAPS = activity.DateList.FirstOrDefault(x => x.Date == bookingRequest.Date) ?? throw new ActivityNotFoundException();
+                    var timeSlotToUpdateAPS = activityDateAPS.TimeSlotList.FirstOrDefault(x => x.TimeSlot == bookingRequest.TimeSlot) ?? throw new ActivityNotFoundException();
+                    timeSlotToUpdateAPS.IsAlreadyBooked = true;
+
+                    break;
+                default:
+                    break;
+            }
+
             var bookingToAdd = new Domain.Entities.Bookings.Booking
             {
                 Id = Guid.NewGuid(),

@@ -42,7 +42,9 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
                             TimeSlot = ts.TimeSlot,
                             IsAlreadyBooked = ts.IsAlreadyBooked
                         }).ToList()
-                    }).ToList()
+                    }).ToList(),
+                    Limit = x.Limit,
+                    BookingType = x.BookingType
                 }).ToArrayAsync(cancellationToken)
         };
     }

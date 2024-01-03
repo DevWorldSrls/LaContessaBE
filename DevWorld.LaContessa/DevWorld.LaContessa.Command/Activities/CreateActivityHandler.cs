@@ -45,7 +45,9 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
                     TimeSlot = ts.TimeSlot,
                     IsAlreadyBooked = ts.IsAlreadyBooked
                 }).ToList()
-            }).ToList()
+            }).ToList(),
+            Limit = request.Activity.Limit,
+            BookingType = request.Activity.BookingType,
         };
 
         await _laContessaDbContext.AddAsync(activityToAdd, cancellationToken);

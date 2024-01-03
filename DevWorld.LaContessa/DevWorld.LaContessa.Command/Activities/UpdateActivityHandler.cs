@@ -45,6 +45,8 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
                         IsAlreadyBooked = ts.IsAlreadyBooked
                     }).ToList()
             }).ToList();
+        activityToUpdate.Limit = request.Activity.Limit;
+        activityToUpdate.BookingType = request.Activity.BookingType;
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }
