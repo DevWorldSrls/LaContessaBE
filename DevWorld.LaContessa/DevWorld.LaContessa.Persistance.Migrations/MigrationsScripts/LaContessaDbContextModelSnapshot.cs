@@ -32,6 +32,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("BookingType")
+                        .HasColumnType("integer");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -47,6 +50,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<bool>("IsSubscriptionRequired")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("Limit")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -90,6 +96,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
                     b.Property<string>("TimeSlot")
                         .IsRequired()
                         .HasColumnType("text");
@@ -115,7 +124,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<Guid>("ActivityId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("CardNumber")
+                    b.Property<int?>("CardNumber")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
@@ -128,15 +137,24 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("SubscriptionType")
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("MedicalCertificateDueDate")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("MedicalCertificateExpired")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("NumberOfIngress")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubType")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
-
-                    b.Property<bool>("Valid")
-                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -182,6 +200,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("PeriodicBookingsEnabled")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("text");
