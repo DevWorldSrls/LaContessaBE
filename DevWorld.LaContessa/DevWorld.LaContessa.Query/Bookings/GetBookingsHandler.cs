@@ -29,7 +29,8 @@ public class GetBookingsHandler : IRequestHandler<GetBookings, GetBookings.Respo
                     Activity = x.Activity,
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,
-                    TimeSlot = x.TimeSlot
+                    TimeSlot = x.TimeSlot,
+                    Status = x.Status,
                 }).ToArrayAsync()
         };
     }

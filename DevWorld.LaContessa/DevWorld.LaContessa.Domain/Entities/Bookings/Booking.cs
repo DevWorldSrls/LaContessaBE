@@ -1,5 +1,6 @@
 ﻿using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Domain.Entities.Users;
+using DevWorld.LaContessa.Domain.Enums;
 
 namespace DevWorld.LaContessa.Domain.Entities.Bookings;
 
@@ -12,4 +13,5 @@ public class Booking : SoftDeletable
     public string BookingName { get; set; } = null!;
     public string PhoneNumber { get; set; } = null!;
     public bool IsLesson { get; set; }
+    public BookingStatus Status { get; set; }
 }

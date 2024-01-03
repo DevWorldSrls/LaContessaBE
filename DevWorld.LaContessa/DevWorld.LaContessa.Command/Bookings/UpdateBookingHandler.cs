@@ -32,6 +32,7 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
         bookingToUpdate.Activity = activity;
         bookingToUpdate.IsLesson = request.Booking.IsLesson;
         bookingToUpdate.TimeSlot = request.Booking.TimeSlot;
+        bookingToUpdate.Status = request.Booking.Status;
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }

@@ -69,7 +69,8 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                 PhoneNumber = bookingRequest.PhoneNumber,
                 Activity = activity,
                 IsLesson = bookingRequest.IsLesson,
-                TimeSlot = bookingRequest.TimeSlot
+                TimeSlot = bookingRequest.TimeSlot,
+                Status = bookingRequest.Status,
             };
 
             await _laContessaDbContext.AddAsync(bookingToAdd, cancellationToken);

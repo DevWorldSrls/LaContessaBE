@@ -29,7 +29,8 @@ public class GetBookingHandler : IRequestHandler<GetBooking, GetBooking.Response
                     Activity = x.Activity,
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,
-                    TimeSlot = x.TimeSlot
+                    TimeSlot = x.TimeSlot,
+                    Status = x.Status,
                 })
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new BookingNotFoundException()
         };
