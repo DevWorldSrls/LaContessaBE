@@ -27,11 +27,15 @@ public class GetSubscriptionByUserIdHandler : IRequestHandler<GetSubscriptionByU
                     User = x.User,
                     Activity = x.Activity,
                     CardNumber = x.CardNumber,
-                    Valid = x.Valid,
+                    IsValid = x.IsValid,
                     ExpirationDate = x.ExpirationDate,
-                    SubscriptionType = x.SubscriptionType
+                    SubType = x.SubType,
+                    NumberOfIngress = x.NumberOfIngress,
+                    MedicalCertificateExpired = x.MedicalCertificateExpired,
+                    MedicalCertificateDueDate = x.MedicalCertificateDueDate,
                 })
-                .FirstOrDefaultAsync(x => x.User.Id.ToString() == request.UserId, cancellationToken) ?? throw new SubscriptionNotFoundException()
+                .Where(x => x.User.Id.ToString() == request.UserId)
+                .ToArrayAsync(cancellationToken) ?? throw new SubscriptionNotFoundException()
         };
     }
 }

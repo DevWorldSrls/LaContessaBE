@@ -34,9 +34,12 @@ public class CreateSubscriptionHandler : IRequestHandler<CreateSubscription>
             User = user,
             Activity = activity,
             CardNumber = request.Subscription.CardNumber,
-            Valid = request.Subscription.Valid,
+            IsValid = request.Subscription.IsValid,
             ExpirationDate = request.Subscription.ExpirationDate,
-            SubscriptionType = request.Subscription.SubscriptionType
+            SubType = request.Subscription.SubType,
+            NumberOfIngress = request.Subscription.NumberOfIngress,
+            MedicalCertificateExpired = request.Subscription.MedicalCertificateExpired,
+            MedicalCertificateDueDate = request.Subscription.MedicalCertificateDueDate,
         };
 
         await _laContessaDbContext.AddAsync(subscriptionToAdd, cancellationToken);

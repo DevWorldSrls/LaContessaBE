@@ -26,9 +26,12 @@ public class GetSubscriptionHandler : IRequestHandler<GetSubscription, GetSubscr
                     User = x.User,
                     Activity = x.Activity,
                     CardNumber = x.CardNumber,
-                    Valid = x.Valid,
+                    IsValid = x.IsValid,
                     ExpirationDate = x.ExpirationDate,
-                    SubscriptionType = x.SubscriptionType
+                    SubType = x.SubType,
+                    NumberOfIngress = x.NumberOfIngress,
+                    MedicalCertificateExpired = x.MedicalCertificateExpired,
+                    MedicalCertificateDueDate = x.MedicalCertificateDueDate,
                 })
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new SubscriptionNotFoundException()
         };

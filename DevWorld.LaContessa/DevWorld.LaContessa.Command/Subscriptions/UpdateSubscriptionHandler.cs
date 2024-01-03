@@ -28,9 +28,12 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
         subscriptionToUpdate.User = user;
         subscriptionToUpdate.Activity = activity;
         subscriptionToUpdate.CardNumber = request.Subscription.CardNumber;
-        subscriptionToUpdate.Valid = request.Subscription.Valid;
+        subscriptionToUpdate.IsValid = request.Subscription.IsValid;
         subscriptionToUpdate.ExpirationDate = request.Subscription.ExpirationDate;
-        subscriptionToUpdate.SubscriptionType = request.Subscription.SubscriptionType;
+        subscriptionToUpdate.SubType = request.Subscription.SubType;
+        subscriptionToUpdate.NumberOfIngress = request.Subscription.NumberOfIngress;
+        subscriptionToUpdate.MedicalCertificateExpired = request.Subscription.MedicalCertificateExpired;
+        subscriptionToUpdate.MedicalCertificateDueDate = request.Subscription.MedicalCertificateDueDate;
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }
