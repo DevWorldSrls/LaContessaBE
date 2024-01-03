@@ -43,6 +43,7 @@ public class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, G
                 Email = user.Email,
                 ImageProfile = user.ImageProfile,
                 IsPro = user.IsPro,
+                PeriodicBookingsEnabled = user.PeriodicBookingsEnabled,
             },
             Token = token,
             RefreshToken = newRefreshToken

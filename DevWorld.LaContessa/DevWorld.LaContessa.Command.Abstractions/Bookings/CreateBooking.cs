@@ -4,7 +4,7 @@ namespace DevWorld.LaContessa.Command.Abstractions.Bookings;
 
 public class CreateBooking : IRequest
 {
-    public BookingDetail Booking { get; set; } = null!;
+    public BookingDetail[] Bookings { get; set; } = null!;
 
     public class BookingDetail
     {

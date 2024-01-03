@@ -26,7 +26,8 @@ public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
                 CardNumber = x.CardNumber,
                 Email = x.Email,
                 ImageProfile = x.ImageProfile,
-                IsPro = x.IsPro
+                IsPro = x.IsPro,
+                PeriodicBookingsEnabled = x.PeriodicBookingsEnabled,
             }).ToArrayAsync(cancellationToken)
         };
     }

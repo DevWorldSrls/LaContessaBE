@@ -37,13 +37,13 @@ public class BookingController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateBooking([FromBody] CreateBooking.BookingDetail booking,
+    public async Task<ActionResult> CreateBooking([FromBody] CreateBooking.BookingDetail[] booking,
         CancellationToken cancellationToken)
     {
         await _mediator.Send(
             new CreateBooking
             {
-                Booking = booking
+                Bookings = booking
             },
             cancellationToken
         );
