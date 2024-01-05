@@ -31,7 +31,9 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,
                     TimeSlot = x.TimeSlot,
-                    Status = x.Status
+                    Status = x.Status,
+                    BookingPrice = x.BookingPrice,
+                    PaymentPrice = x.PaymentPrice,
                 })
                 .FirstOrDefaultAsync(x => x.User.Id.ToString() == request.UserId, cancellationToken) ?? throw new BookingNotFoundException()
         };
