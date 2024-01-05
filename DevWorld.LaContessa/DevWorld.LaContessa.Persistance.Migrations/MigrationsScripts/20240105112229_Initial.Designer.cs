@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 {
     [DbContext(typeof(LaContessaDbContext))]
-    [Migration("20240103163033_Initial")]
+    [Migration("20240105112229_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -82,6 +82,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("BookingPrice")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("text");
@@ -94,6 +97,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<bool>("IsLesson")
                         .HasColumnType("boolean");
+
+                    b.Property<long?>("PaymentPrice")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
