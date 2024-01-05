@@ -71,6 +71,8 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                 IsLesson = bookingRequest.IsLesson,
                 TimeSlot = bookingRequest.TimeSlot,
                 Status = bookingRequest.Status,
+                BookingPrice = bookingRequest.BookingPrice,
+                PaymentPrice = bookingRequest.PaymentPrice,
             };
 
             await _laContessaDbContext.AddAsync(bookingToAdd, cancellationToken);

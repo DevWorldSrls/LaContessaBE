@@ -110,6 +110,8 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     IsLesson = table.Column<bool>(type: "boolean", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
+                    BookingPrice = table.Column<long>(type: "bigint", nullable: false),
+                    PaymentPrice = table.Column<long>(type: "bigint", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },

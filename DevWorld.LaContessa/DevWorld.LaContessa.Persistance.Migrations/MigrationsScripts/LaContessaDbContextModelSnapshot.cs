@@ -79,6 +79,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("BookingPrice")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("text");
@@ -91,6 +94,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<bool>("IsLesson")
                         .HasColumnType("boolean");
+
+                    b.Property<long?>("PaymentPrice")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()

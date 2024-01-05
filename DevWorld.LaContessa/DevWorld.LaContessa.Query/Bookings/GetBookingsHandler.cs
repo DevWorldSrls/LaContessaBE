@@ -31,6 +31,8 @@ public class GetBookingsHandler : IRequestHandler<GetBookings, GetBookings.Respo
                     PhoneNumber = x.PhoneNumber,
                     TimeSlot = x.TimeSlot,
                     Status = x.Status,
+                    BookingPrice = x.BookingPrice,
+                    PaymentPrice = x.PaymentPrice,
                 }).ToArrayAsync()
         };
     }

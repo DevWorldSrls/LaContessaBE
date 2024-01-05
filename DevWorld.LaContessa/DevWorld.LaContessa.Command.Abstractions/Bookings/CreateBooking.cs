@@ -17,5 +17,7 @@ public class CreateBooking : IRequest
         public string PhoneNumber { get; set; } = null!;
         public bool IsLesson { get; set; }
         public BookingStatus Status { get; set; }
+        public long BookingPrice { get; set; }
+        public long? PaymentPrice { get; set; }
     }
 }
