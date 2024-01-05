@@ -29,7 +29,6 @@
         <ProjectReference Include="..\DevWorld.LaContessa.Command\DevWorld.LaContessa.Command.csproj" />
         <ProjectReference Include="..\DevWorld.LaContessa.Persistance.Migrations\DevWorld.LaContessa.Persistance.Migrations.csproj" />
         <ProjectReference Include="..\DevWorld.LaContessa.Query\DevWorld.LaContessa.Query.csproj" />
-        <ProjectReference Include="..\DevWorld.LaContessa.Stripe\DevWorld.LaContessa.Stripe.csproj" />
     </ItemGroup>
 
 </Project>

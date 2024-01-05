@@ -2,7 +2,7 @@
 
 namespace DevWorld.LaContessa.Stripe.Abstractions.Payments
 {
-    public class StripePayment : IRequest
+    public class StripePayment
     {
         public string CustomerId { get; set; } = null!;
         public string ReceiptEmail { get; set; } = null!;

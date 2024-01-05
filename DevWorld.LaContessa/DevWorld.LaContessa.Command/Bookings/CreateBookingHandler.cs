@@ -1,5 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Bookings;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
+using DevWorld.LaContessa.Command.Abstractions.Stripe;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,15 @@ namespace DevWorld.LaContessa.Command.Bookings;
 public class CreateBookingHandler : IRequestHandler<CreateBooking>
 {
     private readonly LaContessaDbContext _laContessaDbContext;
+    private readonly IMediator _mediator;
 
-    public CreateBookingHandler(LaContessaDbContext laContessaDbContext)
+    public CreateBookingHandler(
+        LaContessaDbContext laContessaDbContext,
+        IMediator mediator
+        )
     {
         _laContessaDbContext = laContessaDbContext;
+        _mediator = mediator;
     }
 
     public async Task Handle(CreateBooking request, CancellationToken cancellationToken)
@@ -76,6 +82,21 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
             };
 
             await _laContessaDbContext.AddAsync(bookingToAdd, cancellationToken);
+
+            if(bookingToAdd.Status == Domain.Enums.BookingStatus.Payed && bookingToAdd.PaymentPrice != null)
+            {
+                await _mediator.Send(
+                    new CreateStripePaymentRequest
+                    {
+                        CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
+                        Amount = bookingToAdd.PaymentPrice ?? 0,
+                        Currency = "EUR",
+                        Description = "Pagamento " + activity.Name,
+                        ReceiptEmail = "info@lacontessa.it",
+                    },
+                    cancellationToken
+                );
+            }
         }
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }

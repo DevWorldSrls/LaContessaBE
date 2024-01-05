@@ -28,28 +28,29 @@ namespace DevWorld.LaContessa.Stripe
         /// <returns>Stripe Customer</returns>
         public async Task<StripeCustomer> CreateStripeCustomerAsync(CreateStripeCustomer customer, CancellationToken ct)
         {
-            // Set Stripe Token options based on customer data
-            TokenCreateOptions tokenOptions = new TokenCreateOptions
-            {
-                Card = new TokenCardOptions
-                {
-                    Name = customer.Name,
-                    Number = customer.CreditCard.CardNumber,
-                    ExpYear = customer.CreditCard.ExpirationYear,
-                    ExpMonth = customer.CreditCard.ExpirationMonth,
-                    Cvc = customer.CreditCard.Cvc
-                }
-            };
+            //// Set Stripe Token options based on customer data
+            //TokenCreateOptions tokenOptions = new TokenCreateOptions
+            //{
+            //    Card = new TokenCardOptions
+            //    {
+            //        Name = customer.Name,
+            //        Number = customer.CreditCard.CardNumber,
+            //        ExpYear = customer.CreditCard.ExpirationYear,
+            //        ExpMonth = customer.CreditCard.ExpirationMonth,
+            //        Cvc = customer.CreditCard.Cvc
+            //    },
+            //};
 
-            // Create new Stripe Token
-            Token stripeToken = await _tokenService.CreateAsync(tokenOptions, null, ct);
+            //// Create new Stripe Token
+            //Token stripeToken = await _tokenService.CreateAsync(tokenOptions, null, ct);
 
             // Set Customer options using
+            //TODO: pass real card of customer!
             CustomerCreateOptions customerOptions = new CustomerCreateOptions
             {
                 Name = customer.Name,
                 Email = customer.Email,
-                Source = stripeToken.Id
+                Source = "tok_visa_debit"
             };
 
             // Create customer at Stripe

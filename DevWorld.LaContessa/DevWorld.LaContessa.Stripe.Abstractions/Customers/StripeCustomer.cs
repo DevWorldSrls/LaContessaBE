@@ -2,7 +2,7 @@
 
 namespace DevWorld.LaContessa.Stripe.Abstractions.Customers
 {
-    public class StripeCustomer : IRequest
+    public class StripeCustomer
     {
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;

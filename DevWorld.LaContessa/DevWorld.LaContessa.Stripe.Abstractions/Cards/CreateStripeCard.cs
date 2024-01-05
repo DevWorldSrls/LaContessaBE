@@ -2,7 +2,7 @@
 
 namespace DevWorld.LaContessa.Stripe.Abstractions.Cards
 {
-    public class CreateStripeCard : IRequest
+    public class CreateStripeCard
     {
         public string Name { get; set; } = null!;
         public string CardNumber { get; set; } = null!;

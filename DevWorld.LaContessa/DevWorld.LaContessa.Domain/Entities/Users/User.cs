@@ -12,4 +12,5 @@ public class User : SoftDeletable
     public string Password { get; set; } = null!;
     public string? ImageProfile { get; set; }
     public string? RefreshToken { get; set; }
+    public string? CustomerId { get; set; }
 }
