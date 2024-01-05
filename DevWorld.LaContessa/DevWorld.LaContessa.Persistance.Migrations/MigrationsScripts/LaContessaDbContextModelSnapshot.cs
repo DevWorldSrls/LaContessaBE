@@ -180,6 +180,10 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<string>("CardNumber")
                         .HasColumnType("text");
 
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
