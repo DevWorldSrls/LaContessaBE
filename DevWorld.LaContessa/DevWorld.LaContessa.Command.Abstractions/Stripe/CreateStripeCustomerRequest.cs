@@ -18,8 +18,8 @@ namespace DevWorld.LaContessa.Command.Abstractions.Stripe
         {
             public string Name { get; set; } = null!;
             public string CardNumber { get; set; } = null!;
-            public string ExpirationYear { get; set; } = null!;
-            public string ExpirationMonth { get; set; } = null!;
+            public long ExpirationYear { get; set; }
+            public long ExpirationMonth { get; set; }
             public string Cvc { get; set; } = null!;
         }
     }

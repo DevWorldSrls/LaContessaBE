@@ -42,19 +42,22 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
         bookingToUpdate.BookingPrice = request.Booking.BookingPrice;
         bookingToUpdate.PaymentPrice = request.Booking.PaymentPrice;
 
-        if (bookingToUpdate.Status == Domain.Enums.BookingStatus.Payed && bookingToUpdate.PaymentPrice != null && user.CustomerId != null)
+        if (bookingToUpdate.Status == Domain.Enums.BookingStatus.Payed && bookingToUpdate.PaymentPrice != null)
         {
-            await _mediator.Send(
-                new CreateStripePaymentRequest
-                {
-                    CustomerId = user.CustomerId!,
-                    Amount = bookingToUpdate.PaymentPrice ?? 0,
-                    Currency = "EUR",
-                    Description = "Pagamento " + activity.Name,
-                    ReceiptEmail = "info@lacontessa.it",
-                },
-                cancellationToken
-            );
+            if(bookingToUpdate.PaymentPrice != bookingToUpdate.BookingPrice)
+            {
+                await _mediator.Send(
+                    new CreateStripePaymentRequest
+                    {
+                        CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
+                        Amount = bookingToUpdate.BookingPrice - bookingToUpdate.PaymentPrice ?? 0,
+                        Currency = "EUR",
+                        Description = "Pagamento " + activity.Name,
+                        ReceiptEmail = "info@lacontessa.it",
+                    },
+                    cancellationToken
+                );
+            }
         }
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);

@@ -6,18 +6,18 @@ namespace DevWorld.LaContessa.Stripe
 {
     public class StripeAppService : IStripeAppService
     {
-        private readonly ChargeService _chargeService;
+        private readonly PaymentIntentService _paymentIntentService;
         private readonly CustomerService _customerService;
-        private readonly TokenService _tokenService;
+        private readonly PaymentMethodService _paymentMethodService;
 
         public StripeAppService(
-            ChargeService chargeService,
+            PaymentIntentService paymentIntentService,
             CustomerService customerService,
-            TokenService tokenService)
+            PaymentMethodService paymentMethodService)
         {
-            _chargeService = chargeService;
+            _paymentIntentService = paymentIntentService;
             _customerService = customerService;
-            _tokenService = tokenService;
+            _paymentMethodService = paymentMethodService;
         }
 
         /// <summary>
@@ -28,39 +28,52 @@ namespace DevWorld.LaContessa.Stripe
         /// <returns>Stripe Customer</returns>
         public async Task<StripeCustomer> CreateStripeCustomerAsync(CreateStripeCustomer customer, CancellationToken ct)
         {
-            //// Set Stripe Token options based on customer data
-            //TokenCreateOptions tokenOptions = new TokenCreateOptions
-            //{
-            //    Card = new TokenCardOptions
-            //    {
-            //        Name = customer.Name,
-            //        Number = customer.CreditCard.CardNumber,
-            //        ExpYear = customer.CreditCard.ExpirationYear,
-            //        ExpMonth = customer.CreditCard.ExpirationMonth,
-            //        Cvc = customer.CreditCard.Cvc
-            //    },
-            //};
+            var paymentMethodOptions = new PaymentMethodCreateOptions
+            {
+                Type = "card",
+                Card = new PaymentMethodCardOptions
+                {
+                    Number = customer.CreditCard.CardNumber,
+                    ExpYear = customer.CreditCard.ExpirationYear,
+                    ExpMonth = customer.CreditCard.ExpirationMonth,
+                    Cvc = customer.CreditCard.Cvc
+                }
+            };
 
-            //// Create new Stripe Token
-            //Token stripeToken = await _tokenService.CreateAsync(tokenOptions, null, ct);
+            // Create Payment Method
+            var paymentMethod = await _paymentMethodService.CreateAsync(paymentMethodOptions, null, ct);
 
             // Set Customer options using
-            //TODO: pass real card of customer!
-            CustomerCreateOptions customerOptions = new CustomerCreateOptions
+            var customerOptions = new CustomerCreateOptions
             {
                 Name = customer.Name,
-                Email = customer.Email,
-                Source = "tok_visa_debit"
+                Email = customer.Email
             };
 
             // Create customer at Stripe
-            Customer createdCustomer = await _customerService.CreateAsync(customerOptions, null, ct);
+            var createdCustomer = await _customerService.CreateAsync(customerOptions, null, ct);
+
+            var paymentMethodAttachOption = new PaymentMethodAttachOptions
+            {
+                Customer = createdCustomer.Id,
+            };
+
+            // Attach Payment Method to Customer
+            var attachPaymentResponse = await _paymentMethodService.AttachAsync(paymentMethod.Id, paymentMethodAttachOption, null, ct);
+
+            var updatedCustomer = await _customerService.UpdateAsync(createdCustomer.Id, new CustomerUpdateOptions
+            {
+                InvoiceSettings = new CustomerInvoiceSettingsOptions
+                {
+                    DefaultPaymentMethod = attachPaymentResponse.Id,
+                }
+            }, null, ct);
 
             // Return the created customer at stripe
             return new StripeCustomer {
-                Name = createdCustomer.Name,
-                Email = createdCustomer.Email,
-                CustomerId = createdCustomer.Id
+                Name = updatedCustomer.Name,
+                Email = updatedCustomer.Email,
+                CustomerId = updatedCustomer.Id
             };
         }
 
@@ -74,17 +87,34 @@ namespace DevWorld.LaContessa.Stripe
         public async Task<StripePayment> CreateStripePaymentAsync(CreateStripePayment payment, CancellationToken ct)
         {
             // Set the options for the payment we would like to create at Stripe
-            ChargeCreateOptions paymentOptions = new ChargeCreateOptions
+            var paymentOptions = new PaymentIntentCreateOptions
             {
                 Customer = payment.CustomerId,
                 ReceiptEmail = payment.ReceiptEmail,
                 Description = payment.Description,
                 Currency = payment.Currency,
-                Amount = payment.Amount
+                Amount = payment.Amount,
+                AutomaticPaymentMethods = new PaymentIntentAutomaticPaymentMethodsOptions
+                {
+                    Enabled = true,
+                },
             };
 
             // Create the payment
-            var createdPayment = await _chargeService.CreateAsync(paymentOptions, null, ct);
+            var createdPayment = await _paymentIntentService.CreateAsync(paymentOptions, null, ct);
+
+            var paymentMethod = await _customerService.ListPaymentMethodsAsync(payment.CustomerId, new CustomerListPaymentMethodsOptions { Limit = 1 });
+
+            if (paymentMethod == null || !paymentMethod.Any()) return new StripePayment { };
+
+            var confirmPaymentOptions = new PaymentIntentConfirmOptions
+            {
+                PaymentMethod = paymentMethod!.First().Id,
+                ReturnUrl = "https://www.example.com"
+            };
+
+            // Confirm the payment
+            var confirmedPayment = await _paymentIntentService.ConfirmAsync(createdPayment.Id, confirmPaymentOptions);
 
             // Return the payment to requesting method
             return new StripePayment {
