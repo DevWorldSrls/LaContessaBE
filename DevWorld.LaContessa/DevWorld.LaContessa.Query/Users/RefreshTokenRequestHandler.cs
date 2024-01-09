@@ -22,7 +22,7 @@ public class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, G
     public async Task<GetUser.Response> Handle(RefreshTokenRequest request, CancellationToken cancellationToken)
     {
         var principal = _tokenService.GetPrincipalFromExpiredToken(request.AuthenticationToken);
-        var userEmail = principal.Identity?.Name ?? throw new UserNotFoundException(); //TODO change in PrincipalMailNotFound
+        var userEmail = principal.Identity?.Name ?? throw new PrincipalNotFoundException();
         
         var user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Email == userEmail && x.RefreshToken == request.RefreshToken, cancellationToken) ?? throw new UserNotFoundException();
 

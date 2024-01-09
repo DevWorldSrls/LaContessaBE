@@ -88,8 +88,8 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                 var result = await _mediator.Send(
                     new CreateStripePaymentRequest
                     {
-                        CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
-                        PaymentMethodId = user.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
+                        CustomerId = user.CustomerId ?? throw new CustomerNotFoundException(),
+                        PaymentMethodId = user.PaymentMethodId ?? throw new PaymentMethodNotFoundException(),
                         Amount = bookingToAdd.PaymentPrice ?? 0,
                         Currency = "EUR",
                         Description = "Pagamento " + activity.Name,
@@ -98,7 +98,7 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                     cancellationToken
                 );
 
-                bookingToAdd.PaymentIntentId = result ?? throw new Exception(); //TODO: Use specific exception
+                bookingToAdd.PaymentIntentId = result ?? throw new PaymentIntentNotFoundException();
             }
         }
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);

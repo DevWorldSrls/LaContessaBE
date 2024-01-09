@@ -26,7 +26,7 @@ public class RefundRequestHandler : IRequestHandler<RefundRequest>
         var bookingToUpdate = await _laContessaDbContext.Bookings.FirstOrDefaultAsync(x => x.Id == request.BookingId && !x.IsDeleted, cancellationToken) ?? throw new BookingNotFoundException();
 
         await _stripeAppService.RefundStripePaymentAsync(
-            bookingToUpdate.PaymentIntentId ?? throw new Exception(), //TODO: Use specific exception
+            bookingToUpdate.PaymentIntentId ?? throw new PaymentIntentNotFoundException(),
             cancellationToken);
 
         bookingToUpdate.PaymentIntentId = null;

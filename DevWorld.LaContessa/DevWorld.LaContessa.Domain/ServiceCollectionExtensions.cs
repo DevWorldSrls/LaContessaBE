@@ -6,7 +6,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddDomainServices(this IServiceCollection services)
     {
-        //TODO: Add here Domain Services as Singleton
+        //Add here Domain Services as Singleton
 
         return services;
     }

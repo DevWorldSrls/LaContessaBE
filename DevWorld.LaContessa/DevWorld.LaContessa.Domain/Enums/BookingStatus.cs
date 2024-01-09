@@ -6,6 +6,6 @@
        Cancelled,
        Confirmed,
        Payed,
-       Forfeit  //TODO Gestire casistica penale
+       Forfeit
     }
 }

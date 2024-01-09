@@ -62,8 +62,8 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
                         await _mediator.Send(
                             new CreateStripePaymentRequest
                             {
-                                CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
-                                PaymentMethodId = user.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
+                                CustomerId = user.CustomerId ?? throw new CustomerNotFoundException(),
+                                PaymentMethodId = user.PaymentMethodId ?? throw new PaymentMethodNotFoundException(),
                                 Amount = paymentAmount,
                                 Currency = "EUR",
                                 Description = "Pagamento parte restante della Prenotazione di: " + activity.Name,
@@ -80,8 +80,8 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
                     await _mediator.Send(
                         new CreateStripePaymentRequest
                         {
-                            CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
-                            PaymentMethodId = user.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
+                            CustomerId = user.CustomerId ?? throw new CustomerNotFoundException(),
+                            PaymentMethodId = user.PaymentMethodId ?? throw new PaymentMethodNotFoundException(),
                             Amount = bookingToUpdate.PaymentPrice ?? 0,
                             Currency = "EUR",
                             Description = "Pagamento Penale per mancata disdetta della prenotazione nei tempi prestabiliti per: " + activity.Name,

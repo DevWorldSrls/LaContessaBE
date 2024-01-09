@@ -26,7 +26,7 @@ public class DeleteCardHandler : IRequestHandler<DeleteCard>
         var userToUpdate = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Id == request.UserId && !x.IsDeleted, cancellationToken) ?? throw new UserNotFoundException();
 
         await _stripeAppService.DeleteStripePaymentAsync(
-            userToUpdate.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
+            userToUpdate.PaymentMethodId ?? throw new PaymentMethodNotFoundException(),
             cancellationToken);
 
         userToUpdate.PaymentMethodId = null;
