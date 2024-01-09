@@ -116,12 +116,12 @@ namespace DevWorld.LaContessa.Stripe
 
             // Return the payment to requesting method
             return new StripePayment {
-                CustomerId = createdPayment.CustomerId,
-                ReceiptEmail = createdPayment.ReceiptEmail,
-                Description = createdPayment.Description,
-                Currency = createdPayment.Currency,
-                Amount = createdPayment.Amount,
-                PaymentId = createdPayment.Id
+                CustomerId = confirmedPayment.CustomerId,
+                ReceiptEmail = confirmedPayment.ReceiptEmail,
+                Description = confirmedPayment.Description,
+                Currency = confirmedPayment.Currency,
+                Amount = confirmedPayment.Amount,
+                PaymentId = confirmedPayment.Id
             };
         }
 

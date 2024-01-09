@@ -42,24 +42,60 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
         bookingToUpdate.BookingPrice = request.Booking.BookingPrice;
         bookingToUpdate.PaymentPrice = request.Booking.PaymentPrice;
 
-        if (bookingToUpdate.Status == Domain.Enums.BookingStatus.Payed && bookingToUpdate.PaymentPrice != null)
+        switch (bookingToUpdate.Status)
         {
-            if(bookingToUpdate.PaymentPrice != bookingToUpdate.BookingPrice)
-            {
-                await _mediator.Send(
-                    new CreateStripePaymentRequest
+            case Domain.Enums.BookingStatus.Waiting:
+                break;
+            case Domain.Enums.BookingStatus.Cancelled:
+                break;
+            case Domain.Enums.BookingStatus.Confirmed:
+                break;
+            case Domain.Enums.BookingStatus.Payed:
+                if (bookingToUpdate.PaymentPrice is not null)
+                {
+                    var paymentAmount = bookingToUpdate.PaymentPrice ?? 0;
+
+                    if (bookingToUpdate.PaymentPrice != bookingToUpdate.BookingPrice)
                     {
-                        CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
-                        PaymentMethodId = user.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
-                        Amount = bookingToUpdate.BookingPrice - bookingToUpdate.PaymentPrice ?? 0,
-                        Currency = "EUR",
-                        Description = "Pagamento " + activity.Name,
-                        ReceiptEmail = "info@lacontessa.it",
-                    },
-                    cancellationToken
-                );
-            }
+                        paymentAmount = bookingToUpdate.BookingPrice - bookingToUpdate.PaymentPrice ?? 0;
+
+                        await _mediator.Send(
+                            new CreateStripePaymentRequest
+                            {
+                                CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
+                                PaymentMethodId = user.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
+                                Amount = paymentAmount,
+                                Currency = "EUR",
+                                Description = "Pagamento parte restante della Prenotazione di: " + activity.Name,
+                                ReceiptEmail = "info@lacontessa.it",
+                            },
+                            cancellationToken
+                        );
+                    }
+                }
+                break;
+            case Domain.Enums.BookingStatus.Forfeit:
+                if (bookingToUpdate.PaymentPrice is not null)
+                {
+                    await _mediator.Send(
+                        new CreateStripePaymentRequest
+                        {
+                            CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
+                            PaymentMethodId = user.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
+                            Amount = bookingToUpdate.PaymentPrice ?? 0,
+                            Currency = "EUR",
+                            Description = "Pagamento Penale per mancata disdetta della prenotazione nei tempi prestabiliti per: " + activity.Name,
+                            ReceiptEmail = "info@lacontessa.it",
+                        },
+                        cancellationToken
+                    );
+                }
+                break;
+            default:
+                break;
         }
+
+        
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }

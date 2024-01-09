@@ -1,5 +1,4 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Stripe;
-using DevWorld.LaContessa.Domain.Entities.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +32,6 @@ public class PaymentController : ControllerBase
         return Ok();
     }
 
-    //Remove Card from Customer
     [HttpDelete("card")]
     public async Task<ActionResult> DeleteCard(Guid userId,
         CancellationToken cancellationToken)
@@ -49,7 +47,6 @@ public class PaymentController : ControllerBase
         return Ok();
     }
 
-    //Refund
     [HttpPost("refund")]
     public async Task<ActionResult> Refund(Guid bookingId,
         CancellationToken cancellationToken)
