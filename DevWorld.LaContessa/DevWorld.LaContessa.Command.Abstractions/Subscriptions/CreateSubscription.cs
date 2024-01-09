@@ -9,14 +9,14 @@ public class CreateSubscription : IRequest
 
     public class SubscriptionDetail
     {
-        public string UserId { get; set; } = null!;
-        public string ActivityId { get; set; } = null!;
-        public int? CardNumber { get; set; }
-        public bool IsValid { get; set; }
-        public string ExpirationDate { get; set; } = null!;
+        public Guid UserId { get; set; }
+        public Guid ActivityId { get; set; }
         public SubscriptionType SubType { get; set; }
+        public bool IsValid { get; set; } = true;
+        public bool MedicalCertificateExpired { get; set; } = false;
+        public int? CardNumber { get; set; }
         public int? NumberOfIngress { get; set; }
-        public bool MedicalCertificateExpired { get; set; }
-        public string MedicalCertificateDueDate { get; set; } = null!;
+        public string? ExpirationDate { get; set; }
+        public string? MedicalCertificateDueDate { get; set; }
     }
 }

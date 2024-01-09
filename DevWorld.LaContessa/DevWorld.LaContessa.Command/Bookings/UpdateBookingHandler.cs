@@ -26,10 +26,10 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
         var bookingToUpdate = await _laContessaDbContext.Bookings.FirstOrDefaultAsync(x => x.Id == request.Booking.Id && !x.IsDeleted, cancellationToken) ?? throw new BookingNotFoundException();
 
         var user = await _laContessaDbContext.Users
-            .FirstOrDefaultAsync(u => u.Id == new Guid(request.Booking.UserId), cancellationToken) ?? throw new UserNotFoundException();
+            .FirstOrDefaultAsync(u => u.Id == request.Booking.UserId, cancellationToken) ?? throw new UserNotFoundException();
 
         var activity = await _laContessaDbContext.Activities
-            .FirstOrDefaultAsync(a => a.Id == Guid.Parse(request.Booking.ActivityId), cancellationToken) ?? throw new ActivityNotFoundException();
+            .FirstOrDefaultAsync(a => a.Id == request.Booking.ActivityId, cancellationToken) ?? throw new ActivityNotFoundException();
 
         bookingToUpdate.User = user;
         bookingToUpdate.Date = request.Booking.Date;

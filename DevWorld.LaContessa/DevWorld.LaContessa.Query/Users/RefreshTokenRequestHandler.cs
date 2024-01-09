@@ -39,7 +39,6 @@ public class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, G
                 Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname,
-                CardNumber = user.CardNumber,
                 Email = user.Email,
                 ImageProfile = user.ImageProfile,
                 IsPro = user.IsPro,

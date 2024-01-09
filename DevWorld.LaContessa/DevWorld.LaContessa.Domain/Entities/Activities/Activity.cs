@@ -8,14 +8,14 @@ public class Activity : SoftDeletable
     public string Name { get; set; } = null!;
     public bool IsOutdoor { get; set; }
     public bool IsSubscriptionRequired { get; set; }
-    public string Description { get; set; } = null!;
-    public string ActivityImg { get; set; } = null!;
     public double Price { get; set; }
     public List<Service> ServiceList { get; set; } = null!;
     public List<ActivityDate> DateList { get; set; } = null!;
-    public int Limit { get; set; }
     public ActivityBookingType BookingType { get; set; }
     public string Duration { get; set; } = null!;
+    public int? Limit { get; set; }
+    public string? Description { get; set; }
+    public string? ActivityImg { get; set; }
 }
 
 [Owned]

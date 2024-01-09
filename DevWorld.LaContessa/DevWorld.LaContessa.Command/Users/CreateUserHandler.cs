@@ -33,7 +33,6 @@ public class CreateUserHandler : IRequestHandler<CreateUser>
             Surname = request.User.Surname,
             Email = request.User.Email,
             Password = generatedPassword,
-            CardNumber = request.User.CardNumber,
             ImageProfile = request.User.ImageProfile,
             IsPro = request.User.IsPro,
             PeriodicBookingsEnabled = request.User.PeriodicBookingsEnabled

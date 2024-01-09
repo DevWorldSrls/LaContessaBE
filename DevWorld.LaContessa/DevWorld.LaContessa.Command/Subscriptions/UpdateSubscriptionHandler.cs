@@ -20,10 +20,10 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
         var subscriptionToUpdate = await _laContessaDbContext.Subscriptions.FirstOrDefaultAsync(x => x.Id == request.Subscription.Id && !x.IsDeleted, cancellationToken) ?? throw new SubscriptionNotFoundException();
 
         var user = await _laContessaDbContext.Users
-            .FirstOrDefaultAsync(u => u.Id == new Guid(request.Subscription.UserId), cancellationToken) ?? throw new UserNotFoundException();
+            .FirstOrDefaultAsync(u => u.Id == request.Subscription.UserId, cancellationToken) ?? throw new UserNotFoundException();
 
         var activity = await _laContessaDbContext.Activities
-            .FirstOrDefaultAsync(a => a.Id == Guid.Parse(request.Subscription.ActivityId), cancellationToken) ?? throw new ActivityNotFoundException();
+            .FirstOrDefaultAsync(a => a.Id == request.Subscription.ActivityId, cancellationToken) ?? throw new ActivityNotFoundException();
 
         subscriptionToUpdate.User = user;
         subscriptionToUpdate.Activity = activity;

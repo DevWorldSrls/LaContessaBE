@@ -24,7 +24,6 @@ public class UpdateUserHandler : IRequestHandler<UpdateUser>
         userToUpdate.Name = request.User.Name;
         userToUpdate.Surname = request.User.Surname;
         userToUpdate.Email = request.User.Email;
-        userToUpdate.CardNumber = request.User.CardNumber;
         userToUpdate.ImageProfile = request.User.ImageProfile;
         userToUpdate.IsPro = request.User.IsPro;
         userToUpdate.PeriodicBookingsEnabled = request.User.PeriodicBookingsEnabled;

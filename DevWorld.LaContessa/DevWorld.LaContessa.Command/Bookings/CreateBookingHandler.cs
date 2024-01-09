@@ -26,8 +26,8 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
         foreach (var bookingRequest in request.Bookings)
         {
             var alreadyExist = await _laContessaDbContext.Bookings.AnyAsync(x => 
-                bookingRequest.UserId == x.User.Id.ToString() &&
-                bookingRequest.ActivityId  == x.Activity.Id.ToString() &&
+                bookingRequest.UserId == x.User.Id &&
+                bookingRequest.ActivityId  == x.Activity.Id &&
                 bookingRequest.Date  == x.Date &&
                 bookingRequest.TimeSlot  == x.TimeSlot,
             cancellationToken);
@@ -36,10 +36,10 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                 throw new BookingAlreadyExistException();
 
             var user = await _laContessaDbContext.Users
-                .FirstOrDefaultAsync(u => u.Id == Guid.Parse(bookingRequest.UserId), cancellationToken) ?? throw new UserNotFoundException();
+                .FirstOrDefaultAsync(u => u.Id == bookingRequest.UserId, cancellationToken) ?? throw new UserNotFoundException();
 
             var activity = await _laContessaDbContext.Activities
-                .FirstOrDefaultAsync(a => a.Id == Guid.Parse(bookingRequest.ActivityId), cancellationToken) ?? throw new ActivityNotFoundException();
+                .FirstOrDefaultAsync(a => a.Id == bookingRequest.ActivityId, cancellationToken) ?? throw new ActivityNotFoundException();
 
             switch (activity.BookingType)
             {
