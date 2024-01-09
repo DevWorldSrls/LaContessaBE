@@ -19,6 +19,7 @@ public class CreateActivity : IRequest
         public List<ActivityDate> DateList { get; set; } = null!;
         public int Limit { get; set; }
         public ActivityBookingType BookingType { get; set; }
+        public string Duration { get; set; } = null!;
     }
 
     public class Service
