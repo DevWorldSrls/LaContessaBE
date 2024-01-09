@@ -20,7 +20,7 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
     {
         return new GetBookingByUserId.Response
         {
-            Booking = await _laContessaDbContext.Bookings
+            Bookings = await _laContessaDbContext.Bookings
                 .Select(x => new GetBookingByUserId.Response.BookingDetail
                 {
                     Id = x.Id,
@@ -35,7 +35,8 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
                     BookingPrice = x.BookingPrice,
                     PaymentPrice = x.PaymentPrice,
                 })
-                .FirstOrDefaultAsync(x => x.User.Id.ToString() == request.UserId, cancellationToken) ?? throw new BookingNotFoundException()
+                .Where(x => x.User.Id.ToString() == request.UserId)
+                .ToArrayAsync(cancellationToken) ?? throw new BookingNotFoundException()
         };
     }
 }

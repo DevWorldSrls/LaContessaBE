@@ -13,10 +13,9 @@ public class GetBookingByUserId : IRequest<GetBookingByUserId.Response>
     }
 
     public string UserId { get; set; } = null!;
-
     public class Response
     {
-        public BookingDetail? Booking { get; set; } = null!;
+        public BookingDetail[] Bookings { get; set; } = null!;
 
         public class BookingDetail
         {
