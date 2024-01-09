@@ -42,6 +42,10 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -94,6 +98,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<bool>("IsLesson")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("text");
 
                     b.Property<long?>("PaymentPrice")
                         .HasColumnType("bigint");
@@ -180,6 +187,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<string>("CardNumber")
                         .HasColumnType("text");
 
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("text");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -205,6 +215,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PaymentMethodId")
                         .HasColumnType("text");
 
                     b.Property<bool>("PeriodicBookingsEnabled")

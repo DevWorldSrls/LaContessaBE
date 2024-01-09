@@ -1,11 +1,14 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Bookings;
+using DevWorld.LaContessa.Command.Abstractions.Stripe;
 using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Command.Abstractions.Users;
 using DevWorld.LaContessa.Command.Activities;
 using DevWorld.LaContessa.Command.Bookings;
+using DevWorld.LaContessa.Command.Stripe;
 using DevWorld.LaContessa.Command.Subscriptions;
 using DevWorld.LaContessa.Command.Users;
+using DevWorld.LaContessa.Stripe.Abstractions.Payments;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,6 +29,11 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<UpdateBooking>, UpdateBookingHandler>();
         services.AddTransient<IRequestHandler<CreateActivity>, CreateActivityHandler>();
         services.AddTransient<IRequestHandler<UpdateActivity>, UpdateActivityHandler>();
+
+        services.AddTransient<IRequestHandler<CreateCard>, CreateCardHandler>();
+        services.AddTransient<IRequestHandler<DeleteCard>, DeleteCardHandler>();
+        services.AddTransient<IRequestHandler<RefundRequest>, RefundRequestHandler>();
+        services.AddTransient<IRequestHandler<CreateStripePaymentRequest, string>, CreateStripePaymentRequestHandler>();
 
         return services;
     }

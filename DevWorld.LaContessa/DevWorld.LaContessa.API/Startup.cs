@@ -3,6 +3,7 @@ using System.Reflection;
 using DevWorld.LaContessa.API.Middleware;
 using DevWorld.LaContessa.Command;
 using DevWorld.LaContessa.Persistance;
+using DevWorld.LaContessa.Stripe;
 using DevWorld.LaContessa.Persistance.Migrations;
 using DevWorld.LaContessa.Query;
 using MediatR;
@@ -25,6 +26,7 @@ public class Startup
         services.AddApiServices(_configuration);
         services.AddQueryServices();
         services.AddCommandServices();
+        services.AddStripeServices(_configuration);
         services.AddPersistance(
             _configuration.GetSection("Persistance"),
             Assembly.GetAssembly(typeof(MigrationsAssemblyReferenceClass))!

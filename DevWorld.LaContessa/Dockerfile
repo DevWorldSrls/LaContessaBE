@@ -15,6 +15,8 @@ COPY ["DevWorld.LaContessa.Domain/DevWorld.LaContessa.Domain.csproj", "DevWorld.
 COPY ["DevWorld.LaContessa.Persistance.Migrations/DevWorld.LaContessa.Persistance.Migrations.csproj", "DevWorld.LaContessa.Persistance.Migrations/"]
 COPY ["DevWorld.LaContessa.Query/DevWorld.LaContessa.Query.csproj", "DevWorld.LaContessa.Query/"]
 COPY ["DevWorld.LaContessa.Query.Abstractions/DevWorld.LaContessa.Query.Abstractions.csproj", "DevWorld.LaContessa.Query.Abstractions/"]
+COPY ["DevWorld.LaContessa.Stripe/DevWorld.LaContessa.Stripe.csproj", "DevWorld.LaContessa.Stripe/"]
+COPY ["DevWorld.LaContessa.Stripe.Abstractions/DevWorld.LaContessa.Stripe.Abstractions.csproj", "DevWorld.LaContessa.Stripe.Abstractions/"]
 RUN dotnet restore "DevWorld.LaContessa.API/DevWorld.LaContessa.API.csproj"
 COPY . .
 WORKDIR "/DevWorld.LaContessa.API"

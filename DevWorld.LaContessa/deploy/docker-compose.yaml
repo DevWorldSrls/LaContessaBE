@@ -2,14 +2,14 @@ version: '3.3'
 
 services:
   setup:
-    image: us-central1-docker.pkg.dev/lacontessa/lacontessa-be/setup:v2
+    image: us-central1-docker.pkg.dev/lacontessa/lacontessa-be/setup:v3
     build:
       context: ..
       dockerfile: DevWorld.LaContessa.SetupJob/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Production
   app:
-    image: us-central1-docker.pkg.dev/lacontessa/lacontessa-be/app:v2
+    image: us-central1-docker.pkg.dev/lacontessa/lacontessa-be/app:v3
     build:
       context: ..
       dockerfile: Dockerfile
