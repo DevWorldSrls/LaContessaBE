@@ -9,15 +9,18 @@ namespace DevWorld.LaContessa.Stripe
     {
         private readonly PaymentIntentService _paymentIntentService;
         private readonly CustomerService _customerService;
+        private readonly RefundService _refundService;
         private readonly PaymentMethodService _paymentMethodService;
 
         public StripeAppService(
             PaymentIntentService paymentIntentService,
             CustomerService customerService,
+            RefundService refundService,
             PaymentMethodService paymentMethodService)
         {
             _paymentIntentService = paymentIntentService;
             _customerService = customerService;
+            _refundService = refundService;
             _paymentMethodService = paymentMethodService;
         }
 
@@ -130,6 +133,22 @@ namespace DevWorld.LaContessa.Stripe
         {
             // Detach Payment Method from Customer
             await _paymentMethodService.DetachAsync(paymentId, null, null, ct);
+
+            return;
+        }
+
+        /// <summary>
+        /// Refund payment at Stripe using PaymentIntent details.
+        /// PaymentIntent has to exist at Stripe already.
+        /// </summary>
+        public async Task RefundStripePaymentAsync(string paymentIntentId, CancellationToken ct)
+        {
+            var refundOptions = new RefundCreateOptions
+            {
+                PaymentIntent = paymentIntentId
+            };
+
+            await _refundService.CreateAsync(refundOptions, null, ct);
 
             return;
         }

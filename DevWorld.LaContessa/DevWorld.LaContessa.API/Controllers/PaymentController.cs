@@ -1,4 +1,5 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Stripe;
+using DevWorld.LaContessa.Domain.Entities.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,13 +51,13 @@ public class PaymentController : ControllerBase
 
     //Refund
     [HttpPost("refund")]
-    public async Task<ActionResult> Refund([FromBody] CreateCard.StripeCustomer customer,
+    public async Task<ActionResult> Refund(Guid bookingId,
         CancellationToken cancellationToken)
     {
         await _mediator.Send(
-            new CreateCard
+            new RefundRequest
             {
-                Customer = customer
+                BookingId = bookingId
             },
             cancellationToken
         );

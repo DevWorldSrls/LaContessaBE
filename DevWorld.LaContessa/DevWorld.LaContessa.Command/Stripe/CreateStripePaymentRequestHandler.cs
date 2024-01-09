@@ -1,28 +1,25 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Stripe;
-using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Stripe;
+using DevWorld.LaContessa.Stripe.Abstractions.Payments;
 using MediatR;
 
 namespace DevWorld.LaContessa.Command.Stripe;
 
-public class CreateStripePaymentRequestHandler : IRequestHandler<CreateStripePaymentRequest>
+public class CreateStripePaymentRequestHandler : IRequestHandler<CreateStripePaymentRequest, string>
 {
-    private readonly LaContessaDbContext _laContessaDbContext;
     private readonly IStripeAppService _stripeAppService;
 
     public CreateStripePaymentRequestHandler(
-        LaContessaDbContext laContessaDbContext,
         IStripeAppService stripeAppService
     )
     {
-        _laContessaDbContext = laContessaDbContext;
         _stripeAppService = stripeAppService;
     }
 
-    public async Task Handle(CreateStripePaymentRequest request, CancellationToken cancellationToken)
+    public async Task<string> Handle(CreateStripePaymentRequest request, CancellationToken cancellationToken)
     {
         var result = await _stripeAppService.CreateStripePaymentAsync(
-            new LaContessa.Stripe.Abstractions.Payments.CreateStripePayment
+            new CreateStripePayment
             {
                 Amount = request.Amount,
                 Currency = request.Currency,
@@ -33,6 +30,6 @@ public class CreateStripePaymentRequestHandler : IRequestHandler<CreateStripePay
             },
             cancellationToken);
 
-        return;
+        return result.PaymentId;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace DevWorld.LaContessa.Command.Abstractions.Stripe
 {
-    public class CreateStripePaymentRequest : IRequest
+    public class CreateStripePaymentRequest : IRequest<string>
     {
         public string CustomerId { get; set; } = null!;
         public string PaymentMethodId { get; set; } = null!;

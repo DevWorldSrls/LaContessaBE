@@ -85,7 +85,7 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
 
             if(bookingToAdd.Status == Domain.Enums.BookingStatus.Payed && bookingToAdd.PaymentPrice != null)
             {
-                await _mediator.Send(
+                var result = await _mediator.Send(
                     new CreateStripePaymentRequest
                     {
                         CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
@@ -97,6 +97,8 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                     },
                     cancellationToken
                 );
+
+                bookingToAdd.PaymentIntentId = result ?? throw new Exception(); //TODO: Use specific exception
             }
         }
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);

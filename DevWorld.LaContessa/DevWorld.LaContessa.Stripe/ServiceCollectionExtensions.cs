@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
             .AddScoped<CustomerService>()
             .AddScoped<PaymentIntentService>()
             .AddScoped<PaymentMethodService>()
+            .AddScoped<RefundService>()
             .AddScoped<IStripeAppService, StripeAppService>();
     }
 }
