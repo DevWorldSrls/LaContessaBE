@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 {
     [DbContext(typeof(LaContessaDbContext))]
-    [Migration("20240105164956_Initial")]
+    [Migration("20240109120058_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -42,6 +42,10 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Duration")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -97,6 +101,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<bool>("IsLesson")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("text");
 
                     b.Property<long?>("PaymentPrice")
                         .HasColumnType("bigint");
@@ -184,7 +191,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("text");
 
                     b.Property<string>("CustomerId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
@@ -212,6 +218,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PaymentMethodId")
                         .HasColumnType("text");
 
                     b.Property<bool>("PeriodicBookingsEnabled")

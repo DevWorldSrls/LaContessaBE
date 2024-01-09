@@ -25,6 +25,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     Limit = table.Column<int>(type: "integer", nullable: false),
                     BookingType = table.Column<int>(type: "integer", nullable: false),
+                    Duration = table.Column<string>(type: "text", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
@@ -48,7 +49,8 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Password = table.Column<string>(type: "text", nullable: false),
                     ImageProfile = table.Column<string>(type: "text", nullable: true),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
-                    CustomerId = table.Column<string>(type: "text", nullable: false),
+                    CustomerId = table.Column<string>(type: "text", nullable: true),
+                    PaymentMethodId = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
@@ -113,6 +115,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Status = table.Column<int>(type: "integer", nullable: false),
                     BookingPrice = table.Column<long>(type: "bigint", nullable: false),
                     PaymentPrice = table.Column<long>(type: "bigint", nullable: true),
+                    PaymentIntentId = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
