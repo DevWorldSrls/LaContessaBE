@@ -1,4 +1,5 @@
-﻿using DevWorld.LaContessa.Stripe.Abstractions.Customers;
+﻿using DevWorld.LaContessa.Stripe.Abstractions.Cards;
+using DevWorld.LaContessa.Stripe.Abstractions.Customers;
 using DevWorld.LaContessa.Stripe.Abstractions.Payments;
 using Stripe;
 
@@ -21,47 +22,39 @@ namespace DevWorld.LaContessa.Stripe
         }
 
         /// <summary>
-        /// Create a new customer at Stripe through API using customer and card details from records.
+        /// Add a new card at Stripe using Customer.
+        /// If Customer doesn't exist, it will create it.
         /// </summary>
-        /// <param name="customer">Stripe Customer</param>
-        /// <param name="ct">Cancellation Token</param>
-        /// <returns>Stripe Customer</returns>
-        public async Task<StripeCustomer> CreateStripeCustomerAsync(CreateStripeCustomer customer, CancellationToken ct)
+        /// <returns><Stripe Customer Updated/returns>
+        public async Task<StripeCustomer> AddStripeCustomerCard(CreateStripeCard card, string? customerId = null, CreateStripeCustomer? customer = null, CancellationToken ct = default)
         {
             var paymentMethodOptions = new PaymentMethodCreateOptions
             {
                 Type = "card",
                 Card = new PaymentMethodCardOptions
                 {
-                    Number = customer.CreditCard.CardNumber,
-                    ExpYear = customer.CreditCard.ExpirationYear,
-                    ExpMonth = customer.CreditCard.ExpirationMonth,
-                    Cvc = customer.CreditCard.Cvc
+                    Number = card.CardNumber,
+                    ExpYear = card.ExpirationYear,
+                    ExpMonth = card.ExpirationMonth,
+                    Cvc = card.Cvc
                 }
             };
 
+            if(customerId is null && customer is not null)
+                await CreateStripeCustomerAsync(customer, ct);
+
             // Create Payment Method
-            var paymentMethod = await _paymentMethodService.CreateAsync(paymentMethodOptions, null, ct);
-
-            // Set Customer options using
-            var customerOptions = new CustomerCreateOptions
-            {
-                Name = customer.Name,
-                Email = customer.Email
-            };
-
-            // Create customer at Stripe
-            var createdCustomer = await _customerService.CreateAsync(customerOptions, null, ct);
-
+            var paymentMethod = await _paymentMethodService.CreateAsync(paymentMethodOptions, null, ct); 
+            
             var paymentMethodAttachOption = new PaymentMethodAttachOptions
             {
-                Customer = createdCustomer.Id,
+                Customer = customerId,
             };
 
             // Attach Payment Method to Customer
             var attachPaymentResponse = await _paymentMethodService.AttachAsync(paymentMethod.Id, paymentMethodAttachOption, null, ct);
 
-            var updatedCustomer = await _customerService.UpdateAsync(createdCustomer.Id, new CustomerUpdateOptions
+            var updatedCustomer = await _customerService.UpdateAsync(customerId, new CustomerUpdateOptions
             {
                 InvoiceSettings = new CustomerInvoiceSettingsOptions
                 {
@@ -70,10 +63,12 @@ namespace DevWorld.LaContessa.Stripe
             }, null, ct);
 
             // Return the created customer at stripe
-            return new StripeCustomer {
+            return new StripeCustomer
+            {
                 Name = updatedCustomer.Name,
                 Email = updatedCustomer.Email,
-                CustomerId = updatedCustomer.Id
+                CustomerId = updatedCustomer.Id,
+                PaymentMethodId = attachPaymentResponse.Id
             };
         }
 
@@ -103,13 +98,13 @@ namespace DevWorld.LaContessa.Stripe
             // Create the payment
             var createdPayment = await _paymentIntentService.CreateAsync(paymentOptions, null, ct);
 
-            var paymentMethod = await _customerService.ListPaymentMethodsAsync(payment.CustomerId, new CustomerListPaymentMethodsOptions { Limit = 1 });
+            var paymentMethod = await _customerService.RetrievePaymentMethodAsync(payment.CustomerId, payment.PaymentMethodId, null, null, ct);
 
-            if (paymentMethod == null || !paymentMethod.Any()) return new StripePayment { };
+            if (paymentMethod == null) return new StripePayment { };
 
             var confirmPaymentOptions = new PaymentIntentConfirmOptions
             {
-                PaymentMethod = paymentMethod!.First().Id,
+                PaymentMethod = paymentMethod!.Id,
                 ReturnUrl = "https://www.example.com"
             };
 
@@ -124,6 +119,45 @@ namespace DevWorld.LaContessa.Stripe
                 Currency = createdPayment.Currency,
                 Amount = createdPayment.Amount,
                 PaymentId = createdPayment.Id
+            };
+        }
+
+        /// <summary>
+        /// Detach payment at Stripe using Customer and Payment details.
+        /// Customer has to exist at Stripe already.
+        /// </summary>
+        public async Task DeleteStripePaymentAsync(string paymentId, CancellationToken ct)
+        {
+            // Detach Payment Method from Customer
+            await _paymentMethodService.DetachAsync(paymentId, null, null, ct);
+
+            return;
+        }
+
+        /// <summary>
+        /// Create a new customer at Stripe through API using customer and card details from records.
+        /// </summary>
+        /// <param name="customer">Stripe Customer</param>
+        /// <param name="ct">Cancellation Token</param>
+        /// <returns>Stripe Customer</returns>
+        private async Task<StripeCustomer> CreateStripeCustomerAsync(CreateStripeCustomer customer, CancellationToken ct)
+        {
+            // Set Customer options using
+            var customerOptions = new CustomerCreateOptions
+            {
+                Name = customer.Name,
+                Email = customer.Email
+            };
+
+            // Create customer at Stripe
+            var createdCustomer = await _customerService.CreateAsync(customerOptions, null, ct);
+
+            // Return the created customer at stripe
+            return new StripeCustomer
+            {
+                Name = createdCustomer.Name,
+                Email = createdCustomer.Email,
+                CustomerId = createdCustomer.Id
             };
         }
     }

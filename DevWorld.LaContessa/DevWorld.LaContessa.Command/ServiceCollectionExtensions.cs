@@ -29,7 +29,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<CreateActivity>, CreateActivityHandler>();
         services.AddTransient<IRequestHandler<UpdateActivity>, UpdateActivityHandler>();
 
-        services.AddTransient<IRequestHandler<CreateStripeCustomerRequest>, CreateStripeCustomerRequestHandler>();
+        services.AddTransient<IRequestHandler<CreateCard>, CreateCardHandler>();
+        services.AddTransient<IRequestHandler<DeleteCard>, DeleteCardHandler>();
         services.AddTransient<IRequestHandler<CreateStripePaymentRequest>, CreateStripePaymentRequestHandler>();
 
         return services;

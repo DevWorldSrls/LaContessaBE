@@ -5,6 +5,7 @@ namespace DevWorld.LaContessa.Stripe.Abstractions.Payments
     public class CreateStripePayment
     {
         public string CustomerId { get; set; } = null!;
+        public string PaymentMethodId { get; set; } = null!;
         public string ReceiptEmail { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string Currency { get; set; } = null!;

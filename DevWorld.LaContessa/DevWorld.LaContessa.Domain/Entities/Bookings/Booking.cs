@@ -16,4 +16,5 @@ public class Booking : SoftDeletable
     public BookingStatus Status { get; set; }
     public long BookingPrice { get; set; }
     public long? PaymentPrice { get; set; }
+    public string? PaymentIntentId { get; set; }
 }

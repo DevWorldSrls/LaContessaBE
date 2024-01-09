@@ -89,6 +89,7 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                     new CreateStripePaymentRequest
                     {
                         CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
+                        PaymentMethodId = user.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
                         Amount = bookingToAdd.PaymentPrice ?? 0,
                         Currency = "EUR",
                         Description = "Pagamento " + activity.Name,

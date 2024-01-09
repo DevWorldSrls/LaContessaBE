@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevWorld.LaContessa.Command.Stripe;
 
-public class CreateStripeCustomerRequestHandler : IRequestHandler<CreateStripeCustomerRequest>
+public class CreateCardHandler : IRequestHandler<CreateCard>
 {
     private readonly LaContessaDbContext _laContessaDbContext;
     private readonly IStripeAppService _stripeAppService;
 
-    public CreateStripeCustomerRequestHandler(
+    public CreateCardHandler(
         LaContessaDbContext laContessaDbContext,
         IStripeAppService stripeAppService
     )
@@ -21,28 +21,29 @@ public class CreateStripeCustomerRequestHandler : IRequestHandler<CreateStripeCu
         _stripeAppService = stripeAppService;
     }
 
-    public async Task Handle(CreateStripeCustomerRequest request, CancellationToken cancellationToken)
+    public async Task Handle(CreateCard request, CancellationToken cancellationToken)
     {
         var userToUpdate = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Id == request.Customer.UserId && !x.IsDeleted, cancellationToken) ?? throw new UserNotFoundException();
 
-        var result = await _stripeAppService.CreateStripeCustomerAsync(
+        var result = await _stripeAppService.AddStripeCustomerCard(
+            new LaContessa.Stripe.Abstractions.Cards.CreateStripeCard
+            {
+                Name = request.Customer.CreditCard.Name,
+                CardNumber = request.Customer.CreditCard.CardNumber,
+                Cvc = request.Customer.CreditCard.Cvc,
+                ExpirationMonth = request.Customer.CreditCard.ExpirationMonth,
+                ExpirationYear = request.Customer.CreditCard.ExpirationYear
+            },
+            userToUpdate.CustomerId,
             new LaContessa.Stripe.Abstractions.Customers.CreateStripeCustomer
             {
                 Email = request.Customer.Email,
-                Name = request.Customer.Name,
-                CreditCard = new LaContessa.Stripe.Abstractions.Cards.CreateStripeCard
-                {
-                    Name = request.Customer.CreditCard.Name,
-                    CardNumber = request.Customer.CreditCard.CardNumber,
-                    Cvc = request.Customer.CreditCard.Cvc,
-                    ExpirationMonth = request.Customer.CreditCard.ExpirationMonth,
-                    ExpirationYear = request.Customer.CreditCard.ExpirationYear
-                }
+                Name = request.Customer.Name
             },
             cancellationToken);
 
-
         userToUpdate.CustomerId = result.CustomerId;
+        userToUpdate.PaymentMethodId = result.PaymentMethodId;
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }

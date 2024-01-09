@@ -2,7 +2,7 @@
 
 namespace DevWorld.LaContessa.Command.Abstractions.Stripe
 {
-    public class CreateStripeCustomerRequest : IRequest
+    public class CreateCard : IRequest
     {
         public StripeCustomer Customer { get; set; } = null!;
 

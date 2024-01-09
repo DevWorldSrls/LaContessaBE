@@ -5,6 +5,7 @@
        Waiting, 
        Cancelled,
        Confirmed,
-       Payed
+       Payed,
+       Forfeit  //TODO Gestire casistica penale
     }
 }

@@ -29,6 +29,7 @@ public class CreateStripePaymentRequestHandler : IRequestHandler<CreateStripePay
                 CustomerId  = request.CustomerId,
                 Description = request.Description,
                 ReceiptEmail = request.ReceiptEmail,
+                PaymentMethodId = request.PaymentMethodId,
             },
             cancellationToken);
 

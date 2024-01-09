@@ -50,6 +50,7 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
                     new CreateStripePaymentRequest
                     {
                         CustomerId = user.CustomerId ?? throw new Exception(), //TODO: Use specific exception
+                        PaymentMethodId = user.PaymentMethodId ?? throw new Exception(), //TODO: Use specific exception
                         Amount = bookingToUpdate.BookingPrice - bookingToUpdate.PaymentPrice ?? 0,
                         Currency = "EUR",
                         Description = "Pagamento " + activity.Name,

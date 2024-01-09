@@ -1,7 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Stripe;
 using DevWorld.LaContessa.Command.Abstractions.Users;
 using DevWorld.LaContessa.Query.Abstractions.Users;
-using DevWorld.LaContessa.Stripe.Abstractions.Customers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -132,21 +131,5 @@ public class UserController : ControllerBase
     public ActionResult IsAuthorized() 
     { 
         return Ok(); 
-    }
-
-    [HttpPost("customer")]
-    [AllowAnonymous] //To be removed
-    public async Task<ActionResult> CreateStripeCustomer([FromBody] CreateStripeCustomerRequest.StripeCustomer customer,
-        CancellationToken cancellationToken)
-    {
-        await _mediator.Send(
-            new CreateStripeCustomerRequest
-            {
-                Customer = customer
-            },
-            cancellationToken
-        );
-
-        return Ok();
     }
 }
