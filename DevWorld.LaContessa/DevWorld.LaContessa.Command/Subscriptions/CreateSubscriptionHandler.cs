@@ -43,6 +43,7 @@ public class CreateSubscriptionHandler : IRequestHandler<CreateSubscription>
             NumberOfIngress = request.Subscription.NumberOfIngress,
             MedicalCertificateExpired = request.Subscription.MedicalCertificateExpired,
             MedicalCertificateDueDate = request.Subscription.MedicalCertificateDueDate,
+            SubscriptionPrice = request.Subscription.SubscriptionPrice,
         };
 
         await _laContessaDbContext.AddAsync(subscriptionToAdd, cancellationToken);

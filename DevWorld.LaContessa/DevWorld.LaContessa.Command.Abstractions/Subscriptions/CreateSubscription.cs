@@ -18,5 +18,6 @@ public class CreateSubscription : IRequest
         public int? NumberOfIngress { get; set; }
         public string? ExpirationDate { get; set; }
         public string? MedicalCertificateDueDate { get; set; }
+        public long? SubscriptionPrice { get; set; }
     }
 }

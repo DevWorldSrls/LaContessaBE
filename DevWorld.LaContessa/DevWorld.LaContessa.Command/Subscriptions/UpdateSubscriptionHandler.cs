@@ -1,4 +1,5 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Exceptions;
+using DevWorld.LaContessa.Command.Abstractions.Stripe;
 using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
@@ -9,10 +10,16 @@ namespace DevWorld.LaContessa.Command.Subscriptions;
 public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
 {
     private readonly LaContessaDbContext _laContessaDbContext;
+    private readonly IMediator _mediator;
 
-    public UpdateSubscriptionHandler(LaContessaDbContext laContessaDbContext)
+    public UpdateSubscriptionHandler(
+        LaContessaDbContext laContessaDbContext, 
+        IMediator mediator
+    )
     {
         _laContessaDbContext = laContessaDbContext;
+        _mediator = mediator;
+
     }
 
     public async Task Handle(UpdateSbscription request, CancellationToken cancellationToken)
@@ -34,6 +41,25 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
         subscriptionToUpdate.NumberOfIngress = request.Subscription.NumberOfIngress;
         subscriptionToUpdate.MedicalCertificateExpired = request.Subscription.MedicalCertificateExpired;
         subscriptionToUpdate.MedicalCertificateDueDate = request.Subscription.MedicalCertificateDueDate;
+        subscriptionToUpdate.SubscriptionPrice = request.Subscription.SubscriptionPrice;
+
+        if (request.Subscription.IsPaymentRequest)
+        {
+            var result = await _mediator.Send(
+                    new CreateStripePaymentRequest
+                    {
+                        CustomerId = user.CustomerId ?? throw new CustomerNotFoundException(),
+                        PaymentMethodId = user.PaymentMethodId ?? throw new PaymentMethodNotFoundException(),
+                        Amount = subscriptionToUpdate.SubscriptionPrice ?? 0,
+                        Currency = "EUR",
+                        Description = "Rinnovo abbonamento per: " + activity.Name,
+                        ReceiptEmail = "info@lacontessa.it",
+                    },
+                    cancellationToken
+                );
+
+            if(result is null) throw new PaymentIntentNotFoundException();
+        }
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }

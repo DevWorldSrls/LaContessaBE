@@ -32,6 +32,7 @@ public class GetSubscriptionHandler : IRequestHandler<GetSubscription, GetSubscr
                     NumberOfIngress = x.NumberOfIngress,
                     MedicalCertificateExpired = x.MedicalCertificateExpired,
                     MedicalCertificateDueDate = x.MedicalCertificateDueDate,
+                    SubscriptionPrice = x.SubscriptionPrice,
                 })
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new SubscriptionNotFoundException()
         };
