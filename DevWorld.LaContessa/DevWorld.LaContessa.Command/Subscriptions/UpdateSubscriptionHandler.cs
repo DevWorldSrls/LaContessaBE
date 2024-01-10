@@ -43,14 +43,14 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
         subscriptionToUpdate.MedicalCertificateDueDate = request.Subscription.MedicalCertificateDueDate;
         subscriptionToUpdate.SubscriptionPrice = request.Subscription.SubscriptionPrice;
 
-        if (request.Subscription.IsPaymentRequest)
+        if (request.Subscription.IsPaymentRequest && request.Subscription.PaymentPrice != null)
         {
             var result = await _mediator.Send(
                     new CreateStripePaymentRequest
                     {
                         CustomerId = user.CustomerId ?? throw new CustomerNotFoundException(),
                         PaymentMethodId = user.PaymentMethodId ?? throw new PaymentMethodNotFoundException(),
-                        Amount = subscriptionToUpdate.SubscriptionPrice ?? 0,
+                        Amount = request.Subscription.PaymentPrice ?? 0,
                         Currency = "EUR",
                         Description = "Rinnovo abbonamento per: " + activity.Name,
                         ReceiptEmail = "info@lacontessa.it",

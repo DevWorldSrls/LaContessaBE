@@ -20,6 +20,7 @@ public class UpdateSbscription : IRequest
         public string? ExpirationDate { get; set; }
         public string? MedicalCertificateDueDate { get; set; }
         public long? SubscriptionPrice { get; set; }
+        public long? PaymentPrice { get; set; }
         public bool IsPaymentRequest { get; set; } = false;
     }
 }
