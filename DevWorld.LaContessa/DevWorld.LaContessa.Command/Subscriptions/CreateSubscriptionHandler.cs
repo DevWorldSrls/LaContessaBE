@@ -17,7 +17,10 @@ public class CreateSubscriptionHandler : IRequestHandler<CreateSubscription>
 
     public async Task Handle(CreateSubscription request, CancellationToken cancellationToken)
     {
-        var alreadyExist = await _laContessaDbContext.Subscriptions.AnyAsync(x => request.Subscription.UserId == x.User.Id, cancellationToken);
+        var alreadyExist = await _laContessaDbContext.Subscriptions.AnyAsync(x => 
+            request.Subscription.UserId == x.User.Id 
+            && request.Subscription.ActivityId == x.Activity.Id
+            , cancellationToken);
 
         if (alreadyExist)
             throw new SubscriptionAlreadyExistException();
