@@ -18,6 +18,7 @@ public class GetUsers : IRequest<GetUsers.Response>
             public bool IsPro { get; set; } = false;
             public bool PeriodicBookingsEnabled { get; set; } = false;
             public string? ImageProfile { get; set; }
+            public string? CardNumber { get; set; }
         }
     }
 }

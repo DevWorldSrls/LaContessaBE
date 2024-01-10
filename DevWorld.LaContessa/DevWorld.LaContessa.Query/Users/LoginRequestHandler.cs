@@ -54,6 +54,7 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, GetUser.Respons
                 ImageProfile = user.ImageProfile,
                 IsPro = user.IsPro,
                 PeriodicBookingsEnabled = user.PeriodicBookingsEnabled,
+                CardNumber = user.CardNumber,
             },
             Token = token,
             RefreshToken = newRefreshToken

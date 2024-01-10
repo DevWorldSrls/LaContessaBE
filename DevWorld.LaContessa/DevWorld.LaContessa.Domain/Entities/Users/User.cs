@@ -10,6 +10,7 @@ public class User : SoftDeletable
     public bool IsAdmin { get; set; } = false;
     public bool PeriodicBookingsEnabled { get; set; } = false;
     public string? ImageProfile { get; set; }
+    public string? CardNumber { get; set; }
     public string? RefreshToken { get; set; }
     public string? CustomerId { get; set; }
     public string? PaymentMethodId { get; set; }

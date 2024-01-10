@@ -27,6 +27,7 @@ public class UpdateUserHandler : IRequestHandler<UpdateUser>
         userToUpdate.ImageProfile = request.User.ImageProfile;
         userToUpdate.IsPro = request.User.IsPro;
         userToUpdate.PeriodicBookingsEnabled = request.User.PeriodicBookingsEnabled;
+        userToUpdate.CardNumber = request.User.CardNumber;
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }

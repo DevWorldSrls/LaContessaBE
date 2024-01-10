@@ -35,7 +35,8 @@ public class CreateUserHandler : IRequestHandler<CreateUser>
             Password = generatedPassword,
             ImageProfile = request.User.ImageProfile,
             IsPro = request.User.IsPro,
-            PeriodicBookingsEnabled = request.User.PeriodicBookingsEnabled
+            PeriodicBookingsEnabled = request.User.PeriodicBookingsEnabled,
+            CardNumber = request.User.CardNumber,
         };
 
         await _laContessaDbContext.AddAsync(userToAdd);

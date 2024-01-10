@@ -29,6 +29,7 @@ public class GetUserHandler : IRequestHandler<GetUser, GetUser.Response>
                     ImageProfile = x.ImageProfile,
                     IsPro = x.IsPro,
                     PeriodicBookingsEnabled = x.PeriodicBookingsEnabled,
+                    CardNumber = x.CardNumber,
                 })
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new UserNotFoundException()
         };

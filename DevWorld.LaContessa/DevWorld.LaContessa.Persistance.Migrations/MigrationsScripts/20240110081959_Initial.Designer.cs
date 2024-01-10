@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 {
     [DbContext(typeof(LaContessaDbContext))]
-    [Migration("20240109120058_Initial")]
+    [Migration("20240110081959_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -32,7 +32,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("uuid");
 
                     b.Property<string>("ActivityImg")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("BookingType")
@@ -42,7 +41,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Duration")
@@ -58,7 +56,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<bool>("IsSubscriptionRequired")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Limit")
+                    b.Property<int?>("Limit")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -147,7 +145,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ExpirationDate")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
@@ -157,7 +154,6 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .HasColumnType("boolean");
 
                     b.Property<string>("MedicalCertificateDueDate")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("MedicalCertificateExpired")
