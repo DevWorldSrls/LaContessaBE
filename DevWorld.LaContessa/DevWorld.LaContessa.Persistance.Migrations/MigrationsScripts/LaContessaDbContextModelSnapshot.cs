@@ -162,6 +162,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<int>("SubType")
                         .HasColumnType("integer");
 
+                    b.Property<long?>("SubscriptionPrice")
+                        .HasColumnType("bigint");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 

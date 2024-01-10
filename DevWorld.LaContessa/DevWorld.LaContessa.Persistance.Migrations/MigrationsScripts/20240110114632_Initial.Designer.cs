@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 {
     [DbContext(typeof(LaContessaDbContext))]
-    [Migration("20240110081959_Initial")]
+    [Migration("20240110114632_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -164,6 +164,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<int>("SubType")
                         .HasColumnType("integer");
+
+                    b.Property<long?>("SubscriptionPrice")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
