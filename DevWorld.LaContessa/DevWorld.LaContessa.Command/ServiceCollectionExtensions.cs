@@ -5,10 +5,10 @@ using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Command.Abstractions.Users;
 using DevWorld.LaContessa.Command.Activities;
 using DevWorld.LaContessa.Command.Bookings;
+using DevWorld.LaContessa.Command.Services;
 using DevWorld.LaContessa.Command.Stripe;
 using DevWorld.LaContessa.Command.Subscriptions;
 using DevWorld.LaContessa.Command.Users;
-using DevWorld.LaContessa.Stripe.Abstractions.Payments;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +19,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCommandServices(this IServiceCollection services)
     {
         services.AddMediatR(x => { x.RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)); });
+
+        services.AddTransient<ILaContessaFirebaseStorage, LaContessaFirebaseStorage>();
 
         services.AddTransient<IRequestHandler<CreateUser>, CreateUserHandler>();
         services.AddTransient<IRequestHandler<UpdateUser>, UpdateUserHandler>();

@@ -1,5 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
+using DevWorld.LaContessa.Command.Services;
 using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
@@ -10,22 +11,38 @@ namespace DevWorld.LaContessa.Command.Activities;
 public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
 {
     private readonly LaContessaDbContext _laContessaDbContext;
+    private readonly ILaContessaFirebaseStorage _laContessaFirebaseStorage;
 
-    public UpdateActivityHandler(LaContessaDbContext laContessaDbContext)
+    public UpdateActivityHandler(LaContessaDbContext laContessaDbContext, ILaContessaFirebaseStorage laContessaFirebaseStorage)
     {
         _laContessaDbContext = laContessaDbContext;
+        _laContessaFirebaseStorage = laContessaFirebaseStorage;
     }
 
     public async Task Handle(UpdateActivity request, CancellationToken cancellationToken)
     {
         var activityToUpdate = await _laContessaDbContext.Activities.FirstOrDefaultAsync(x => x.Id == request.Activity.Id && !x.IsDeleted, cancellationToken) ?? throw new ActivityNotFoundException();
 
+        string? imageUrl = null;
+
+        if (!(string.IsNullOrEmpty(request.Activity.ActivityImg) || string.IsNullOrEmpty(request.Activity.ActivityImgExt)))
+        {
+            if (activityToUpdate.ActivityImg != request.Activity.ActivityImg)
+            {
+                imageUrl = await _laContessaFirebaseStorage.StoreImageData(request.Activity.ActivityImg, "activities", activityToUpdate.Id + request.Activity.ActivityImgExt);
+            } 
+            else
+            {
+                imageUrl = request.Activity.ActivityImg;
+            }
+        }
+
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.IsOutdoor = request.Activity.IsOutdoor;
         activityToUpdate.IsSubscriptionRequired = request.Activity.IsSubscriptionRequired;
         activityToUpdate.Description = request.Activity.Description;
-        activityToUpdate.ActivityImg = request.Activity.ActivityImg;
+        activityToUpdate.ActivityImg = imageUrl;
         activityToUpdate.Price = request.Activity.Price;
         activityToUpdate.ServiceList = request.Activity.ServiceList.Select(service =>
             new Service

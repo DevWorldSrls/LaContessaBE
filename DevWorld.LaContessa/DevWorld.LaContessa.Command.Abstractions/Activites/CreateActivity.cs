@@ -20,6 +20,7 @@ public class CreateActivity : IRequest
         public int? Limit { get; set; }
         public string? Description { get; set; }
         public string? ActivityImg { get; set; }
+        public string? ActivityImgExt { get; set; }
     }
 
     public class Service

@@ -15,6 +15,7 @@ public class CreateUser : IRequest
         public bool IsPro { get; set; } = false;
         public bool PeriodicBookingsEnabled { get; set; } = false;
         public string? ImageProfile { get; set; }
+        public string? ImageProfileExt { get; set; }
         public string? CardNumber { get; set; }
     }
 }

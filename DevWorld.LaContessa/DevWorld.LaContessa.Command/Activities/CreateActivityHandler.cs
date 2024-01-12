@@ -1,5 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
+using DevWorld.LaContessa.Command.Services;
 using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
@@ -10,10 +11,12 @@ namespace DevWorld.LaContessa.Command.Activities;
 public class CreateActivityHandler : IRequestHandler<CreateActivity>
 {
     private readonly LaContessaDbContext _laContessaDbContext;
+    private readonly ILaContessaFirebaseStorage _laContessaFirebaseStorage;
 
-    public CreateActivityHandler(LaContessaDbContext laContessaDbContext)
+    public CreateActivityHandler(LaContessaDbContext laContessaDbContext, ILaContessaFirebaseStorage laContessaFirebaseStorage)
     {
         _laContessaDbContext = laContessaDbContext;
+        _laContessaFirebaseStorage = laContessaFirebaseStorage;
     }
 
     public async Task Handle(CreateActivity request, CancellationToken cancellationToken)
@@ -23,14 +26,22 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
         if (alreadyExist)
             throw new ActivityAlreadyExistException();
 
+        string? imageUrl = null;
+        var newActivityId = Guid.NewGuid();
+
+        if (!(string.IsNullOrEmpty(request.Activity.ActivityImg) || string.IsNullOrEmpty(request.Activity.ActivityImgExt)))
+        {
+            imageUrl = await _laContessaFirebaseStorage.StoreImageData(request.Activity.ActivityImg, "activities", newActivityId + request.Activity.ActivityImgExt);
+        }
+
         var activityToAdd = new Activity
         {
-            Id = Guid.NewGuid(),
+            Id = newActivityId,
             Name = request.Activity.Name,
             IsOutdoor = request.Activity.IsOutdoor,
             IsSubscriptionRequired = request.Activity.IsSubscriptionRequired,
             Description = request.Activity.Description,
-            ActivityImg = request.Activity.ActivityImg,
+            ActivityImg = imageUrl,
             Price = request.Activity.Price,
             ServiceList = request.Activity.ServiceList.Select(service => new Service
             {
