@@ -1,9 +1,11 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
+using DevWorld.LaContessa.Command.Abstractions.Banners;
 using DevWorld.LaContessa.Command.Abstractions.Bookings;
 using DevWorld.LaContessa.Command.Abstractions.Stripe;
 using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Command.Abstractions.Users;
 using DevWorld.LaContessa.Command.Activities;
+using DevWorld.LaContessa.Command.Banners;
 using DevWorld.LaContessa.Command.Bookings;
 using DevWorld.LaContessa.Command.Services;
 using DevWorld.LaContessa.Command.Stripe;
@@ -25,10 +27,13 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<CreateUser>, CreateUserHandler>();
         services.AddTransient<IRequestHandler<UpdateUser>, UpdateUserHandler>();
         services.AddTransient<IRequestHandler<UpdateUserPassword>, UpdateUserPasswordHandler>();
+
         services.AddTransient<IRequestHandler<CreateSubscription>, CreateSubscriptionHandler>();
-        services.AddTransient<IRequestHandler<UpdateSbscription>, UpdateSubscriptionHandler>();
+        services.AddTransient<IRequestHandler<UpdateSubscription>, UpdateSubscriptionHandler>();
+
         services.AddTransient<IRequestHandler<CreateBooking>, CreateBookingHandler>();
         services.AddTransient<IRequestHandler<UpdateBooking>, UpdateBookingHandler>();
+
         services.AddTransient<IRequestHandler<CreateActivity>, CreateActivityHandler>();
         services.AddTransient<IRequestHandler<UpdateActivity>, UpdateActivityHandler>();
 
@@ -36,6 +41,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IRequestHandler<DeleteCard>, DeleteCardHandler>();
         services.AddTransient<IRequestHandler<RefundRequest>, RefundRequestHandler>();
         services.AddTransient<IRequestHandler<CreateStripePaymentRequest, string>, CreateStripePaymentRequestHandler>();
+
+        services.AddTransient<IRequestHandler<CreateBanner>, CreateBannerHandler>();
+        services.AddTransient<IRequestHandler<UpdateBanner>, UpdateBannerHandler>();
 
         return services;
     }

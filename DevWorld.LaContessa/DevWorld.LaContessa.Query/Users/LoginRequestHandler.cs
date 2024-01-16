@@ -55,7 +55,7 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, GetUser.Respons
                 IsPro = user.IsPro,
                 PeriodicBookingsEnabled = user.PeriodicBookingsEnabled,
                 CardNumber = user.CardNumber,
-                HasCreditCardLinked = x.CustomerId != null,
+                HasCreditCardLinked = user.CustomerId != null,
             },
             Token = token,
             RefreshToken = newRefreshToken

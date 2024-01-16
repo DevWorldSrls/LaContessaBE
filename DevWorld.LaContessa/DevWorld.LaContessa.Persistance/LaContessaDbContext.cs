@@ -1,4 +1,5 @@
 ﻿using DevWorld.LaContessa.Domain.Entities.Activities;
+using DevWorld.LaContessa.Domain.Entities.Banners;
 using DevWorld.LaContessa.Domain.Entities.Bookings;
 using DevWorld.LaContessa.Domain.Entities.Subscriptions;
 using DevWorld.LaContessa.Domain.Entities.Users;
@@ -32,6 +33,7 @@ public class LaContessaDbContext : DbContext
     public DbSet<Subscription> Subscriptions { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<Activity> Activities { get; set; }
+    public DbSet<Banner> Banners { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

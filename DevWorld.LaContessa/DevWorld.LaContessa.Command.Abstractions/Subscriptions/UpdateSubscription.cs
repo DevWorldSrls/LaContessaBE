@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DevWorld.LaContessa.Command.Abstractions.Subscriptions;
 
-public class UpdateSbscription : IRequest
+public class UpdateSubscription : IRequest
 {
     public SubscriptionDetail Subscription { get; set; } = null!;
 

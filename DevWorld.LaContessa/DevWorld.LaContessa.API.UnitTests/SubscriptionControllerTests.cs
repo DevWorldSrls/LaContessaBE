@@ -97,8 +97,8 @@ public class SubscriptionControllerTests
     public async Task UpdateSubscription_ReturnsOkResult()
     {
         // Arrange
-        var subscriptionDetail = new UpdateSbscription.SubscriptionDetail();
-        _mockMediator.Setup(m => m.Send(It.Is<UpdateSbscription>(cmd => cmd.Subscription == subscriptionDetail),
+        var subscriptionDetail = new UpdateSubscription.SubscriptionDetail();
+        _mockMediator.Setup(m => m.Send(It.Is<UpdateSubscription>(cmd => cmd.Subscription == subscriptionDetail),
                 It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
 

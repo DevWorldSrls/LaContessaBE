@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevWorld.LaContessa.Command.Subscriptions;
 
-public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
+public class UpdateSubscriptionHandler : IRequestHandler<UpdateSubscription>
 {
     private readonly LaContessaDbContext _laContessaDbContext;
     private readonly IMediator _mediator;
@@ -22,7 +22,7 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSbscription>
 
     }
 
-    public async Task Handle(UpdateSbscription request, CancellationToken cancellationToken)
+    public async Task Handle(UpdateSubscription request, CancellationToken cancellationToken)
     {
         var subscriptionToUpdate = await _laContessaDbContext.Subscriptions.FirstOrDefaultAsync(x => x.Id == request.Subscription.Id && !x.IsDeleted, cancellationToken) ?? throw new SubscriptionNotFoundException();
 

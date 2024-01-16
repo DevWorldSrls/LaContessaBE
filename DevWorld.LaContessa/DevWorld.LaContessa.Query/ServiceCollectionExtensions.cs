@@ -1,8 +1,10 @@
 ﻿using DevWorld.LaContessa.Query.Abstractions.Activities;
+using DevWorld.LaContessa.Query.Abstractions.Banners;
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Query.Abstractions.Users;
 using DevWorld.LaContessa.Query.Activity;
+using DevWorld.LaContessa.Query.Banners;
 using DevWorld.LaContessa.Query.Bookings;
 using DevWorld.LaContessa.Query.Services;
 using DevWorld.LaContessa.Query.Subscriptions;
@@ -27,16 +29,17 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<IRequestHandler<GetSubscriptions, GetSubscriptions.Response>, GetSubscriptionsHandler>();
         services.AddTransient<IRequestHandler<GetSubscription, GetSubscription.Response>, GetSubscriptionHandler>();
-        services
-            .AddTransient<IRequestHandler<GetSubscriptionByUserId, GetSubscriptionByUserId.Response>,
-                GetSubscriptionByUserIdHandler>();
+        services.AddTransient<IRequestHandler<GetSubscriptionByUserId, GetSubscriptionByUserId.Response>, GetSubscriptionByUserIdHandler>();
+
         services.AddTransient<IRequestHandler<GetBookings, GetBookings.Response>, GetBookingsHandler>();
         services.AddTransient<IRequestHandler<GetBooking, GetBooking.Response>, GetBookingHandler>();
-        services
-            .AddTransient<IRequestHandler<GetBookingByUserId, GetBookingByUserId.Response>,
-                GetBookingByUserIdHandler>();
+        services.AddTransient<IRequestHandler<GetBookingByUserId, GetBookingByUserId.Response>, GetBookingByUserIdHandler>();
+
         services.AddTransient<IRequestHandler<GetActivities, GetActivities.Response>, GetActivitiesHandler>();
         services.AddTransient<IRequestHandler<GetActivity, GetActivity.Response>, GetActivityHandler>();
+
+        services.AddTransient<IRequestHandler<GetBanners, GetBanners.Response>, GetBannersHandler>();
+        services.AddTransient<IRequestHandler<GetBanner, GetBanner.Response>, GetBannerHandler>();
 
         return services;
     }

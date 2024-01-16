@@ -44,7 +44,7 @@ public class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, G
                 IsPro = user.IsPro,
                 PeriodicBookingsEnabled = user.PeriodicBookingsEnabled,
                 CardNumber = user.CardNumber,
-                HasCreditCardLinked = x.CustomerId != null,
+                HasCreditCardLinked = user.CustomerId != null,
             },
             Token = token,
             RefreshToken = newRefreshToken

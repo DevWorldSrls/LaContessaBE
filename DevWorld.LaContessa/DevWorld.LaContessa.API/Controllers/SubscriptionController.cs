@@ -53,11 +53,11 @@ public class SubscriptionController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> UpdateSubscription([FromBody] UpdateSbscription.SubscriptionDetail subscription,
+    public async Task<ActionResult> UpdateSubscription([FromBody] UpdateSubscription.SubscriptionDetail subscription,
         CancellationToken cancellationToken)
     {
         await _mediator.Send(
-            new UpdateSbscription
+            new UpdateSubscription
             {
                 Subscription = subscription
             },
