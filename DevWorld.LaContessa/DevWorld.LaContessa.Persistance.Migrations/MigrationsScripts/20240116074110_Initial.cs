@@ -35,6 +35,23 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                 });
 
             migrationBuilder.CreateTable(
+                name: "Banners",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    BannerImg = table.Column<string>(type: "text", nullable: true),
+                    BannerImgExt = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Banners", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -219,6 +236,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
         {
             migrationBuilder.DropTable(
                 name: "ActivityTimeSlot");
+
+            migrationBuilder.DropTable(
+                name: "Banners");
 
             migrationBuilder.DropTable(
                 name: "Bookings");

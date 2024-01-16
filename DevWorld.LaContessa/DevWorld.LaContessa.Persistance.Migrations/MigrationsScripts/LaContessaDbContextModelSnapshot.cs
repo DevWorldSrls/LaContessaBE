@@ -68,6 +68,36 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.ToTable("Activities");
                 });
 
+            modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Banners.Banner", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("BannerImg")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BannerImgExt")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Banners");
+                });
+
             modelBuilder.Entity("DevWorld.LaContessa.Domain.Entities.Bookings.Booking", b =>
                 {
                     b.Property<Guid>("Id")
