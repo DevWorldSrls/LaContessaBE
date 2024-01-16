@@ -28,6 +28,7 @@ public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
                 IsPro = x.IsPro,
                 PeriodicBookingsEnabled = x.PeriodicBookingsEnabled,
                 CardNumber = x.CardNumber,
+                HasCreditCardLinked = x.CustomerId != null,
             }).ToArrayAsync(cancellationToken)
         };
     }
