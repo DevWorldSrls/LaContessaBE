@@ -4,7 +4,7 @@ using DevWorld.LaContessa.Query.Abstractions.Users;
 using DevWorld.LaContessa.Query.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
+using System.Security.Authentication;
 
 namespace DevWorld.LaContessa.Query.Users;
 
@@ -24,7 +24,9 @@ public class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, G
         var principal = _tokenService.GetPrincipalFromExpiredToken(request.AuthenticationToken);
         var userEmail = principal.Identity?.Name ?? throw new PrincipalNotFoundException();
         
-        var user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Email == userEmail && x.RefreshToken == request.RefreshToken, cancellationToken) ?? throw new UserNotFoundException();
+        var user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Email == userEmail, cancellationToken) ?? throw new UserNotFoundException();
+
+        if(user.RefreshToken == null || user.RefreshToken != request.RefreshToken) throw new AuthenticationException("Invalid RefreshToken");
 
         var token = _tokenService.GenerateAccessToken(principal.Claims);
         var newRefreshToken = _tokenService.GenerateRefreshToken();

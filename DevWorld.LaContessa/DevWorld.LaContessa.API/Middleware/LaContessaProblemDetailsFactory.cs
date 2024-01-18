@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Security.Authentication;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Query.Abstractions.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ public class LaContessaProblemDetailsFactory
         {
             QueryException => (int)HttpStatusCode.NotFound,
             CommandException => (int)HttpStatusCode.Conflict,
+            AuthenticationException  => (int)HttpStatusCode.Unauthorized,
             _ => (int)HttpStatusCode.InternalServerError
         };
         var problemDetails = _problemDetailsFactory.CreateProblemDetails(
