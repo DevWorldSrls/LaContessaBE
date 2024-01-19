@@ -44,7 +44,10 @@ namespace DevWorld.LaContessa.Stripe
             };
 
             if(customerId is null && customer is not null)
-                await CreateStripeCustomerAsync(customer, ct);
+            {
+                var newCustomer = await CreateStripeCustomerAsync(customer, ct);
+                customerId = newCustomer.CustomerId;
+            }
 
             // Create Payment Method
             var paymentMethod = await _paymentMethodService.CreateAsync(paymentMethodOptions, null, ct); 
