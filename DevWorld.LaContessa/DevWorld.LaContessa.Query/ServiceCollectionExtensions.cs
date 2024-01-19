@@ -1,12 +1,14 @@
 ﻿using DevWorld.LaContessa.Query.Abstractions.Activities;
 using DevWorld.LaContessa.Query.Abstractions.Banners;
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
+using DevWorld.LaContessa.Query.Abstractions.Stripe;
 using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using DevWorld.LaContessa.Query.Abstractions.Users;
 using DevWorld.LaContessa.Query.Activity;
 using DevWorld.LaContessa.Query.Banners;
 using DevWorld.LaContessa.Query.Bookings;
 using DevWorld.LaContessa.Query.Services;
+using DevWorld.LaContessa.Query.Stripe;
 using DevWorld.LaContessa.Query.Subscriptions;
 using DevWorld.LaContessa.Query.Users;
 using MediatR;
@@ -40,6 +42,8 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<IRequestHandler<GetBanners, GetBanners.Response>, GetBannersHandler>();
         services.AddTransient<IRequestHandler<GetBanner, GetBanner.Response>, GetBannerHandler>();
+
+        services.AddTransient<IRequestHandler<GetCard, GetCard.Response>, GetCardHandler>();
 
         return services;
     }

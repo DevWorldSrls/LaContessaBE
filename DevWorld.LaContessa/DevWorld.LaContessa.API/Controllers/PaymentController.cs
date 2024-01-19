@@ -1,4 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Stripe;
+using DevWorld.LaContessa.Query.Abstractions.Stripe;
+using DevWorld.LaContessa.Query.Abstractions.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +17,17 @@ public class PaymentController : ControllerBase
     public PaymentController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet("card")]
+    public async Task<ActionResult<GetCard.Response>> GetCard(Guid userId, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(
+            new GetCard(
+                userId
+            ),
+            cancellationToken
+        );
     }
 
     [HttpPost("card")]

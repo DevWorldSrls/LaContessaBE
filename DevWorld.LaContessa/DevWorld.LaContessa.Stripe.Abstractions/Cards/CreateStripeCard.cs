@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace DevWorld.LaContessa.Stripe.Abstractions.Cards
+﻿namespace DevWorld.LaContessa.Stripe.Abstractions.Cards
 {
     public class CreateStripeCard
     {

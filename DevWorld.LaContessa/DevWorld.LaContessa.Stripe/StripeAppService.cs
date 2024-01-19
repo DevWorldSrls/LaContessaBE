@@ -24,6 +24,25 @@ namespace DevWorld.LaContessa.Stripe
             _paymentMethodService = paymentMethodService;
         }
 
+
+        /// <summary>
+        /// Retrieve card at Stripe using Customer.
+        /// </summary>
+        /// <returns><Stripe Customer Stripe Card/returns>
+        public async Task<CreateStripeCard> RetrieveStripeCustomerCard(RetrieveStripeCard retrieveRequest, CancellationToken ct)
+        {
+            var paymentMethod = await _customerService.RetrievePaymentMethodAsync(retrieveRequest.CustomerId, retrieveRequest.PaymentMethodId, null, null, ct);
+
+            if (paymentMethod == null || paymentMethod.Card == null) return new CreateStripeCard { };
+
+            return new CreateStripeCard
+            {
+                CardNumber = paymentMethod.Card.Last4,
+                ExpirationMonth = paymentMethod.Card.ExpMonth,
+                ExpirationYear = paymentMethod.Card.ExpYear,
+            };
+        }
+
         /// <summary>
         /// Add a new card at Stripe using Customer.
         /// If Customer doesn't exist, it will create it.

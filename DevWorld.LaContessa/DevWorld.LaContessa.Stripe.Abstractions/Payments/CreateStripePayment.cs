@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace DevWorld.LaContessa.Stripe.Abstractions.Payments
+﻿namespace DevWorld.LaContessa.Stripe.Abstractions.Payments
 {
     public class CreateStripePayment
     {

@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace DevWorld.LaContessa.Stripe.Abstractions.Customers
+﻿namespace DevWorld.LaContessa.Stripe.Abstractions.Customers
 {
     public class StripeCustomer
     {
