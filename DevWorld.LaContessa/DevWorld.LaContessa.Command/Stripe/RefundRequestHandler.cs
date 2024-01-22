@@ -29,7 +29,10 @@ public class RefundRequestHandler : IRequestHandler<RefundRequest>
 
     public async Task Handle(RefundRequest request, CancellationToken cancellationToken)
     {
-        var bookingToUpdate = await _laContessaDbContext.Bookings.FirstOrDefaultAsync(x => x.Id == request.BookingId && !x.IsDeleted, cancellationToken) ?? throw new BookingNotFoundException();
+        var bookingToUpdate = await _laContessaDbContext.Bookings
+            .Include( x => x.User)
+            .Include(x => x.Activity)
+            .FirstOrDefaultAsync(x => x.Id == request.BookingId && !x.IsDeleted, cancellationToken) ?? throw new BookingNotFoundException();
 
         if (!CanPerformRefund(bookingToUpdate.Date, bookingToUpdate.TimeSlot)) throw new RefundNotAvailableException();
 
