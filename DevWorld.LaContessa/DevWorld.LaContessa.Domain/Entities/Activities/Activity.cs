@@ -16,6 +16,7 @@ public class Activity : SoftDeletable
     public int? Limit { get; set; }
     public string? Description { get; set; }
     public string? ActivityImg { get; set; }
+    public string? ExpirationDate { get; set; }
 }
 
 [Owned]

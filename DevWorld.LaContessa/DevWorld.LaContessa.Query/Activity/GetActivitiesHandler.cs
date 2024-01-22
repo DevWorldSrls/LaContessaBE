@@ -45,7 +45,8 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
                     }).ToList(),
                     Limit = x.Limit,
                     BookingType = x.BookingType,
-                    Duration = x.Duration
+                    Duration = x.Duration,
+                    ExpirationDate = x.ExpirationDate,
                 }).ToArrayAsync(cancellationToken)
         };
     }

@@ -23,6 +23,7 @@ public class GetActivities : IRequest<GetActivities.Response>
             public int? Limit { get; set; }
             public string? Description { get; set; }
             public string? ActivityImg { get; set; }
+            public string? ExpirationDate { get; set; }
         }
 
         public class Service
