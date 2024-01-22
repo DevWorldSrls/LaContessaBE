@@ -45,7 +45,12 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
             {
                 case Domain.Enums.ActivityBookingType.APM:
 
-                    var bookingForActivity = await _laContessaDbContext.Bookings.CountAsync(x => x.Activity.Id == activity.Id && x.Date == bookingRequest.Date && x.TimeSlot == bookingRequest.TimeSlot);
+                    var bookingForActivity = await _laContessaDbContext.Bookings.CountAsync(x => 
+                        x.Activity.Id == activity.Id && 
+                        x.Date == bookingRequest.Date && 
+                        x.TimeSlot == bookingRequest.TimeSlot && 
+                        x.Status != Domain.Enums.BookingStatus.Cancelled
+                    );
 
                     if (bookingForActivity >= activity.Limit)
                     {

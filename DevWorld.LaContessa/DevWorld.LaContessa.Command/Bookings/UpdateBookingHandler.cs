@@ -45,10 +45,14 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
         switch (bookingToUpdate.Status)
         {
             case Domain.Enums.BookingStatus.Waiting:
+            case Domain.Enums.BookingStatus.Confirmed:
                 break;
             case Domain.Enums.BookingStatus.Cancelled:
-                break;
-            case Domain.Enums.BookingStatus.Confirmed:
+                var activityDateAPS = activity.DateList.FirstOrDefault(x => x.Date == bookingToUpdate.Date) ?? throw new ActivityNotFoundException();
+                var timeSlotToUpdateAPS = activityDateAPS.TimeSlotList.FirstOrDefault(x => x.TimeSlot == bookingToUpdate.TimeSlot) ?? throw new ActivityNotFoundException();
+                timeSlotToUpdateAPS.IsAlreadyBooked = false;
+                bookingToUpdate.PaymentIntentId = null;
+
                 break;
             case Domain.Enums.BookingStatus.Payed:
                 if (bookingToUpdate.PaymentPrice is not null)
@@ -94,8 +98,6 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
             default:
                 break;
         }
-
-        
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }
