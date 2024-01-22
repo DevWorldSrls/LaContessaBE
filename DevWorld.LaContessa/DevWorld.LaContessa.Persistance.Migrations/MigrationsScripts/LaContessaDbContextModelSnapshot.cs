@@ -44,6 +44,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ExpirationDate")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 

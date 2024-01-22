@@ -26,6 +26,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Limit = table.Column<int>(type: "integer", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     ActivityImg = table.Column<string>(type: "text", nullable: true),
+                    ExpirationDate = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },

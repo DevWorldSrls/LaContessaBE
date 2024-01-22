@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 {
     [DbContext(typeof(LaContessaDbContext))]
-    [Migration("20240116074110_Initial")]
+    [Migration("20240122093619_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -45,6 +45,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.Property<string>("Duration")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ExpirationDate")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
