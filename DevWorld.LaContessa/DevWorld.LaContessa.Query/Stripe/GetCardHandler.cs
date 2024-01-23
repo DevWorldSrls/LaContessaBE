@@ -29,7 +29,7 @@ public class GetCardHandler : IRequestHandler<GetCard, GetCard.Response>
         if (user.CustomerId is null || user.PaymentMethodId is null) throw new PaymentMethodNotFoundException();
 
         var stripeCard = await _stripeAppService.RetrieveStripeCustomerCard(
-            new LaContessa.Stripe.Abstractions.Cards.RetrieveStripeCard
+            new LaContessa.Stripe.Abstractions.Cards.RetrieveStripeCardRequest
             {
                 CustomerId = user.CustomerId,
                 PaymentMethodId = user.PaymentMethodId,
@@ -37,15 +37,17 @@ public class GetCardHandler : IRequestHandler<GetCard, GetCard.Response>
             cancellationToken
         );
 
-        if(stripeCard.CardNumber is null) throw new PaymentMethodNotFoundException();
+        if(stripeCard.LastFour is null) throw new PaymentMethodNotFoundException();
 
         return new GetCard.Response
         {
             Card = new CardDetail
             {
-                LastFour = stripeCard.CardNumber,
+                LastFour = stripeCard.LastFour,
                 ExpirationMonth = stripeCard.ExpirationMonth,
                 ExpirationYear = stripeCard.ExpirationYear,
+                CardHolder = stripeCard.CardHolder,
+                Brand = stripeCard.Brand
             }
         };
     }

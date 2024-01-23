@@ -8,7 +8,7 @@ namespace DevWorld.LaContessa.Stripe
     {
         Task<StripeCustomer> AddStripeCustomerCard(CreateStripeCard card, string? customerId = null, CreateStripeCustomer? customer = null, CancellationToken ct = default);
         Task<StripePayment> CreateStripePaymentAsync(CreateStripePayment payment, CancellationToken ct);
-        Task<CreateStripeCard> RetrieveStripeCustomerCard(RetrieveStripeCard retrieveRequest, CancellationToken ct);
+        Task<RetrieveStripeCardResponse> RetrieveStripeCustomerCard(RetrieveStripeCardRequest retrieveRequest, CancellationToken ct);
         Task DeleteStripePaymentAsync(string paymentId, CancellationToken ct);
         Task RefundStripePaymentAsync(string paymentIntentId, CancellationToken ct);
     }

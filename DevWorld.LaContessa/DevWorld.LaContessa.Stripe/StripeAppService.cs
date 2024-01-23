@@ -29,17 +29,19 @@ namespace DevWorld.LaContessa.Stripe
         /// Retrieve card at Stripe using Customer.
         /// </summary>
         /// <returns><Stripe Customer Stripe Card/returns>
-        public async Task<CreateStripeCard> RetrieveStripeCustomerCard(RetrieveStripeCard retrieveRequest, CancellationToken ct)
+        public async Task<RetrieveStripeCardResponse> RetrieveStripeCustomerCard(RetrieveStripeCardRequest retrieveRequest, CancellationToken ct)
         {
             var paymentMethod = await _customerService.RetrievePaymentMethodAsync(retrieveRequest.CustomerId, retrieveRequest.PaymentMethodId, null, null, ct);
 
-            if (paymentMethod == null || paymentMethod.Card == null) return new CreateStripeCard { };
+            if (paymentMethod == null || paymentMethod.Card == null) return new RetrieveStripeCardResponse { };
 
-            return new CreateStripeCard
+            return new RetrieveStripeCardResponse
             {
-                CardNumber = paymentMethod.Card.Last4,
+                LastFour = paymentMethod.Card.Last4,
                 ExpirationMonth = paymentMethod.Card.ExpMonth,
                 ExpirationYear = paymentMethod.Card.ExpYear,
+                CardHolder = paymentMethod.BillingDetails.Name,
+                Brand = paymentMethod.Card.Brand
             };
         }
 
@@ -59,6 +61,11 @@ namespace DevWorld.LaContessa.Stripe
                     ExpYear = card.ExpirationYear,
                     ExpMonth = card.ExpirationMonth,
                     Cvc = card.Cvc
+                },
+                BillingDetails = new PaymentMethodBillingDetailsOptions
+                {
+                    Name = card.Name,
+                    Email = customer?.Email ?? ""
                 }
             };
 
