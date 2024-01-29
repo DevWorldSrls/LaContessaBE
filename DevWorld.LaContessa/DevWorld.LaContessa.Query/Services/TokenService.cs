@@ -26,7 +26,7 @@ public class TokenService : ITokenService
             audience: _configuration["Tokens:Issuer"],
             claims: claims, //the user's claims, for example new Claim[] { new Claim(ClaimTypes.Name, "The username"), //... 
             notBefore: DateTime.UtcNow,
-            expires: DateTime.UtcNow.AddMinutes(15),
+            expires: DateTime.UtcNow.AddDays(1),
             signingCredentials: credentials
         );
 
