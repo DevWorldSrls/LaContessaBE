@@ -21,6 +21,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
         return new GetActivity.Response
         {
             Activity = await _laContessaDbContext.Activities
+                .AsNoTracking()
                 .Select(x => new GetActivity.Response.ActivityDetail
                 {
                     Id = x.Id,

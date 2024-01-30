@@ -20,6 +20,7 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
         return new GetActivities.Response
         {
             Activities = await _laContessaDbContext.Activities
+                .AsNoTracking()
                 .AsQueryable()
                 .Select(x => new GetActivities.Response.ActivityDetail
                 {
