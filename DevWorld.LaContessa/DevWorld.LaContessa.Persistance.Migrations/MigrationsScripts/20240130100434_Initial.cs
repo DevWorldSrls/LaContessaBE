@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -21,14 +20,13 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Name = table.Column<string>(type: "text", nullable: false),
                     IsOutdoor = table.Column<bool>(type: "boolean", nullable: false),
                     IsSubscriptionRequired = table.Column<bool>(type: "boolean", nullable: false),
-                    Price = table.Column<double>(type: "double precision", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: true),
                     BookingType = table.Column<int>(type: "integer", nullable: false),
                     Duration = table.Column<string>(type: "text", nullable: false),
                     Limit = table.Column<int>(type: "integer", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     ActivityImg = table.Column<string>(type: "text", nullable: true),
                     ExpirationDate = table.Column<string>(type: "text", nullable: true),
-                    ActivityVariants = table.Column<List<string>>(type: "text[]", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
@@ -95,6 +93,27 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     table.PrimaryKey("PK_ActivityDate", x => new { x.ActivityId, x.Id });
                     table.ForeignKey(
                         name: "FK_ActivityDate_Activities_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActivityVariant",
+                columns: table => new
+                {
+                    ActivityId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Variant = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActivityVariant", x => new { x.ActivityId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_ActivityVariant_Activities_ActivityId",
                         column: x => x.ActivityId,
                         principalTable: "Activities",
                         principalColumn: "Id",
@@ -241,6 +260,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
         {
             migrationBuilder.DropTable(
                 name: "ActivityTimeSlot");
+
+            migrationBuilder.DropTable(
+                name: "ActivityVariant");
 
             migrationBuilder.DropTable(
                 name: "Banners");

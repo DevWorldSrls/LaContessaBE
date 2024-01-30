@@ -63,7 +63,7 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
             ExpirationDate = request.Activity.ExpirationDate,
             ActivityVariants = request.Activity.ActivityVariants is null 
                 ? null 
-                : request.Activity.ActivityVariants.Select(v => new ActivityVariants
+                : request.Activity.ActivityVariants.Select(v => new ActivityVariant
                 {
                     Variant = v.Variant,
                     Price = v.Price

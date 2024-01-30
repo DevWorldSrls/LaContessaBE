@@ -49,7 +49,7 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
                     ExpirationDate = x.ExpirationDate,
                     ActivityVariants = x.ActivityVariants == null 
                         ? null 
-                        : x.ActivityVariants.Select(v => new GetActivities.Response.ActivityVariants
+                        : x.ActivityVariants.Select(v => new GetActivities.Response.ActivityVariant
                         {
                             Variant = v.Variant,
                             Price = v.Price

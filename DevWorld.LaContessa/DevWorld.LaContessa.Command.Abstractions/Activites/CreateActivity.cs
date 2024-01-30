@@ -22,7 +22,7 @@ public class CreateActivity : IRequest
         public string? ActivityImg { get; set; }
         public string? ActivityImgExt { get; set; }
         public string? ExpirationDate { get; set; }
-        public List<ActivityVariants>? ActivityVariants { get; set; }
+        public List<ActivityVariant>? ActivityVariants { get; set; }
     }
 
     public class Service
@@ -43,7 +43,7 @@ public class CreateActivity : IRequest
         public bool IsAlreadyBooked { get; set; }
     }
 
-    public class ActivityVariants
+    public class ActivityVariant
     {
         public string Variant { get; set; } = null!;
         public string Price { get; set; } = null!;

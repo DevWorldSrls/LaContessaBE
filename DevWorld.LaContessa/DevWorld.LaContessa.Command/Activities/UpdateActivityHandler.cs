@@ -70,7 +70,7 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
         if(request.Activity.ActivityVariants is not null)
         {
             activityToUpdate.ActivityVariants = request.Activity.ActivityVariants.Select(v =>
-                new ActivityVariants
+                new ActivityVariant
                 {
                     Variant = v.Variant,
                     Price = v.Price
