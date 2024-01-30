@@ -340,9 +340,8 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                             NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
 
-                            b1.Property<string>("Price")
-                                .IsRequired()
-                                .HasColumnType("text");
+                            b1.Property<double>("Price")
+                                .HasColumnType("double precision");
 
                             b1.Property<string>("Variant")
                                 .IsRequired()

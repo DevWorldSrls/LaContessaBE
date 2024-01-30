@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 {
     [DbContext(typeof(LaContessaDbContext))]
-    [Migration("20240130100434_Initial")]
+    [Migration("20240130105926_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -343,9 +343,8 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                             NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
 
-                            b1.Property<string>("Price")
-                                .IsRequired()
-                                .HasColumnType("text");
+                            b1.Property<double>("Price")
+                                .HasColumnType("double precision");
 
                             b1.Property<string>("Variant")
                                 .IsRequired()
