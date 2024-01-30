@@ -68,6 +68,7 @@ public class LaContessaDbContext : DbContext
         {
             entity.OwnsMany(a => a.ServiceList);
             entity.OwnsMany(a => a.DateList, date => { date.OwnsMany(d => d.TimeSlotList); });
+            entity.OwnsMany(a => a.ActivityVariants);
         });
     }
 
