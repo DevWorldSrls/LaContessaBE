@@ -47,6 +47,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
                     BookingType = x.BookingType,
                     Duration = x.Duration,
                     ExpirationDate = x.ExpirationDate,
+                    ActivityVariants = x.ActivityVariants,
                 })
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new ActivityNotFoundException()
         };

@@ -22,6 +22,7 @@ public class CreateActivity : IRequest
         public string? ActivityImg { get; set; }
         public string? ActivityImgExt { get; set; }
         public string? ExpirationDate { get; set; }
+        public List<string>? ActivityVariants { get; set; }
     }
 
     public class Service

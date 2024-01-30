@@ -24,6 +24,7 @@ public class GetActivities : IRequest<GetActivities.Response>
             public string? Description { get; set; }
             public string? ActivityImg { get; set; }
             public string? ExpirationDate { get; set; }
+            public List<string>? ActivityVariants { get; set; }
         }
 
         public class Service
