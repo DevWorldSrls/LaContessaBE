@@ -55,7 +55,7 @@ public class GetActivity : IRequest<GetActivity.Response>
         public class ActivityVariant
         {
             public string Variant { get; set; } = null!;
-            public string Price { get; set; } = null!;
+            public double Price { get; set; }
         }
     }
 }

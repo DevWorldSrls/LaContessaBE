@@ -2,6 +2,7 @@ using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Query.Abstractions.Activities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DevWorld.LaContessa.Query.Activity;
 
@@ -47,9 +48,9 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
                     BookingType = x.BookingType,
                     Duration = x.Duration,
                     ExpirationDate = x.ExpirationDate,
-                    ActivityVariants = x.ActivityVariants == null 
+                    ActivityVariants = x.ActivityVariants.IsNullOrEmpty()
                         ? null 
-                        : x.ActivityVariants.Select(v => new GetActivities.Response.ActivityVariant
+                        : x.ActivityVariants!.Select(v => new GetActivities.Response.ActivityVariant
                         {
                             Variant = v.Variant,
                             Price = v.Price
