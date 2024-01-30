@@ -81,6 +81,20 @@ public class UserController : ControllerBase
         );
     }
 
+    [HttpGet("social")]
+    [AllowAnonymous]
+    public async Task<ActionResult<GetUser.Response>> SocialLogin(string? email, string? appleId, string? googleId, string? name, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(
+            new SocialLoginRequest
+            {
+                AppleId = appleId,
+                GoogleId = googleId
+            },
+            cancellationToken
+        );
+    }
+
     [HttpGet("refresh")]
     [AllowAnonymous]
     public async Task<ActionResult<GetUser.Response>> RefreshToken(string authenticationToken, string refreshToken, CancellationToken cancellationToken)

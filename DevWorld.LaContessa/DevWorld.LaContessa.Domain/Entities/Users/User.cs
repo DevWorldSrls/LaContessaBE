@@ -14,4 +14,6 @@ public class User : SoftDeletable
     public string? RefreshToken { get; set; }
     public string? CustomerId { get; set; }
     public string? PaymentMethodId { get; set; }
+    public string? GoogleUserId { get; set; }
+    public string? AppleUserId { get; set; }
 }
