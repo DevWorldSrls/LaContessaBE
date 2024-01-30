@@ -13,7 +13,7 @@ public class UpdateActivity : IRequest
         public string Name { get; set; } = null!;
         public bool IsOutdoor { get; set; }
         public bool IsSubscriptionRequired { get; set; }
-        public double Price { get; set; }
+        public double? Price { get; set; }
         public List<Service> ServiceList { get; set; } = null!;
         public List<ActivityDate> DateList { get; set; } = null!;
         public ActivityBookingType BookingType { get; set; }
@@ -23,7 +23,7 @@ public class UpdateActivity : IRequest
         public string? ActivityImg { get; set; }
         public string? ActivityImgExt { get; set; }
         public string? ExpirationDate { get; set; }
-        public List<string>? ActivityVariants { get; set; }
+        public List<ActivityVariants>? ActivityVariants { get; set; }
     }
 
     public class Service
@@ -42,5 +42,11 @@ public class UpdateActivity : IRequest
     {
         public string TimeSlot { get; set; } = null!;
         public bool IsAlreadyBooked { get; set; }
+    }
+
+    public class ActivityVariants
+    {
+        public string Variant { get; set; } = null!;
+        public string Price { get; set; } = null!;
     }
 }

@@ -47,7 +47,13 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
                     BookingType = x.BookingType,
                     Duration = x.Duration,
                     ExpirationDate = x.ExpirationDate,
-                    ActivityVariants = x.ActivityVariants,
+                    ActivityVariants = x.ActivityVariants == null 
+                        ? null 
+                        : x.ActivityVariants.Select(v => new GetActivities.Response.ActivityVariants
+                        {
+                            Variant = v.Variant,
+                            Price = v.Price
+                        }).ToList(),
                 }).ToArrayAsync(cancellationToken)
         };
     }

@@ -61,7 +61,13 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
             BookingType = request.Activity.BookingType,
             Duration = request.Activity.Duration,
             ExpirationDate = request.Activity.ExpirationDate,
-            ActivityVariants = request.Activity.ActivityVariants,
+            ActivityVariants = request.Activity.ActivityVariants is null 
+                ? null 
+                : request.Activity.ActivityVariants.Select(v => new ActivityVariants
+                {
+                    Variant = v.Variant,
+                    Price = v.Price
+                }).ToList(),
         };
 
         await _laContessaDbContext.AddAsync(activityToAdd, cancellationToken);

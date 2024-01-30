@@ -66,7 +66,16 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
         activityToUpdate.BookingType = request.Activity.BookingType;
         activityToUpdate.Duration = request.Activity.Duration;
         activityToUpdate.ExpirationDate = request.Activity.ExpirationDate;
-        activityToUpdate.ActivityVariants = request.Activity.ActivityVariants;
+        
+        if(request.Activity.ActivityVariants is not null)
+        {
+            activityToUpdate.ActivityVariants = request.Activity.ActivityVariants.Select(v =>
+                new ActivityVariants
+                {
+                    Variant = v.Variant,
+                    Price = v.Price
+                }).ToList();
+        }
 
         await _laContessaDbContext.SaveChangesAsync(cancellationToken);
     }
