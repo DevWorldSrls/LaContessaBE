@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -27,6 +28,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     Description = table.Column<string>(type: "text", nullable: true),
                     ActivityImg = table.Column<string>(type: "text", nullable: true),
                     ExpirationDate = table.Column<string>(type: "text", nullable: true),
+                    ActivityVariants = table.Column<List<string>>(type: "text[]", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
@@ -69,6 +71,8 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
                     CustomerId = table.Column<string>(type: "text", nullable: true),
                     PaymentMethodId = table.Column<string>(type: "text", nullable: true),
+                    GoogleUserId = table.Column<string>(type: "text", nullable: true),
+                    AppleUserId = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
