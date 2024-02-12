@@ -1,12 +1,14 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Bookings;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Abstractions.Stripe;
+using DevWorld.LaContessa.Command.Abstractions.Utilities;
 using DevWorld.LaContessa.Domain.Enums;
 using DevWorld.LaContessa.Persistance;
 using DevWorld.LaContessa.Stripe;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DevWorld.LaContessa.Command.Stripe;
 
@@ -64,7 +66,9 @@ public class RefundRequestHandler : IRequestHandler<RefundRequest>
 
     private bool CanPerformRefund(string bookingDate, string bookingTime)
     {
-        var bookingDateParsed = DateTime.ParseExact(bookingDate, "dd MMM yyyy", CultureInfo.CreateSpecificCulture("it-IT"));
+        var bookingDateParsed = DateValidator.Validate(bookingDate);
+
+        if(bookingDateParsed is null) return false;
 
         var time = bookingTime.Split(':');
         if (time is null) return false;
@@ -72,7 +76,7 @@ public class RefundRequestHandler : IRequestHandler<RefundRequest>
         var hours = double.Parse(time[0]);
         var minutes = double.Parse(time[1]);
 
-        var dateWithHour = bookingDateParsed.AddHours(hours);
+        var dateWithHour = bookingDateParsed.Value.AddHours(hours);
         var dateCompleted = dateWithHour.AddMinutes(minutes);
         
         return (dateCompleted - DateTime.Now).TotalHours > 25;

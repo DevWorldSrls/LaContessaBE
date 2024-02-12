@@ -1,5 +1,6 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Abstractions.Subscriptions;
+using DevWorld.LaContessa.Command.Abstractions.Utilities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,9 @@ public class CreateSubscriptionHandler : IRequestHandler<CreateSubscription>
 
         var activity = await _laContessaDbContext.Activities
             .FirstOrDefaultAsync(a => a.Id == request.Subscription.ActivityId, cancellationToken) ?? throw new ActivityNotFoundException();
+
+        DateValidator.Validate(request.Subscription.ExpirationDate);
+        DateValidator.Validate(request.Subscription.MedicalCertificateDueDate);
 
         var subscriptionToAdd = new Domain.Entities.Subscriptions.Subscription
         {

@@ -1,9 +1,12 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Bookings;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Abstractions.Stripe;
+using DevWorld.LaContessa.Command.Abstractions.Utilities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DevWorld.LaContessa.Command.Bookings;
 
@@ -29,7 +32,8 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                 bookingRequest.UserId == x.User.Id &&
                 bookingRequest.ActivityId  == x.Activity.Id &&
                 bookingRequest.Date  == x.Date &&
-                bookingRequest.TimeSlot  == x.TimeSlot,
+                bookingRequest.TimeSlot  == x.TimeSlot &&
+                x.Status != Domain.Enums.BookingStatus.Cancelled,
             cancellationToken);
 
             if (alreadyExist)
@@ -40,6 +44,8 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
 
             var activity = await _laContessaDbContext.Activities
                 .FirstOrDefaultAsync(a => a.Id == bookingRequest.ActivityId, cancellationToken) ?? throw new ActivityNotFoundException();
+
+            DateValidator.Validate(bookingRequest.Date);
 
             switch (activity.BookingType)
             {

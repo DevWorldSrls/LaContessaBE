@@ -1,9 +1,11 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Bookings;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Abstractions.Stripe;
+using DevWorld.LaContessa.Command.Abstractions.Utilities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace DevWorld.LaContessa.Command.Bookings;
 
@@ -30,6 +32,8 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
 
         var activity = await _laContessaDbContext.Activities
             .FirstOrDefaultAsync(a => a.Id == request.Booking.ActivityId, cancellationToken) ?? throw new ActivityNotFoundException();
+
+        DateValidator.Validate(request.Booking.Date);
 
         bookingToUpdate.User = user;
         bookingToUpdate.Date = request.Booking.Date;

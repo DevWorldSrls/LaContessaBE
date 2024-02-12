@@ -1,11 +1,13 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
+using DevWorld.LaContessa.Command.Abstractions.Utilities;
 using DevWorld.LaContessa.Command.Services;
 using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 namespace DevWorld.LaContessa.Command.Activities;
 
 public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
@@ -36,6 +38,13 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
                 imageUrl = request.Activity.ActivityImg;
             }
         }
+
+        foreach (var date in request.Activity.DateList)
+        {
+            DateValidator.Validate(date.Date);
+        }
+
+        DateValidator.Validate(request.Activity.ExpirationDate);
 
         activityToUpdate.Name = request.Activity.Name;
         activityToUpdate.Name = request.Activity.Name;

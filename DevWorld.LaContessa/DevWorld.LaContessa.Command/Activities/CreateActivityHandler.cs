@@ -1,10 +1,12 @@
 ﻿using DevWorld.LaContessa.Command.Abstractions.Activites;
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
+using DevWorld.LaContessa.Command.Abstractions.Utilities;
 using DevWorld.LaContessa.Command.Services;
 using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace DevWorld.LaContessa.Command.Activities;
 
@@ -33,6 +35,13 @@ public class CreateActivityHandler : IRequestHandler<CreateActivity>
         {
             imageUrl = await _laContessaFirebaseStorage.StoreImageData(request.Activity.ActivityImg, "activities", newActivityId + request.Activity.ActivityImgExt);
         }
+
+        foreach (var date in request.Activity.DateList)
+        {
+            DateValidator.Validate(date.Date);
+        }
+
+        DateValidator.Validate(request.Activity.ExpirationDate);
 
         var activityToAdd = new Activity
         {
