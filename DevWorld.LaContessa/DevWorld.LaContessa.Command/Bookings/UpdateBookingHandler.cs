@@ -56,6 +56,8 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
                 var timeSlotToUpdateAPS = activityDateAPS.TimeSlotList.FirstOrDefault(x => x.TimeSlot == bookingToUpdate.TimeSlot) ?? throw new ActivityNotFoundException();
                 timeSlotToUpdateAPS.IsAlreadyBooked = false;
                 bookingToUpdate.PaymentIntentId = null;
+                bookingToUpdate.IsDeleted = true;
+                bookingToUpdate.DeletedAt = DateTimeOffset.UtcNow;
 
                 break;
             case Domain.Enums.BookingStatus.Payed:

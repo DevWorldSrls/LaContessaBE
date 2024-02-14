@@ -33,7 +33,7 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
                 bookingRequest.ActivityId  == x.Activity.Id &&
                 bookingRequest.Date  == x.Date &&
                 bookingRequest.TimeSlot  == x.TimeSlot &&
-                x.Status != Domain.Enums.BookingStatus.Cancelled,
+                !x.IsDeleted,
             cancellationToken);
 
             if (alreadyExist)
