@@ -89,7 +89,9 @@ public class UserController : ControllerBase
             new SocialLoginRequest
             {
                 AppleId = appleId,
-                GoogleId = googleId
+                GoogleId = googleId,
+                Name = name,
+                Email = email,
             },
             cancellationToken
         );
