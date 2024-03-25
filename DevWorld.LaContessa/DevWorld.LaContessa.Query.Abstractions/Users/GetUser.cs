@@ -28,6 +28,7 @@ public class GetUser : IRequest<GetUser.Response>
             public string? ImageProfile { get; set; }
             public string? CardNumber { get; set; }
             public bool HasCreditCardLinked { get; set; } = false;
+            public bool IsSocialLogged { get; set; } = false;
         }
     }
 }

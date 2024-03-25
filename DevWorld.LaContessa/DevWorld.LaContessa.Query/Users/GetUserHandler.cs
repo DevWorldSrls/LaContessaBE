@@ -31,6 +31,7 @@ public class GetUserHandler : IRequestHandler<GetUser, GetUser.Response>
                     PeriodicBookingsEnabled = x.PeriodicBookingsEnabled,
                     CardNumber = x.CardNumber,
                     HasCreditCardLinked = x.CustomerId != null,
+                    IsSocialLogged = x.GoogleUserId != null || x.AppleUserId != null,
                 })
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken) ?? throw new UserNotFoundException()
         };
