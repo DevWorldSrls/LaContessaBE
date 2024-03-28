@@ -38,7 +38,7 @@ public class Startup
 #pragma warning restore IDE0060 // Remove unused parameter
     {
         app.UseRouting();
-        app.UseCors();
+        app.UseCors("LaContessaPolicy");
 
         app.UseAuthentication();
         app.UseAuthorization();

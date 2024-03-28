@@ -45,11 +45,16 @@ public static class ServiceCollectionExtensions
 
         services.AddCors(options =>
         {
-            options.AddDefaultPolicy(
-                              builder =>
-                              {
-                                  builder.WithOrigins("http://127.0.0.1");
-                              });
+            options.AddPolicy(
+                "LaContessaPolicy",
+                builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                }
+            );
         });
 
         services.AddControllers(options =>
