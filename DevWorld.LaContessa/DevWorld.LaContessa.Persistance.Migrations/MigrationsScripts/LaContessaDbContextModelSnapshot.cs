@@ -177,6 +177,9 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     b.Property<string>("ExpirationDate")
                         .HasColumnType("text");
 
+                    b.Property<long?>("InitialPrice")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 

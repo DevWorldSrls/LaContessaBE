@@ -192,6 +192,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                     ExpirationDate = table.Column<string>(type: "text", nullable: true),
                     MedicalCertificateDueDate = table.Column<string>(type: "text", nullable: true),
                     SubscriptionPrice = table.Column<long>(type: "bigint", nullable: true),
+                    InitialPrice = table.Column<long>(type: "bigint", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
