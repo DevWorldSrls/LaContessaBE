@@ -46,6 +46,7 @@ public class UpdateSubscriptionHandler : IRequestHandler<UpdateSubscription>
         subscriptionToUpdate.MedicalCertificateExpired = request.Subscription.MedicalCertificateExpired;
         subscriptionToUpdate.MedicalCertificateDueDate = request.Subscription.MedicalCertificateDueDate;
         subscriptionToUpdate.SubscriptionPrice = request.Subscription.SubscriptionPrice;
+        subscriptionToUpdate.InitialPrice = request.Subscription.InitialPrice;
 
         if (request.Subscription.IsPaymentRequest && request.Subscription.PaymentPrice != null)
         {

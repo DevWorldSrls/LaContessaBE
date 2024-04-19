@@ -24,6 +24,7 @@ public class GetSubscriptions : IRequest<GetSubscriptions.Response>
             public string? ExpirationDate { get; set; }
             public string? MedicalCertificateDueDate { get; set; }
             public long? SubscriptionPrice { get; set; }
+            public long? InitialPrice { get; set; }
         }
     }
 }

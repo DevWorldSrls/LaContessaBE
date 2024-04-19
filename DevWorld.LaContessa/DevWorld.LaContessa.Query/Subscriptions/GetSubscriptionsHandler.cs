@@ -33,6 +33,7 @@ public class GetSubscriptionsHandler : IRequestHandler<GetSubscriptions, GetSubs
                     MedicalCertificateExpired = x.MedicalCertificateExpired,
                     MedicalCertificateDueDate = x.MedicalCertificateDueDate,
                     SubscriptionPrice = x.SubscriptionPrice,
+                    InitialPrice = x.InitialPrice,
                 }).ToArrayAsync(cancellationToken)
         };
     }

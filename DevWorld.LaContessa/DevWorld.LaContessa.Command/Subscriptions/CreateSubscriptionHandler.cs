@@ -48,6 +48,7 @@ public class CreateSubscriptionHandler : IRequestHandler<CreateSubscription>
             MedicalCertificateExpired = request.Subscription.MedicalCertificateExpired,
             MedicalCertificateDueDate = request.Subscription.MedicalCertificateDueDate,
             SubscriptionPrice = request.Subscription.SubscriptionPrice,
+            InitialPrice = request.Subscription.InitialPrice
         };
 
         await _laContessaDbContext.AddAsync(subscriptionToAdd, cancellationToken);

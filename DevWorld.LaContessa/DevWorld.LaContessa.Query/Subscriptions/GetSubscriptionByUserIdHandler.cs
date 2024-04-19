@@ -34,6 +34,7 @@ public class GetSubscriptionByUserIdHandler : IRequestHandler<GetSubscriptionByU
                     MedicalCertificateExpired = x.MedicalCertificateExpired,
                     MedicalCertificateDueDate = x.MedicalCertificateDueDate,
                     SubscriptionPrice = x.SubscriptionPrice,
+                    InitialPrice = x.InitialPrice,
                 })
                 .Where(x => x.User.Id.ToString() == request.UserId)
                 .ToArrayAsync(cancellationToken) ?? throw new SubscriptionNotFoundException()

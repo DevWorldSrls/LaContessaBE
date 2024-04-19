@@ -22,5 +22,6 @@ public class UpdateSubscription : IRequest
         public long? SubscriptionPrice { get; set; }
         public long? PaymentPrice { get; set; }
         public bool IsPaymentRequest { get; set; } = false;
+        public long? InitialPrice { get; set; }
     }
 }
