@@ -2,6 +2,7 @@
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Abstractions.Stripe;
 using DevWorld.LaContessa.Command.Abstractions.Utilities;
+using DevWorld.LaContessa.Domain.Entities.Users;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,10 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
         foreach (var bookingRequest in request.Bookings)
         {
             var alreadyExist = await _laContessaDbContext.Bookings.AnyAsync(x => 
-                bookingRequest.UserId == x.User.Id &&
+                ( x.User != null
+                    ? bookingRequest.UserId == x.User!.Id
+                    : false
+                ) &&
                 bookingRequest.ActivityId  == x.Activity.Id &&
                 bookingRequest.Date  == x.Date &&
                 bookingRequest.TimeSlot  == x.TimeSlot &&
@@ -39,8 +43,13 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
             if (alreadyExist)
                 throw new BookingAlreadyExistException();
 
-            var user = await _laContessaDbContext.Users
-                .FirstOrDefaultAsync(u => u.Id == bookingRequest.UserId, cancellationToken) ?? throw new UserNotFoundException();
+            User? user = null;
+
+            if (bookingRequest.UserId is not null)
+            {
+                user = await _laContessaDbContext.Users
+                    .FirstOrDefaultAsync(u => u.Id == bookingRequest.UserId, cancellationToken) ?? throw new UserNotFoundException();
+            }
 
             var activity = await _laContessaDbContext.Activities
                 .FirstOrDefaultAsync(a => a.Id == bookingRequest.ActivityId, cancellationToken) ?? throw new ActivityNotFoundException();
@@ -94,7 +103,7 @@ public class CreateBookingHandler : IRequestHandler<CreateBooking>
 
             await _laContessaDbContext.AddAsync(bookingToAdd, cancellationToken);
 
-            if(bookingToAdd.Status == Domain.Enums.BookingStatus.Payed && bookingToAdd.PaymentPrice != null)
+            if(user is not null && bookingToAdd.Status == Domain.Enums.BookingStatus.Payed && bookingToAdd.PaymentPrice != null)
             {
                 var result = await _mediator.Send(
                     new CreateStripePaymentRequest

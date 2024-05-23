@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 {
     [DbContext(typeof(LaContessaDbContext))]
-    [Migration("20240419084415_Initial")]
+    [Migration("20240523105801_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -150,7 +150,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -405,9 +405,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
 
                     b.HasOne("DevWorld.LaContessa.Domain.Entities.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Activity");
 

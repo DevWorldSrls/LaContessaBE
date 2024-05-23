@@ -9,7 +9,7 @@ public class CreateBooking : IRequest
 
     public class BookingDetail
     {
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public Guid ActivityId { get; set; }
         public string Date { get; set; } = null!;
         public string TimeSlot { get; set; } = null!;

@@ -147,4 +147,15 @@ public class UserController : ControllerBase
     { 
         return Ok(); 
     }
+
+    [HttpDelete("id")]
+    public async Task<ActionResult> DeleteUser(Guid id, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new DeleteUser(id),
+            cancellationToken
+        );
+
+        return Ok();
+    }
 }

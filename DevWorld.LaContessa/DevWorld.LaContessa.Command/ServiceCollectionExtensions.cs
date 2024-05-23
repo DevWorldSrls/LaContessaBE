@@ -26,16 +26,19 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<IRequestHandler<CreateUser>, CreateUserHandler>();
         services.AddTransient<IRequestHandler<UpdateUser>, UpdateUserHandler>();
+        services.AddTransient<IRequestHandler<DeleteUser>, DeleteUserHandler>();
         services.AddTransient<IRequestHandler<UpdateUserPassword>, UpdateUserPasswordHandler>();
 
         services.AddTransient<IRequestHandler<CreateSubscription>, CreateSubscriptionHandler>();
         services.AddTransient<IRequestHandler<UpdateSubscription>, UpdateSubscriptionHandler>();
+        services.AddTransient<IRequestHandler<DeleteSubscription>, DeleteSubscriptionHandler>();
 
         services.AddTransient<IRequestHandler<CreateBooking>, CreateBookingHandler>();
         services.AddTransient<IRequestHandler<UpdateBooking>, UpdateBookingHandler>();
 
         services.AddTransient<IRequestHandler<CreateActivity>, CreateActivityHandler>();
         services.AddTransient<IRequestHandler<UpdateActivity>, UpdateActivityHandler>();
+        services.AddTransient<IRequestHandler<DeleteActivity>, DeleteActivityHandler>();
 
         services.AddTransient<IRequestHandler<CreateCard>, CreateCardHandler>();
         services.AddTransient<IRequestHandler<DeleteCard>, DeleteCardHandler>();
@@ -44,6 +47,7 @@ public static class ServiceCollectionExtensions
 
         services.AddTransient<IRequestHandler<CreateBanner>, CreateBannerHandler>();
         services.AddTransient<IRequestHandler<UpdateBanner>, UpdateBannerHandler>();
+        services.AddTransient<IRequestHandler<DeleteBanner>, DeleteBannerHandler>();
 
         return services;
     }

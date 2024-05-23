@@ -6,8 +6,6 @@ using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 namespace DevWorld.LaContessa.Command.Activities;
 
 public class UpdateActivityHandler : IRequestHandler<UpdateActivity>

@@ -146,7 +146,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: true),
                     ActivityId = table.Column<Guid>(type: "uuid", nullable: false),
                     Date = table.Column<string>(type: "text", nullable: false),
                     TimeSlot = table.Column<string>(type: "text", nullable: false),
@@ -173,8 +173,7 @@ namespace DevWorld.LaContessa.Persistance.Migrations.MigrationsScripts
                         name: "FK_Bookings_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

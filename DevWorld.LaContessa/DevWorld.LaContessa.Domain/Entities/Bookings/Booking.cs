@@ -6,7 +6,7 @@ namespace DevWorld.LaContessa.Domain.Entities.Bookings;
 
 public class Booking : SoftDeletable
 {
-    public User User { get; set; } = null!; 
+    public User? User { get; set; }
     public Activity Activity { get; set; } = null!;
     public string Date { get; set; } = null!;
     public string TimeSlot { get; set; } = null!;

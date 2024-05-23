@@ -2,6 +2,7 @@
 using DevWorld.LaContessa.Command.Abstractions.Exceptions;
 using DevWorld.LaContessa.Command.Abstractions.Stripe;
 using DevWorld.LaContessa.Command.Abstractions.Utilities;
+using DevWorld.LaContessa.Domain.Entities.Users;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -26,9 +27,14 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
     public async Task Handle(UpdateBooking request, CancellationToken cancellationToken)
     {
         var bookingToUpdate = await _laContessaDbContext.Bookings.FirstOrDefaultAsync(x => x.Id == request.Booking.Id && !x.IsDeleted, cancellationToken) ?? throw new BookingNotFoundException();
+        
+        User? user = null;
 
-        var user = await _laContessaDbContext.Users
-            .FirstOrDefaultAsync(u => u.Id == request.Booking.UserId, cancellationToken) ?? throw new UserNotFoundException();
+        if (request.Booking.UserId is not null)
+        {
+            user = await _laContessaDbContext.Users
+                .FirstOrDefaultAsync(u => u.Id == request.Booking.UserId, cancellationToken) ?? throw new UserNotFoundException();
+        }
 
         var activity = await _laContessaDbContext.Activities
             .FirstOrDefaultAsync(a => a.Id == request.Booking.ActivityId, cancellationToken) ?? throw new ActivityNotFoundException();
@@ -61,7 +67,7 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
 
                 break;
             case Domain.Enums.BookingStatus.Payed:
-                if (bookingToUpdate.PaymentPrice is not null)
+                if (user is not null && bookingToUpdate.PaymentPrice is not null)
                 {
                     var paymentAmount = bookingToUpdate.PaymentPrice ?? 0;
 
@@ -85,7 +91,7 @@ public class UpdateBookingHandler : IRequestHandler<UpdateBooking>
                 }
                 break;
             case Domain.Enums.BookingStatus.Forfeit:
-                if (bookingToUpdate.PaymentPrice is not null)
+                if (user is not null && bookingToUpdate.PaymentPrice is not null)
                 {
                     await _mediator.Send(
                         new CreateStripePaymentRequest

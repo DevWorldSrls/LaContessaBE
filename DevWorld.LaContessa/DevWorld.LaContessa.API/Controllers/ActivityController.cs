@@ -70,4 +70,15 @@ public class ActivityController : ControllerBase
 
         return Ok();
     }
+
+    [HttpDelete("id")]
+    public async Task<ActionResult> DeleteActivity(Guid id, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new DeleteActivity(id),
+            cancellationToken
+        );
+
+        return Ok();
+    }
 }

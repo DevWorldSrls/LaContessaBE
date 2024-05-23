@@ -76,4 +76,15 @@ public class SubscriptionController : ControllerBase
             cancellationToken
         );
     }
+
+    [HttpDelete("id")]
+    public async Task<ActionResult> DeleteSubscription(Guid id, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new DeleteSubscription(id),
+            cancellationToken
+        );
+
+        return Ok();
+    }
 }

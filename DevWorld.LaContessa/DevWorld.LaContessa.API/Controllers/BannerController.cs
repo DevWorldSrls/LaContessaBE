@@ -66,4 +66,15 @@ public class BannerController : ControllerBase
 
         return Ok();
     }
+
+    [HttpDelete("id")]
+    public async Task<ActionResult> DeleteBanner(Guid id, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(
+            new DeleteBanner(id),
+            cancellationToken
+        );
+
+        return Ok();
+    }
 }
