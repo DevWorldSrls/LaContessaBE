@@ -1,4 +1,5 @@
-﻿using DevWorld.LaContessa.Domain.Entities.Activities;
+﻿using DevWorld.LaContessa.Domain;
+using DevWorld.LaContessa.Domain.Entities.Activities;
 using DevWorld.LaContessa.Domain.Entities.Banners;
 using DevWorld.LaContessa.Domain.Entities.Bookings;
 using DevWorld.LaContessa.Domain.Entities.Subscriptions;
@@ -86,7 +87,7 @@ public class LaContessaDbContext : DbContext
 
     public void UpdateRecordDates()
     {
-        var utcNow = DateTime.UtcNow;
+        var utcNow = DateTimeOffset.UtcNow;
 
         foreach (var entityEntry in ChangeTracker.Entries())
         {
@@ -99,6 +100,17 @@ public class LaContessaDbContext : DbContext
                 entityEntry.Properties.Any(x => x.Metadata.Name == "UpdateRecordDateTimeUtc")
                )
                 entityEntry.Property("UpdateRecordDateTimeUtc").CurrentValue = utcNow;
+
+            if(entityEntry is 
+                {
+                    State: EntityState.Deleted,
+                    Entity: ISoftDeletable delete
+                })
+            {
+                entityEntry.State = EntityState.Modified;
+                delete.IsDeleted = true;
+                delete.DeletedAt = DateTimeOffset.UtcNow;
+            }
         }
     }
 }
