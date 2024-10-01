@@ -23,6 +23,7 @@
     <ItemGroup>
         <ProjectReference Include="..\DevWorld.LaContessa.Command.Abstractions\DevWorld.LaContessa.Command.Abstractions.csproj" />
         <ProjectReference Include="..\DevWorld.LaContessa.Persistance\DevWorld.LaContessa.Persistance.csproj" />
+        <ProjectReference Include="..\DevWorld.LaContessa.Query.Abstractions\DevWorld.LaContessa.Query.Abstractions.csproj" />
         <ProjectReference Include="..\DevWorld.LaContessa.Stripe\DevWorld.LaContessa.Stripe.csproj" />
     </ItemGroup>
 

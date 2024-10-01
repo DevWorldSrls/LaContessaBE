@@ -31,14 +31,14 @@ public class SocialLoginRequestHandler : IRequestHandler<SocialLoginRequest, Get
         (string token, string refresh) newTokens;
 
         if (request.AppleId is not null)
-            user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.AppleUserId == request.AppleId, cancellationToken);
+            user = await _laContessaDbContext.Users.Where(e => !e.IsDeleted).FirstOrDefaultAsync(x => x.AppleUserId == request.AppleId, cancellationToken);
 
         if (request.GoogleId is not null)
-            user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.GoogleUserId == request.GoogleId, cancellationToken);
+            user = await _laContessaDbContext.Users.Where(e => !e.IsDeleted).FirstOrDefaultAsync(x => x.GoogleUserId == request.GoogleId, cancellationToken);
 
         if (user is null) 
         {
-            var emailAlreadyExist = await _laContessaDbContext.Users.AnyAsync(x => x.Email == request.Email);
+            var emailAlreadyExist = await _laContessaDbContext.Users.Where(e => !e.IsDeleted).AnyAsync(x => x.Email == request.Email);
             if (emailAlreadyExist) throw new UserEmailAlreadyExistException();
 
             var generatedPassword = PasswordManager.EncryptPassword(request.AppleId ?? request.GoogleId ?? "");

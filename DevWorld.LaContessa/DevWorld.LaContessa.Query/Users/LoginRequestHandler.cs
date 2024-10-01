@@ -23,7 +23,9 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, GetUser.Respons
 
     public async Task<GetUser.Response> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
-        var user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Email == request.Email && x.IsAdmin == request.IsAdmin, cancellationToken) ?? throw new UserNotFoundException();
+        var user = await _laContessaDbContext.Users
+                .Where(e => !e.IsDeleted)
+                .FirstOrDefaultAsync(x => x.Email == request.Email && x.IsAdmin == request.IsAdmin, cancellationToken) ?? throw new UserNotFoundException();
 
         bool isPasswordCorrect = PasswordManager.VerifyPassword(request.Password, user.Password);
         if (!isPasswordCorrect)

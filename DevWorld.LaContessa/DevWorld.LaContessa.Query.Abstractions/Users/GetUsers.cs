@@ -19,6 +19,7 @@ public class GetUsers : IRequest<GetUsers.Response>
             public string? ImageProfile { get; set; }
             public string? CardNumber { get; set; }
             public bool HasCreditCardLinked { get; set; } = false;
+            public bool IsDeleted { get; set; } = false;
         }
     }
 }

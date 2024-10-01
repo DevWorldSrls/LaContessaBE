@@ -6,7 +6,6 @@ using DevWorld.LaContessa.Domain.Entities.Users;
 using DevWorld.LaContessa.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 
 namespace DevWorld.LaContessa.Command.Bookings;
 

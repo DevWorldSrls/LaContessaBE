@@ -24,7 +24,7 @@ public class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, G
         var principal = _tokenService.GetPrincipalFromExpiredToken(request.AuthenticationToken);
         var userEmail = principal.Identity?.Name ?? throw new PrincipalNotFoundException();
         
-        var user = await _laContessaDbContext.Users.FirstOrDefaultAsync(x => x.Email == userEmail, cancellationToken) ?? throw new UserNotFoundException();
+        var user = await _laContessaDbContext.Users.Where(e => !e.IsDeleted).FirstOrDefaultAsync(x => x.Email == userEmail, cancellationToken) ?? throw new UserNotFoundException();
 
         if(user.RefreshToken == null || user.RefreshToken != request.RefreshToken) throw new AuthenticationException("Invalid RefreshToken");
 
