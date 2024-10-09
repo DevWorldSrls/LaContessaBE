@@ -19,6 +19,8 @@ services:
       dockerfile: DevWorld.LaContessa.SetupJob/Dockerfile
     environment:
       DOTNET_ENVIRONMENT: Production
+    depends_on:
+      - postgres
   app:
     image: us-central1-docker.pkg.dev/lacontessa/lacontessa-be/app:v3
     build:
@@ -29,4 +31,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Production
     depends_on:
+      - postgres
       - setup 
+
+volumes:
+  lacontessadb_data:
