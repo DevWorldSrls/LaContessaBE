@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   postgres:
-    image: us-central1-docker.pkg.dev/lacontessa/lacontessa-be/postgres:v3
+    image: postgres:15
     restart: always
     ports:
       - '5432:5432'
