@@ -1,6 +1,17 @@
 version: '3.3'
 
 services:
+  postgres:
+    image: us-central1-docker.pkg.dev/lacontessa/lacontessa-be/postgres:v3
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: lacontessadb
+      POSTGRES_PASSWORD: "lacontessa"
+    volumes:
+      - lacontessadb_data:/var/lib/postgresql/data
   setup:
     image: us-central1-docker.pkg.dev/lacontessa/lacontessa-be/setup:v3
     build:
