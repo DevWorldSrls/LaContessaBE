@@ -31,31 +31,10 @@ public class GetActivitiesHandler : IRequestHandler<GetActivities, GetActivities
                     Description = x.Description,
                     ActivityImg = x.ActivityImg,
                     Price = x.Price,
-                    ServiceList = x.ServiceList.Select(service => new GetActivities.Response.Service
-                    {
-                        Icon = service.Icon,
-                        ServiceName = service.ServiceName
-                    }).ToList(),
-                    DateList = x.DateList.Select(date => new GetActivities.Response.ActivityDate
-                    {
-                        Date = date.Date,
-                        TimeSlotList = date.TimeSlotList.Select(ts => new GetActivities.Response.ActivityTimeSlot
-                        {
-                            TimeSlot = ts.TimeSlot,
-                            IsAlreadyBooked = ts.IsAlreadyBooked
-                        }).ToList()
-                    }).ToList(),
                     Limit = x.Limit,
                     BookingType = x.BookingType,
                     Duration = x.Duration,
                     ExpirationDate = x.ExpirationDate,
-                    ActivityVariants = x.ActivityVariants.IsNullOrEmpty()
-                        ? null 
-                        : x.ActivityVariants!.Select(v => new GetActivities.Response.ActivityVariant
-                        {
-                            Variant = v.Variant,
-                            Price = v.Price
-                        }).ToList(),
                 }).ToArrayAsync(cancellationToken)
         };
     }
