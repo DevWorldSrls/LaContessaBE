@@ -20,6 +20,7 @@ public class GetSubscriptionHandler : IRequestHandler<GetSubscription, GetSubscr
         return new GetSubscription.Response
         {
             Subscription = await _laContessaDbContext.Subscriptions
+                .Where(y => !y.IsDeleted)
                 .Select(x => new GetSubscription.Response.SubscriptionDetail
                 {
                     Id = x.Id,

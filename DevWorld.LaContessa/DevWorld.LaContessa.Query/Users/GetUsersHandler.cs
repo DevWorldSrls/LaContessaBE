@@ -18,7 +18,9 @@ public class GetUsersHandler : IRequestHandler<GetUsers, GetUsers.Response>
     {
         return new GetUsers.Response
         {
-            Users = await _laContessaDbContext.Users.Select(x => new GetUsers.Response.UserDetail
+            Users = await _laContessaDbContext.Users
+            .Where(y => !y.IsDeleted)
+            .Select(x => new GetUsers.Response.UserDetail
             {
                 Id = x.Id,
                 Name = x.Name,

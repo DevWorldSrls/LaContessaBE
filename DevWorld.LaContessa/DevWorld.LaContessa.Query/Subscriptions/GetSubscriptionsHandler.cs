@@ -20,6 +20,7 @@ public class GetSubscriptionsHandler : IRequestHandler<GetSubscriptions, GetSubs
         {
             Subscriptions = await _laContessaDbContext.Subscriptions
                 .AsQueryable()
+                .Where(y => !y.IsDeleted)
                 .Select(x => new GetSubscriptions.Response.SubscriptionDetail
                 {
                     Id = x.Id,

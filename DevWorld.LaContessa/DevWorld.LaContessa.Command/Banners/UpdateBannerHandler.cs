@@ -27,9 +27,9 @@ public class UpdateBannerHandler : IRequestHandler<UpdateBanner>
 
         string? imageUrl = null;
 
-        if (!(string.IsNullOrEmpty(request.Banner.BannerImg) || string.IsNullOrEmpty(request.Banner.BannerImgExt)))
+        if (!string.IsNullOrEmpty(request.Banner.BannerImg))
         {
-            if (bannerToUpdate.BannerImg != request.Banner.BannerImg)
+            if (bannerToUpdate.BannerImg != request.Banner.BannerImg && !(string.IsNullOrEmpty(request.Banner.BannerImgExt)))
             {
                 imageUrl = await _laContessaFirebaseStorage.StoreImageData(request.Banner.BannerImg, "banners", bannerToUpdate.Id + request.Banner.BannerImgExt);
             }

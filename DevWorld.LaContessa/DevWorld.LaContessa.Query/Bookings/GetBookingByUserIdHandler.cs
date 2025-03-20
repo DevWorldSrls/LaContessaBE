@@ -21,6 +21,7 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
         return new GetBookingByUserId.Response
         {
             Bookings = await _laContessaDbContext.Bookings
+                .Where(y => !y.IsDeleted)
                 .Select(x => new GetBookingByUserId.Response.BookingDetail
                 {
                     Id = x.Id,

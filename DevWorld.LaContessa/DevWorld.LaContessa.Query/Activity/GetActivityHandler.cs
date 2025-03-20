@@ -22,6 +22,7 @@ public class GetActivityHandler : IRequestHandler<GetActivity, GetActivity.Respo
         {
             Activity = await _laContessaDbContext.Activities
                 .AsNoTracking()
+                .Where(y => !y.IsDeleted)
                 .Select(x => new GetActivity.Response.ActivityDetail
                 {
                     Id = x.Id,

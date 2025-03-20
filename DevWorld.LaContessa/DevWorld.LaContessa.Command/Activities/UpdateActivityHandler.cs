@@ -25,9 +25,9 @@ public class UpdateActivityHandler : IRequestHandler<UpdateActivity>
 
         string? imageUrl = null;
 
-        if (!(string.IsNullOrEmpty(request.Activity.ActivityImg) || string.IsNullOrEmpty(request.Activity.ActivityImgExt)))
+        if (!string.IsNullOrEmpty(request.Activity.ActivityImg))
         {
-            if (activityToUpdate.ActivityImg != request.Activity.ActivityImg)
+            if (activityToUpdate.ActivityImg != request.Activity.ActivityImg && !(string.IsNullOrEmpty(request.Activity.ActivityImgExt)))
             {
                 imageUrl = await _laContessaFirebaseStorage.StoreImageData(request.Activity.ActivityImg, "activities", activityToUpdate.Id + request.Activity.ActivityImgExt);
             } 

@@ -20,6 +20,7 @@ public class GetBookingsHandler : IRequestHandler<GetBookings, GetBookings.Respo
         {
             Bookings = await _laContessaDbContext.Bookings
                 .AsQueryable()
+                .Where(y => !y.IsDeleted)
                 .Select(x => new GetBookings.Response.BookingDetail
                 {
                     Id = x.Id,

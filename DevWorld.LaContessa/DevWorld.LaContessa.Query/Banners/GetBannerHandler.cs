@@ -20,6 +20,7 @@ public class GetBannerHandler : IRequestHandler<GetBanner, GetBanner.Response>
         return new GetBanner.Response
         {
             Banner = await _laContessaDbContext.Banners
+                .Where(y => !y.IsDeleted)
                 .Select(x => new GetBanner.Response.BannerDetail
                 {
                     Id = x.Id,

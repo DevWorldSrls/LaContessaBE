@@ -21,6 +21,7 @@ public class GetSubscriptionByUserIdHandler : IRequestHandler<GetSubscriptionByU
         return new GetSubscriptionByUserId.Response
         {
             Subscription = await _laContessaDbContext.Subscriptions
+                .Where(y => !y.IsDeleted)
                 .Select(x => new GetSubscriptionByUserId.Response.SubscriptionDetail
                 {
                     Id = x.Id,

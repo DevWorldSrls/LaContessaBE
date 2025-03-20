@@ -24,9 +24,9 @@ public class UpdateUserHandler : IRequestHandler<UpdateUser>
         
         string? imageUrl = null;
 
-        if (!(string.IsNullOrEmpty(request.User.ImageProfile) || string.IsNullOrEmpty(request.User.ImageProfileExt)))
+        if (!string.IsNullOrEmpty(request.User.ImageProfile))
         {
-            if (userToUpdate.ImageProfile != request.User.ImageProfile)
+            if (userToUpdate.ImageProfile != request.User.ImageProfile && !(string.IsNullOrEmpty(request.User.ImageProfileExt)))
             {
                 imageUrl = await _laContessaFirebaseStorage.StoreImageData(request.User.ImageProfile, "users", userToUpdate.Id + request.User.ImageProfileExt);
             }
