@@ -1,4 +1,5 @@
 using DevWorld.LaContessa.Persistance;
+using DevWorld.LaContessa.Query.Abstractions.Activities;
 using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using DevWorld.LaContessa.Query.Abstractions.Exceptions;
 using MediatR;
@@ -25,10 +26,35 @@ public class GetBookingByUserIdHandler : IRequestHandler<GetBookingByUserId, Get
                 .Select(x => new GetBookingByUserId.Response.BookingDetail
                 {
                     Id = x.Id,
-                    User = x.User,
+                    User = new GetBookingByUserId.Response.BookingDetail.UserDetail
+                    {
+                        Id = x.User.Id,
+                        Name = x.User.Name,
+                        Surname = x.User.Surname,
+                        Email = x.User.Email,
+                        ImageProfile = x.User.ImageProfile,
+                        IsPro = x.User.IsPro,
+                        PeriodicBookingsEnabled = x.User.PeriodicBookingsEnabled,
+                        CardNumber = x.User.CardNumber,
+                        HasCreditCardLinked = x.User.CustomerId != null,
+                        IsDeleted = x.User.IsDeleted,
+                    },
                     Date = x.Date,
                     IsLesson = x.IsLesson,
-                    Activity = x.Activity,
+                    Activity = new GetBookingByUserId.Response.BookingDetail.ActivityDetail
+                    {
+                        Id = x.Activity.Id,
+                        Name = x.Activity.Name,
+                        IsOutdoor = x.Activity.IsOutdoor,
+                        IsSubscriptionRequired = x.Activity.IsSubscriptionRequired,
+                        Description = x.Activity.Description,
+                        ActivityImg = x.Activity.ActivityImg,
+                        Price = x.Activity.Price,
+                        Limit = x.Activity.Limit,
+                        BookingType = x.Activity.BookingType,
+                        Duration = x.Activity.Duration,
+                        ExpirationDate = x.Activity.ExpirationDate,
+                    },
                     BookingName = x.BookingName,
                     PhoneNumber = x.PhoneNumber,
                     TimeSlot = x.TimeSlot,
