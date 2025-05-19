@@ -21,7 +21,7 @@ public class CreateBannerHandler : IRequestHandler<CreateBanner>
     public async Task Handle(CreateBanner request, CancellationToken cancellationToken)
     {
         var alreadyExist = await _laContessaDbContext.Banners.AnyAsync(x => 
-            request.Banner.Title == x.Title, 
+            request.Banner.Title == x.Title && !x.IsDeleted,
             cancellationToken
         );
 

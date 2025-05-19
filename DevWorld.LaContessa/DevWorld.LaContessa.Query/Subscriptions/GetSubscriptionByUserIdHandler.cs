@@ -1,4 +1,5 @@
 using DevWorld.LaContessa.Persistance;
+using DevWorld.LaContessa.Query.Abstractions.Bookings;
 using DevWorld.LaContessa.Query.Abstractions.Exceptions;
 using DevWorld.LaContessa.Query.Abstractions.Subscriptions;
 using MediatR;
@@ -26,7 +27,20 @@ public class GetSubscriptionByUserIdHandler : IRequestHandler<GetSubscriptionByU
                 {
                     Id = x.Id,
                     User = x.User,
-                    Activity = x.Activity,
+                    Activity = new GetSubscriptionByUserId.Response.SubscriptionDetail.ActivityDetail
+                    {
+                        Id = x.Activity.Id,
+                        Name = x.Activity.Name,
+                        IsOutdoor = x.Activity.IsOutdoor,
+                        IsSubscriptionRequired = x.Activity.IsSubscriptionRequired,
+                        Description = x.Activity.Description,
+                        ActivityImg = x.Activity.ActivityImg,
+                        Price = x.Activity.Price,
+                        Limit = x.Activity.Limit,
+                        BookingType = x.Activity.BookingType,
+                        Duration = x.Activity.Duration,
+                        ExpirationDate = x.Activity.ExpirationDate,
+                    },
                     CardNumber = x.CardNumber,
                     IsValid = x.IsValid,
                     ExpirationDate = x.ExpirationDate,
